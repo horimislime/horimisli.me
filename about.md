@@ -1,20 +1,17 @@
 ---
 layout: page
-title: About Pixyll
+title: About
 permalink: /about/
 tags: about
 ---
 
-This Jekyll theme was crafted with <3 by [John Otander](http://johnotander.com)
-([@4lpine](https://twitter.com/4lpine)).
+五反田でソフトウェアエンジニアとして働いています。現在はiOSアプリケーション開発を中心にやっていて、ソフトウェア設計や自動化あたりが興味分野。
 
-Checkout the [Github repository](https://github.com/johnotander/pixyll) to download it,
-request a feature, report a bug, or contribute. It's free, and open source
-([MIT](http://opensource.org/licenses/MIT)).
+詳しい経歴やインターネット上の活動は下記リンク先から参照できます。
 
-Thanks to the following:
-
-* [BASSCSS](http://basscss.com)
-* [Jekyll](http://jekyllrb.com)
-* [Refills](http://refills.bourbon.io/)
-* [Type Scale](http://type-scale.com/)
+- [プロフィール - Wantedly](https://www.wantedly.com/users/12560)
+- [GitHub](https://github.com/horimislime)
+- [Stack Overflow](https://stackoverflow.com/users/1430224/horimislime)
+- [はてなブログ（技術的な事・日常のブログ）](http://horimislime.hateblo.jp/)
+- [Qiita](http://qiita.com/horimislime)
+- [Instagram](https://www.instagram.com/horimislime/)
