@@ -118,6 +118,11 @@ redcarpet:
 paginate:     10
 sass:
   style: compressed
+# https://github.com/penibelst/jekyll-compress-html
+compress_html:
+  clippings: all
+  comments:  ["<!-- ", " -->"]
+  
 gems:
   - jekyll-paginate
   - jekyll-sitemap
