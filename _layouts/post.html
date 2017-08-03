@@ -30,10 +30,6 @@ layout: default
   {% include share_buttons.html %}
 {% endif %}
 
-{% if site.show_post_footers %}
-  {% include post_footer.html %}
-{% endif %}
-
 {% if txtpen.txtpen_sitename %}
   <script src="https://txtpen.com/embed.js?site={{txtpen.txtpen_sitename}}" />
 {% endif %}
@@ -68,4 +64,8 @@ layout: default
       </a>
     </div>
   {% endfor %}
+{% endif %}
+
+{% if site.show_post_footers %}
+  {% include post_footer.html %}
 {% endif %}
