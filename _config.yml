@@ -1,32 +1,33 @@
 # Site settings
-title:       Pixyll
-email:       your_email@example.com
-author:      John Otander
-description: "A simple, beautiful theme for Jekyll that emphasizes content rather than aesthetic fluff."
+title:       horimislime
+email:
+author:      horimislime
+description: "horimislime's log"
 baseurl:     ""
-url:         "http://pixyll.com"
+url:         "https://horimisli.me"
 date_format: "%b %-d, %Y"
+permalink: /entry/:title/
 
 # Google services
 google_verification:
 # Use either direct GA implementation or set up GTM account
 # - using both will skew your data (leave blank to not use at all)
-google_analytics:
+google_analytics: UA-30891696-1
 google_tag_manager:
 # Bing services
 bing_verification:
 
 # Optional features
-animated:             false
-show_related_posts:   false
-show_post_footers:    false
-show_social_icons:    false
+animated:             true
+show_related_posts:   true
+show_post_footers:    true
+show_social_icons:    true
 ajaxify_contact_form: false
 enable_mathjax: false
 extended_fonts: false
 enable_anchorjs: false
 # Preview image for social media aka og:image and twitter:image
-post_preview_image: false
+post_preview_image: true
 
 # Facebook Page integration
 # (for instant articles and other stuff)
@@ -48,10 +49,10 @@ facebook_appid:
 facebook_comments_number: 10
 
 # Social icons
-github_username:
+github_username: horimislime
 bitbucket_username:
-stackoverflow_id:
-twitter_username:
+stackoverflow_id: 1430224
+twitter_username: horimislime
 skype_username:
 steam_nickname:
 google_plus_id:
@@ -65,10 +66,10 @@ telegram_username:
 vk_id:
 
 # Post sharing icons
-show_sharing_icons: false
+show_sharing_icons: true
 # Change to 'true' to enable individual icons
-share_facebook: false
-share_twitter: false
+share_facebook: true
+share_twitter: true
 share_googleplus: false
 share_linkedin: false
 share_digg: false
@@ -82,7 +83,7 @@ text:
     newer: 'Newer'
     older: 'Older'
   share_buttons:
-    text:         'Share this post!'
+    text:         ''
     facebook:     'Share on Facebook'
     twitter:      'Share on Twitter'
     googleplus:   'Share on Google+'
@@ -108,21 +109,36 @@ text:
       sent:     'Message sent!'
       error:    'Error!'
   thanks: 'Thanks for contacting us. We will reply as soon as possible.'
-  og_locale: 'en_US'
+  og_locale: 'ja_JP'
 
 # Build settings
-markdown:     kramdown
+markdown:     redcarpet
 redcarpet:
   extensions: ['smart', 'tables', 'with_toc_data']
-permalink:    pretty
-paginate:     4
+paginate:     10
 sass:
   style: compressed
 gems:
   - jekyll-paginate
   - jekyll-sitemap
 # https://github.com/jekyll/jekyll/issues/2938
-exclude:
-  - Gemfile
-  - Gemfile.lock
-  - vendor
+exclude: [
+  "vendor",
+  ".gitignore",
+  "LICENSE.txt",
+  "README.md",
+  "Rakefile",
+  "Gemfile*",
+  "Procfile",
+  "*.rb",
+  "config.ru",
+  "*.yml",
+  "package*.json",
+  "gulpfile.js",
+  "node_modules",
+  "*.tf*",
+  "firebase.json",
+  "CNAME",
+  "LICENSE",
+  "Rakefile"
+  ]
