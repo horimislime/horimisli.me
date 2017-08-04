@@ -1,0 +1,41 @@
+{
+  "rules": {
+    "preset-japanese": {
+      // 一文で使える"、"の数
+      "max-ten": {
+        "max": 3
+      },
+      // 二重否定の検出
+      "no-double-negative-ja": true,
+      // 二重助詞の検出
+      // 連続して同じ助詞が出た場合のみを検出
+      "no-doubled-joshi": {
+         "min_interval": 1
+      },
+      // 一文の最大の長さ
+      "sentence-length": {
+         "max": 100
+      },
+      // 同じ接続詞で開始してないかを検出
+      // 2文距離が空いていれば同じ接頭辞を使える
+      "no-start-duplicated-conjunction": {
+         "interval": 2
+      },
+      // JavaScript周りの単語スペルチェック
+      "spellcheck-tech-word": true,
+      // 文の敬体(ですます調)、常体(である調)の混合をチェック
+      "no-mix-dearu-desumasu": true
+    },
+    "no-dropping-the-ra": true,
+    "textlint-rule-max-appearence-count-of-words": {
+      "limit": 3
+    },
+    "textlint-rule-max-length-of-title": {
+      "#": 25,
+      "##": 30
+    },
+    "max-number-of-lines": {
+        "max" : 300
+    }
+  }
+}

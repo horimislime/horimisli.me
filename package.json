@@ -25,6 +25,13 @@
     "imagemin-jpegtran": "5.0.2",
     "gulp-clean-css": "3.5.0",
     "gulp-concat": "2.6.1",
-    "minimist": "1.1.1"
+    "minimist": "1.1.1",
+    "textlint": "8.2.1",
+    "textlint-rule-preset-japanese": "*",
+    "textlint-rule-incremental-headers": "*",
+    "textlint-rule-max-appearence-count-of-words": "*",
+    "textlint-rule-max-number-of-lines": "*",
+    "textlint-rule-no-dropping-the-ra": "*",
+    "textlint-rule-spellcheck-tech-word": "*"
   }
 }
