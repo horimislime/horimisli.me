@@ -122,7 +122,10 @@ sass:
 compress_html:
   clippings: all
   comments:  ["<!-- ", " -->"]
-  
+
+# jekyll-seo-tag
+twitter:
+  username: horimislime
 gems:
   - jekyll-paginate
   - jekyll-seo-tag
