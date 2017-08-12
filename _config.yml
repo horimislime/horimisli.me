@@ -2,7 +2,7 @@
 title:       horimislime
 email:
 author:      horimislime
-description: "horimislime's log"
+description: "horimislime's blog"
 baseurl:     ""
 url:         "https://horimisli.me"
 date_format: "%b %-d, %Y"
@@ -125,6 +125,7 @@ compress_html:
   
 gems:
   - jekyll-paginate
+  - jekyll-seo-tag
   - jekyll-sitemap
 # https://github.com/jekyll/jekyll/issues/2938
 exclude: [
