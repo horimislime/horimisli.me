@@ -1,6 +1,6 @@
 {
-  "name": "gulp-jekyll-livereload",
-  "version": "0.0.1",
+  "name": "horimisli.me",
+  "version": "1.0.0",
   "description": "",
   "main": "gulpfile.js",
   "scripts": {
@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/roana0229/gulp-jekyll-livereload"
+    "url": "https://github.com/horimisime/horimisli.me"
   },
-  "author": "roana0229",
+  "author": {
+    "name": "horimislime",
+    "email": "horimislime@gmail.com",
+    "web": "https://horimisli.me"
+  },
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/roana0229/gulp-jekyll-livereload/issues"
-  },
-  "homepage": "https://github.com/roana0229/gulp-jekyll-livereload",
   "devDependencies": {
     "gulp": "^3.8.8",
     "gulp-webserver": "^0.8.3",
