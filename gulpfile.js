@@ -47,7 +47,8 @@ gulp.task('jekyll', function () {
 
     var args = ['build'];
     if (options.env === 'devel') {
-      args.push('--unpublished')
+        args.push('--unpublished');
+        args.push('--future');
     }
 
     var jekyll = spawn('jekyll', args);
