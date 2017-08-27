@@ -4,7 +4,7 @@
   "description": "",
   "main": "gulpfile.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\""
+    "test": "echo \"No test specified\""
   },
   "repository": {
     "type": "git",
@@ -18,20 +18,20 @@
   "license": "MIT",
   "devDependencies": {
     "gulp": "^3.8.8",
-    "gulp-webserver": "^0.8.3",
-    "node-notifier": "^4.0.2",
-    "gulp-imagemin": "3.3.0",
-    "imagemin-pngquant": "4.0.0",
-    "imagemin-jpegtran": "5.0.2",
-    "gulp-clean-css": "3.5.0",
+    "gulp-clean-css": "^3.7.0",
     "gulp-concat": "2.6.1",
-    "minimist": "1.1.1",
+    "gulp-imagemin": "3.3.0",
+    "gulp-webserver": "^0.9.1",
+    "imagemin-jpegtran": "5.0.2",
+    "imagemin-pngquant": "^5.0.1",
+    "minimist": "^1.2.0",
+    "node-notifier": "^5.1.2",
     "textlint": "8.2.1",
-    "textlint-rule-preset-japanese": "*",
     "textlint-rule-incremental-headers": "*",
     "textlint-rule-max-appearence-count-of-words": "*",
     "textlint-rule-max-number-of-lines": "*",
     "textlint-rule-no-dropping-the-ra": "*",
+    "textlint-rule-preset-japanese": "*",
     "textlint-rule-spellcheck-tech-word": "*"
   }
 }
