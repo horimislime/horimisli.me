@@ -7,11 +7,10 @@ branches:
   only:
   - master
 install:
-  - npm install -g firebase-tools
   - npm install
   - gem install bundler
   - bundle install --path vendor/bundle
-before_deploy:
+script:
   - bundle exec jekyll build
 deploy:
   provider: firebase
