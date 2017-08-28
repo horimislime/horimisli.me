@@ -126,7 +126,7 @@ compress_html:
 # jekyll-seo-tag
 twitter:
   username: horimislime
-gems:
+plugins:
   - jekyll-paginate
   - jekyll-seo-tag
   - jekyll-sitemap
