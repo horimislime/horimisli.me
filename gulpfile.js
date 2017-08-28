@@ -40,30 +40,6 @@ var Logger = function() {
   return logger;
 }();
 
-
-gulp.task('jekyll', function () {
-
-    var logger = new Logger();
-
-    var args = ['build'];
-    if (options.env === 'devel') {
-        args.push('--unpublished');
-        args.push('--future');
-    }
-
-    var jekyll = spawn('jekyll', args);
-
-    jekyll.stderr.on('data', function(data) {
-        logger.log("" + data);
-        logger.notify('Build Error', data);
-    });
-
-    jekyll.on('exit', function (code) {
-        var message = code ? 'error' : 'success'
-        logger.log('Finished Jekyll Build : ' + message);
-    });
-});
-
 gulp.task('serve', function() {
   gulp.src(SERVER_ROOT)
     .pipe(webserver({
@@ -106,4 +82,29 @@ gulp.task('minify', function() {
     .pipe(gulp.dest('stylesheets'));
 });
 
-gulp.task('default', ['jekyll', 'serve', 'watch', 'compress', 'minify']);
+gulp.task('build', function (done) {
+
+    var logger = new Logger();
+
+    var args = ['build'];
+    if (options.env === 'devel') {
+        args.push('--unpublished');
+        args.push('--future');
+    }
+
+    var jekyll = spawn('jekyll', args);
+
+    jekyll.stderr.on('data', function(data) {
+        logger.log("" + data);
+        logger.notify('Build Error', data);
+    });
+
+    jekyll.on('exit', function (code) {
+        var message = code ? 'error' : 'success'
+        logger.log('Finished Jekyll Build : ' + message);
+        done();
+    });
+});
+
+gulp.task('publish', gulp.series('compress', 'minify', 'build'));
+gulp.task('default', gulp.series('build', 'serve', 'watch'));
