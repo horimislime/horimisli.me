@@ -17,7 +17,7 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "gulp": "^3.8.8",
+    "gulp": "gulpjs/gulp.git#4.0",
     "gulp-clean-css": "^3.7.0",
     "gulp-concat": "2.6.1",
     "gulp-imagemin": "3.3.0",
