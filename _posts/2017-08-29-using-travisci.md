@@ -5,7 +5,7 @@ date: 2017-08-29 10:00
 categories: ["Development"]
 ---
 
-このサイトのソースはずっとGitHubのPrivateリポジトリで運用してたんだけど、 [horimislime/horimisli.me](https://github.com/horimislime/horimisli.me)としてPublicに公開した。それによりCI系サービスがタダで使える事になったので、TravisCIを利用してデプロイを自動化した。
+このサイトのソースはずっとGitHubのPrivateリポジトリで運用してたんだけど、  [horimislime/horimisli.me](https://github.com/horimislime/horimisli.me) としてPublicに公開した。それによりCI系サービスがタダで使える事になったので、TravisCIを利用してデプロイを自動化した。
 
 Travisでは公式にFirebaseへのデプロイがサポートされており、詳細なドキュメントも用意されている。おかげで自動デプロイの環境がすぐに用意できた。e
 
@@ -39,4 +39,4 @@ deploy:
 
 [horimisli.me/.travis.yml at master · horimislime/horimisli.me](https://github.com/horimislime/horimisli.me/blob/master/.travis.yml)
 
-普段仕事ではCircleCIを便利に使っているんだけど、Travisは[Deploy周りが抽象化されていて](https://docs.travis-ci.com/user/deployment)使いやすかったり、[Cron Jobs](https://docs.travis-ci.com/user/cron-jobs/)があったりと、自動化内容によってはCircleCIよりかなり楽ができて良いなと思った。
+普段仕事ではCircleCIを便利に使っているんだけど、Travisは[Deploy周りが抽象化されていて](https://docs.travis-ci.com/user/deployment) [Cron Jobs](https://docs.travis-ci.com/user/cron-jobs/) があったりと、自動化内容によってはCircleCIよりかなり楽ができて良いなと思った。
