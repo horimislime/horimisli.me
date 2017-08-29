@@ -11,6 +11,8 @@ install:
 branches:
   only:
     - master
+before_script:
+  - export TZ=Asia/Tokyo
 script:
   - bundle exec gulp publish
 deploy:
