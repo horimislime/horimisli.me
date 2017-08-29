@@ -39,4 +39,4 @@ deploy:
 
 [horimisli.me/.travis.yml at master · horimislime/horimisli.me](https://github.com/horimislime/horimisli.me/blob/master/.travis.yml)
 
-普段仕事ではCircleCIを便利に使っているんだけど、Travisは[Deploy周りが抽象化されていて](https://docs.travis-ci.com/user/deployment) [Cron Jobs](https://docs.travis-ci.com/user/cron-jobs/) があったりと、自動化内容によってはCircleCIよりかなり楽ができて良いなと思った。
+普段仕事ではCircleCIを便利に使っているんだけど、Travisは[Deploy周りが抽象化](https://docs.travis-ci.com/user/deployment)されていたり [Cron Jobs](https://docs.travis-ci.com/user/cron-jobs/) があったりと、自動化内容によってはCircleCIよりかなり楽ができて良いなと思った。
