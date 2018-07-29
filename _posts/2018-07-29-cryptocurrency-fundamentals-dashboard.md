@@ -3,7 +3,7 @@ layout: post
 title: 仮想通貨のファンダメンタルズDashboardをプログラミングなしに作成する
 date: 2018-7-29 12:00
 categories: ["Mac", "投資", "Bitcoin"]
-image: /images/macos-dashboard.png
+image: images/macos-dashboard.png
 ---
 
 各通貨ペアのチャートやテクニカル指標は [TradingView](https://tradingview.com/) が統合的な環境を提供してくれているが、ファンダメンタルズ指標はそう簡単にいかない。様々なサイトでデータが配信されているが、必要な情報を統合的に表示できるサービスは今のところなさそう。
