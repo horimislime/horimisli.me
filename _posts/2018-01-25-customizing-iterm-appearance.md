@@ -3,6 +3,7 @@ layout: post
 title: iTerm2のウインドウをHyper風にカスタマイズする
 date: 2018-01-25 11:00
 categories: ["Development"]
+image: images/2018/iterm-hyper-comparison.png
 ---
 
 ![Customized iTerm title bar](/images/2018/cool-iterm-titlebar.png)
