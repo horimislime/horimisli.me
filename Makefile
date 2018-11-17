@@ -10,7 +10,6 @@ prepare-img:
 	# find images/ -name '*.jpg' | xargs -I {} guetzli --quality 99 --verbose {} {}
 
 build:
-	gulp minify
 	bundle exec jekyll build
 
 publish:
