@@ -1,15 +1,15 @@
 // Typography
 $base-font-size: 14px !default;
 $bold-font-weight: bold !default;
-$font-family: Times, 'ヒラギノ明朝 ProN', 'Hiragino Mincho ProN', 'メイリオ', 'Meiryo', serif !default;
-$line-height: 1.5 !default;
-$heading-font-family: Times, 'ヒラギノ明朝 ProN', 'Hiragino Mincho ProN', 'メイリオ', 'Meiryo', serif !default;
+$font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Segoe UI", Hiragino Kaku Gothic ProN, "ヒラギノ角ゴ ProN W3", Arial, "メイリオ", Meiryo, sans-serif !default;
+$line-height: 36px !default;
+$heading-font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Segoe UI", Hiragino Kaku Gothic ProN, "ヒラギノ角ゴ ProN W3", Arial, "メイリオ", Meiryo, sans-serif !default;
 $heading-font-weight: 600 !default;
 $heading-line-height: 1.25 !default;
 $monospace-font-family: 'Source Code Pro', Consolas, monospace !default;
-$h1: 2.1rem !default;
-$h2: 1.5rem !default;
-$h3: 1.25rem !default;
+$h1: 32px !default;
+$h2: 24px !default;
+$h3: 18px !default;
 $h4: 1rem !default;
 $h5: .875rem !default;
 $h6: .75rem !default;

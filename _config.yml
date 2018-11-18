@@ -5,7 +5,7 @@ author:      horimislime
 description: "horimislime's blog"
 baseurl:     ""
 url:         "https://horimisli.me"
-date_format: "%b %-d, %Y"
+date_format: "%Y/%m/%d"
 permalink: /entry/:title/
 
 # Google services
