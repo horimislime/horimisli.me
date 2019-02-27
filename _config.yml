@@ -111,6 +111,7 @@ text:
 
 # Build settings
 markdown:     redcarpet
+highlighter: rouge
 redcarpet:
   extensions: ['smart', 'tables', 'with_toc_data']
 paginate:     10
@@ -125,6 +126,7 @@ compress_html:
 twitter:
   username: horimislime
 plugins:
+  - jekyll-gist
   - jekyll-paginate
   - jekyll-seo-tag
   - jekyll-sitemap
