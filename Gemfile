@@ -1,7 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'github-pages'
-gem 'redcarpet'
+gem 'github-pages', '197'
+gem 'redcarpet', '3.4.0'
 gem 'stringex', '~> 1.4.0'
-gem 'rake'
-gem 'rouge'
+gem 'rouge', '2.2.1'
