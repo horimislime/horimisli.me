@@ -14,6 +14,10 @@ code {
   padding: .2em .4em;
 }
 
+.highlight code {
+  padding: 0;
+}
+
 pre {
   padding: 1.125em;
   line-height: 1.41;
