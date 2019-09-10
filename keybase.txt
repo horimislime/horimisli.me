@@ -1,0 +1,56 @@
+==================================================================
+https://keybase.io/horimislime
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of https://horimisli.me
+  * I am horimislime (https://keybase.io/horimislime) on keybase.
+  * I have a public key ASD6NrZPqV0YvijCejdvSAMhvJ74TePdqLfBW0-ULXnlKwo
+
+To do so, I am signing this object:
+
+{
+  "body": {
+    "key": {
+      "eldest_kid": "0120820824e6e638892c19eb4fdbdb5988f7d1e78beefba8306b6e7b0ced1cd9ae290a",
+      "host": "keybase.io",
+      "kid": "0120fa36b64fa95d18be28c27a376f480321bc9ef84de3dda8b7c15b4f942d79e52b0a",
+      "uid": "feb7202b31cf05af557fb5f18bdf5c19",
+      "username": "horimislime"
+    },
+    "merkle_root": {
+      "ctime": 1568126960,
+      "hash": "dfadb89b2c12c7644767ef358824c68c3d64d72577cbeb4284e0a74bd9f93ae2dbd2d2477846dabaa155ca0968976d31b8ee2aa2926526f4597239b190c7a1b0",
+      "hash_meta": "6881158624783eb3169bab735041acf24dc888d7eff846dd4c10ecdad029c7b0",
+      "seqno": 6431462
+    },
+    "service": {
+      "entropy": "2JacY+KMXwrKDzzAQzdDvwE6",
+      "hostname": "horimisli.me",
+      "protocol": "https:"
+    },
+    "type": "web_service_binding",
+    "version": 2
+  },
+  "client": {
+    "name": "keybase.io go client",
+    "version": "4.4.1"
+  },
+  "ctime": 1568126978,
+  "expire_in": 504576000,
+  "prev": "ce2fc6511e35b6d576e46f795d760b7beec20b3d8af25842794ca7ee8437b1f0",
+  "seqno": 19,
+  "tag": "signature"
+}
+
+which yields the signature:
+
+hKRib2R5hqhkZXRhY2hlZMOpaGFzaF90eXBlCqNrZXnEIwEg+ja2T6ldGL4owno3b0gDIbye+E3j3ai3wVtPlC155SsKp3BheWxvYWTESpcCE8Qgzi/GUR41ttV25G95XXYLe+7CCz2K8lhCeUyn7oQ3sfDEIBPGvOFSOZhAWqzU6ROb+37nXgaBULz/oFR4nQAd0tBHAgHCo3NpZ8RAHi783loaiKZZEp6yttIwxIkjgTIW3/CI5NWn03iMzDJry16JvO37dOZYO5DTfJWZshIrhyuFJYRNfM2i+TW3BahzaWdfdHlwZSCkaGFzaIKkdHlwZQildmFsdWXEIOTyxUawCEUVp2dwW+r6PL5ZSVPhhdqx/iZQflSOLnoto3RhZ80CAqd2ZXJzaW9uAQ==
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/horimislime
+
+==================================================================
