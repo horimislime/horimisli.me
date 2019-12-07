@@ -1,13 +1,7 @@
 all: build publish
 
 clean:
-	rm -rf _site/ images/
-
-prepare-img:
-	/bin/cp -r _images/ images/
-	find images/ -name '*.jpg' -or -name '*.png' | xargs -I {} convert {} -resize '2048x>' {}
-	find images/ -name '*.png' | xargs -I {} zopflipng -my {} {}
-	# find images/ -name '*.jpg' | xargs -I {} guetzli --quality 99 --verbose {} {}
+	rm -rf _site/
 
 build:
 	bundle exec jekyll build
