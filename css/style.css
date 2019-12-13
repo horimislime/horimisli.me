@@ -1,0 +1,255 @@
+:root {
+  --font-size-h1: 32px;
+  --font-size-h2: 24px;
+  --font-size-h3: 16px;
+  --spacing-small: 1rem;
+  --spacing-large: 2rem;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --background-color: white;
+    --dark-background-color: rgba(242, 242, 247, 1);
+    --title-text-color: black;
+    --secondary-text-color: rgba(72, 72, 74, 1);
+    --body-text-color: black;
+    --link-color: rgba(0, 122, 255, 1);
+    --border-color: rgba(229, 229, 234, 1);
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background-color: black;
+    --dark-background-color: rgba(44, 44, 46, 1);
+    --title-text-color: rgba(242, 242, 247, 1);
+    --secondary-text-color: rgba(174, 174, 178, 1);
+    --body-text-color: rgba(242, 242, 247, 1);
+    --link-color: rgba(10, 132, 255, 1);
+    --border-color: rgba(72, 72, 74, 1);
+  }
+}
+
+body {
+  background-color: var(--background-color);
+  box-sizing: border-box;
+  color: var(--body-text-color);
+  font-family: -apple-system, sans-serif;
+  font-size: 100%;
+  line-height: 36px;
+  text-align: justify;
+  text-justify: inter-ideograph;
+}
+
+h1,
+h2,
+h3 {
+  font-weight: bold;
+  line-height: 1.25;
+  margin-bottom: 24px;
+  margin-top: 64px;
+}
+
+pre {
+  margin-bottom: var(--spacing-small);
+  margin-top: 0;
+  overflow-x: scroll;
+}
+
+hr {
+  border: 0;
+  border-bottom-color: var(--border-color);
+  border-bottom-style: solid;
+  border-bottom-width: thin;
+  margin-bottom: var(--spacing-large);
+  margin-top: var(--spacing-large);
+}
+
+blockquote {
+  border-left: 5px solid var(--secondary-text-color);
+  color: var(--secondary-text-color);
+  font-style: italic;
+  padding-left: var(--spacing-small);
+  padding-right: var(--spacing-small);
+}
+
+h1 {
+  font-size: var(--font-size-h1);
+}
+
+h2 {
+  font-size: var(--font-size-h2);
+}
+
+h3 {
+  font-size: var(--font-size-h3);
+}
+
+a {
+  color: var(--link-color);
+}
+
+pre,
+code {
+  border-radius: 8px;
+}
+
+html,
+body {
+  height: auto;
+  min-height: 100%;
+}
+
+img {
+  max-width: 100%;
+}
+
+.measure {
+  margin: 0 auto;
+  max-width: 42rem;
+}
+
+.clearfix:after {
+  clear: both;
+  display: table;
+}
+
+.clearfix:before {
+  display: table;
+}
+
+.left {
+  float: left;
+}
+
+.right {
+  float: right;
+}
+
+.site-header {
+  padding-bottom: var(--spacing-small);
+  padding-top: var(--spacing-small);
+  text-align: center;
+}
+
+.site-header a {
+  color: var(--title-text-color);
+  font-size: var(--font-size-h3);
+  text-decoration: none;
+}
+
+.site-header a:hover {
+  text-decoration: underline;
+}
+
+.site-header nav a {
+  color: var(--title-text-color);
+}
+
+footer {
+  background-color: var(--dark-background-color);
+  border-top: var(--border-color);
+  color: var(--secondary-text-color);
+  font-size: .75rem;
+  padding: var(--spacing-large);
+  text-align: center;
+}
+
+.social-icons {
+  padding: .5em 0 0;
+  width: 100%;
+}
+
+#tippin-button {
+  height: 28px;
+  width: 96px;
+}
+
+.posts {
+  margin: 0;
+}
+
+.posts .post {
+  border-bottom: thin solid var(--border-color);
+}
+
+.post:last-child {
+  border-bottom: 0;
+  margin-bottom: .375em;
+  padding-bottom: 0;
+}
+
+.post-link {
+  text-decoration: none;
+}
+
+.post-link .post-title {
+  color: var(--title-text-color);
+  font-weight: bold;
+  margin-top: 0;
+
+  text-decoration: none;
+}
+
+.post-title:hover {
+  text-decoration: underline;
+}
+
+.post-footer {
+  margin-top: .75rem;
+  text-align: center;
+}
+
+.avatar {
+  border-radius: 50%;
+  margin: 2rem 0;
+  width: 100px;
+}
+
+.meta,
+.post-meta {
+  color: var(--secondary-text-color);
+  margin: 0;
+  padding: .9em 0;
+  width: auto;
+}
+
+@media screen and (min-width: 32em) {
+  html {
+    font-size: 16px;
+  }
+
+  .site-title {
+    font-size: var(--font-size-h2);
+  }
+}
+
+@media screen and (max-width: 479px) {
+  h1,
+  h2,
+  h3 {
+    line-height: 30px;
+    margin-bottom: 16px;
+    margin-top: 32px;
+  }
+
+  h1 {
+    font-size: var(--font-size-h2);
+  }
+
+  h2 {
+    font-size: var(--font-size-h3);
+  }
+}
+
+@media screen and (min-width: 48em) {
+  html {
+    font-size: 18px;
+  }
+}
+
+@media screen and (min-width: 64em) {
+  html {
+    font-size: 20px;
+  }
+}
