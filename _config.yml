@@ -1,6 +1,4 @@
-# Site settings
 title:       horimisli.me
-email:
 author:      horimislime
 description: "horimislime's blog"
 baseurl:     ""
@@ -10,16 +8,8 @@ permalink: /entry/:title/
 
 # Google services
 google_verification:
-# Use either direct GA implementation or set up GTM account
-# - using both will skew your data (leave blank to not use at all)
 google_analytics: UA-30891696-1
-google_tag_manager:
-# Bing services
 bing_verification:
-
-# Disqus post comments
-# (leave blank to disable Disqus)
-disqus_shortname:
 
 # Social icons
 github_username: horimislime
@@ -48,24 +38,13 @@ plugins:
   - jekyll-paginate
   - jekyll-seo-tag
   - jekyll-sitemap
-# https://github.com/jekyll/jekyll/issues/2938
+
 exclude: [
   "vendor",
-  ".gitignore",
-  "LICENSE.txt",
   "README.md",
-  "Rakefile",
   "Gemfile*",
-  "Procfile",
-  "*.rb",
-  "config.ru",
+  "Makefile",
   "*.yml",
-  "package*.json",
-  "gulpfile.js",
-  "node_modules",
-  "*.tf*",
   "firebase.json",
-  "CNAME",
-  "LICENSE",
-  "Rakefile"
-  ]
+  "LICENSE"
+]
