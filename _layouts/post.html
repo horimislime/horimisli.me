@@ -11,7 +11,7 @@ layout: default
   <h1>{{ page.title }}</h1>
   <span class="post-meta">{{ page.date | date: site.date_format }}</span><br>
   {% if page.update_date %}
-    <span class="post-meta">{{ site.text.post.updated }}: {{ page.update_date | date: site.date_format }}</span><br>
+    <span class="post-meta">{{ page.update_date | date: site.date_format }}</span><br>
   {% endif %}
 </div>
 
@@ -19,7 +19,15 @@ layout: default
   {{ content }}
 </article>
 
-{% include share_buttons.html %}
+<div class="share-page">
+  <div class="share-links">
+    <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false" data-size="large">Tweet</a>
+    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+    <div id="tippin-button" data-dest=""></div>
+    <script src="https://tippin.me/buttons/tip.js?0001" type="text/javascript"></script>
+  </div>
+</div>
 
 {% if site.disqus_shortname %}
   <div id="disqus_thread"></div>
@@ -37,6 +45,6 @@ layout: default
   <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 {% endif %}
 
-{% if site.show_post_footers %}
-  {% include post_footer.html %}
-{% endif %}
+<div class="py2 post-footer">
+  <a href="https://twitter.com/horimislime" target="_blank"><img src="https://lh3.googleusercontent.com/--tulKFMFv60/XesYnYdtk0I/AAAAAAABXbA/WKQ-SI841rI9BeoHtOafw8RRfx12rXj_ACE0YBhgL/s128/slime.jpg" alt="horimislime" class="avatar" /></a>
+</div>
