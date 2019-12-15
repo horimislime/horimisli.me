@@ -19,14 +19,11 @@ layout: default
   {{ content }}
 </article>
 
-<div class="share-page">
-  <div class="share-links">
-    <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false" data-size="large">Tweet</a>
-    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-    <div id="tippin-button" data-dest=""></div>
-    <script src="https://tippin.me/buttons/tip.js?0001" type="text/javascript"></script>
+<div class="share-links">
+  <div id="twitter-button">
+      <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false" data-size="large">Tweet</a>
   </div>
+  <div id="tippin-button" data-dest=""></div>
 </div>
 
 {% if site.disqus_shortname %}
@@ -48,3 +45,8 @@ layout: default
 <div class="py2 post-footer">
   <a href="https://twitter.com/horimislime" target="_blank"><img src="https://lh3.googleusercontent.com/--tulKFMFv60/XesYnYdtk0I/AAAAAAABXbA/WKQ-SI841rI9BeoHtOafw8RRfx12rXj_ACE0YBhgL/s128/slime.jpg" alt="horimislime" class="avatar" /></a>
 </div>
+
+<script src="/resources/vendor/highlight.min.js"></script>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<script src="https://tippin.me/buttons/tip.js?0001" type="text/javascript"></script>
+<script>hljs.initHighlightingOnLoad();</script>

@@ -3,19 +3,11 @@ layout: compress
 ---
 
 <!DOCTYPE html>
-<html>
+<html lang=ja>
 <head>
-    {% if site.google_tag_manager %}
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','{{ site.google_tag_manager }}');</script>
-    {% endif %}
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>{% if page.title %}{{ page.title | strip_html }} &#8211; {% endif %}{{ site.title | strip_html }}</title>
-    <link rel="dns-prefetch" href="//maxcdn.bootstrapcdn.com">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="{% if page.meta_description %}{{ page.meta_description | xml_escape }}{% elsif page.summary %}{{ page.summary | xml_escape }}{% else %}{{ site.description | xml_escape }}{% endif %}">
     {% if page.meta_robots %}<meta name="robots" content="{{ page.meta_robots }}">
@@ -27,9 +19,6 @@ layout: compress
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ "/resources/style.css" | prepend: site.baseurl }}?{{ site.time | date: "%Y%m%d%H%M" }}" type="text/css">
-
-    <!-- Fonts -->
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
 
     <!-- Verifications -->
     {% if site.google_verification %}
@@ -64,51 +53,20 @@ layout: compress
         ga('send', 'pageview');
     </script>
 
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.16.2/build/styles/agate.min.css">
-    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.16.2/build/highlight.min.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
+    <link rel="stylesheet" href="/resources/vendor/agate.min.css">
 
     {% seo %}
 </head>
     
 <body class="site">
-  {% if site.google_tag_manager %}
-  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id={{ site.google_tag_manager }}"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-  {% endif %}
-
   <div class="site-wrap">
     <header class="site-header px2 px-responsive">
       <div class="mt2 wrap">
         <div class="measure">
-          <a href="{{ site.url }}" class="site-title">{{ site.title }}</a>
+          <a href="/" class="site-title">{{ site.title }}</a>
           <nav class="site-nav">
-            <a href="{{ site.url }}/about">About</a>
+            <a href="/about">About</a>
           </nav>
-          <div class="clearfix"></div>
-          <div class="social-icons">
-            <div class="social-icons-right">
-              {% if site.github_username %}
-                <a class="fa fa-github" href="https://github.com/{{ site.github_username }}"></a>
-              {% endif %}
-              {% if site.stackoverflow_id %}
-                <a class="fa fa-stack-overflow" href="https://stackoverflow.com/users/{{ site.stackoverflow_id }}"></a>
-              {% endif %}
-              <a class="fa fa-rss" href="{{ "/feed.xml" | prepend: site.baseurl }}"></a>
-              {% if site.twitter_username %}
-                <a class="fa fa-twitter" href="https://twitter.com/{{ site.twitter_username }}"></a>
-              {% endif %}
-              {% if site.linkedin_username %}
-                <a class="fa fa-linkedin" href="https://www.linkedin.com/in/{{ site.linkedin_username }}"></a>
-              {% endif %}
-              {% if site.medium_id %}
-                <a class="fa fa-medium" href="https://medium.com/@{{ site.medium_id }}"></a>
-              {% endif %}
-              {% if site.bitcoin_url %}
-                <a class="fa fa-bitcoin" href="{{ site.bitcoin_url }}"></a>
-              {% endif %}
-            </div>
-          </div>
           <div class="clearfix"></div>
         </div>
       </div>
