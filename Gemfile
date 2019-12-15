@@ -1,10 +1,8 @@
 source 'https://rubygems.org'
 
-gem 'jekyll', '3.8.5'
+gem 'jekyll', '3.8.6'
 gem 'jekyll-gist'
 gem 'jekyll-paginate'
 gem 'jekyll-seo-tag'
 gem 'jekyll-sitemap'
-gem 'redcarpet', '3.4.0'
-gem 'rouge', '2.2.1'
-gem 'stringex', '~> 1.4.0'
+gem 'redcarpet'
