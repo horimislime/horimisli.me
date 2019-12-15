@@ -34,7 +34,7 @@ body {
   background-color: var(--background-color);
   box-sizing: border-box;
   color: var(--body-text-color);
-  font-family: -apple-system, sans-serif;
+  font-family: "Noto Sans", "Noto Sans CJK JP", "Hiragino Sans", "ヒラギノ角ゴ Pro W3", sans-serif;
   font-size: 100%;
   line-height: 36px;
   text-align: justify;
@@ -155,6 +155,10 @@ footer {
   text-align: center;
 }
 
+.share-links {
+  padding-top: 32px;
+}
+
 .social-icons {
   padding: .5em 0 0;
   width: 100%;
@@ -163,6 +167,7 @@ footer {
 #tippin-button {
   height: 28px;
   width: 96px;
+  float: left;
 }
 
 .posts {
