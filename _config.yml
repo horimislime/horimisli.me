@@ -21,7 +21,6 @@ bitcoin_url: https://lh3.googleusercontent.com/-KUkJTrYEkdw/XesXwwlJ0ZI/AAAAAAAB
 
 # Build settings
 markdown:     redcarpet
-highlighter: rouge
 redcarpet:
   extensions: ['smart', 'tables', 'with_toc_data']
 paginate:     10
