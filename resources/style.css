@@ -1,7 +1,7 @@
 :root {
   --font-size-h1: 32px;
   --font-size-h2: 24px;
-  --font-size-h3: 16px;
+  --font-size-h3: 20px;
   --spacing-small: 1rem;
   --spacing-large: 2rem;
 }
@@ -150,7 +150,7 @@ footer {
   background-color: var(--dark-background-color);
   border-top: var(--border-color);
   color: var(--secondary-text-color);
-  font-size: .75rem;
+  font-size: var(--font-size-h3);
   padding: var(--spacing-large);
   text-align: center;
 }
@@ -167,7 +167,7 @@ footer {
 #tippin-button {
   height: 28px;
   width: 96px;
-  float: left;
+  margin-top: 12px;
 }
 
 .posts {
@@ -221,7 +221,7 @@ footer {
 
 @media screen and (min-width: 32em) {
   html {
-    font-size: 16px;
+    font-size: var(--font-size-h3);
   }
 
   .site-title {
@@ -249,12 +249,12 @@ footer {
 
 @media screen and (min-width: 48em) {
   html {
-    font-size: 18px;
+    font-size: var(--font-size-h3);
   }
 }
 
 @media screen and (min-width: 64em) {
   html {
-    font-size: 20px;
+    font-size: var(--font-size-h3);
   }
 }
