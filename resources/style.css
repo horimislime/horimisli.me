@@ -10,9 +10,8 @@
   :root {
     --background-color: white;
     --dark-background-color: rgba(242, 242, 247, 1);
-    --title-text-color: black;
+    --primary-text-color: black;
     --secondary-text-color: rgba(72, 72, 74, 1);
-    --body-text-color: black;
     --link-color: rgba(0, 122, 255, 1);
     --border-color: rgba(229, 229, 234, 1);
   }
@@ -22,9 +21,8 @@
   :root {
     --background-color: black;
     --dark-background-color: rgba(44, 44, 46, 1);
-    --title-text-color: rgba(242, 242, 247, 1);
+    --primary-text-color: rgba(242, 242, 247, 1);
     --secondary-text-color: rgba(174, 174, 178, 1);
-    --body-text-color: rgba(242, 242, 247, 1);
     --link-color: rgba(10, 132, 255, 1);
     --border-color: rgba(72, 72, 74, 1);
   }
@@ -33,7 +31,7 @@
 body {
   background-color: var(--background-color);
   box-sizing: border-box;
-  color: var(--body-text-color);
+  color: var(--primary-text-color);
   font-family: "Noto Sans", "Noto Sans CJK JP", "Hiragino Sans", "ヒラギノ角ゴ Pro W3", sans-serif;
   font-size: 100%;
   line-height: 36px;
@@ -133,7 +131,7 @@ img {
 }
 
 .site-header a {
-  color: var(--title-text-color);
+  color: var(--primary-text-color);
   font-size: var(--font-size-h3);
   text-decoration: none;
 }
@@ -143,7 +141,7 @@ img {
 }
 
 .site-header nav a {
-  color: var(--title-text-color);
+  color: var(--primary-text-color);
 }
 
 footer {
@@ -189,7 +187,7 @@ footer {
 }
 
 .post-link .post-title {
-  color: var(--title-text-color);
+  color: var(--primary-text-color);
   font-weight: bold;
   margin-top: 0;
 
