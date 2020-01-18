@@ -4,7 +4,7 @@ clean:
 	rm -rf _site/
 
 build:
-	bundle exec jekyll build
+	JEKYLL_ENV=production bundle exec jekyll build
 
 publish:
 	@curl -s -o /dev/null -w "Hub: %{http_code}\n" 'https://pubsubhubbub.appspot.com' -d 'hub.mode=publish&hub.url=https://horimisli.me/feed.xml' -X POST
