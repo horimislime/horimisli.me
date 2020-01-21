@@ -7,11 +7,14 @@ jobs:
     name: Deploy
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Repo
-        uses: actions/checkout@master
+      - name: Checkout Source Code
+        uses: actions/checkout@v2
+      - name: Checkout rticles
+        uses: actions/checkout@v2
         with:
+          repository: horimislime/articles
           token: ${{ secrets.GITHUB_ACCESS_TOKEN }}
-          submodules: true
+          path: _posts/articles
       - name: Set up Ruby 2.5
         uses: actions/setup-ruby@v1
       - name: Build
