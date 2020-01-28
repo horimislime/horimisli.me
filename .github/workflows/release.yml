@@ -1,7 +1,5 @@
-name: CI
-
-on: [push]
-
+name: Release
+on: [repository_dispatch]
 jobs:
   deploy:
     name: Deploy
@@ -9,13 +7,13 @@ jobs:
     steps:
       - name: Checkout Source Code
         uses: actions/checkout@v2
-      - name: Checkout rticles
+      - name: Checkout Articles
         uses: actions/checkout@v2
         with:
           repository: horimislime/articles
           token: ${{ secrets.GITHUB_ACCESS_TOKEN }}
           path: _posts/articles
-      - name: Set up Ruby 2.5
+      - name: Set up Ruby
         uses: actions/setup-ruby@v1
       - name: Build
         run: |
