@@ -19,10 +19,6 @@ linkedin_username:
 medium_id:
 bitcoin_url: https://lh3.googleusercontent.com/-KUkJTrYEkdw/XesXwwlJ0ZI/AAAAAAABXao/o2QT_Rt52K8pZkAKjxwy1dpHr4UhVhqWwCE0YBhgL/btc-wallet.png
 
-# Build settings
-markdown:     redcarpet
-redcarpet:
-  extensions: ['smart', 'tables', 'with_toc_data']
 paginate:     10
 # https://github.com/penibelst/jekyll-compress-html
 compress_html:
