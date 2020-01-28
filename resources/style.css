@@ -19,7 +19,7 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background-color: black;
+    --background-color: rgba(53, 54, 58, 1);
     --dark-background-color: rgba(44, 44, 46, 1);
     --primary-text-color: rgba(242, 242, 247, 1);
     --secondary-text-color: rgba(174, 174, 178, 1);
