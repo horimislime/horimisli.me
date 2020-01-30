@@ -40,6 +40,6 @@ exclude: [
   "Gemfile*",
   "Makefile",
   "*.yml",
-  "firebase.json",
+  "*.json",
   "LICENSE"
 ]
