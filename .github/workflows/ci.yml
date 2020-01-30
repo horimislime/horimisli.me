@@ -21,5 +21,7 @@ jobs:
           bundle install --jobs 4 --retry 3
           make clean build
       - name: Lighthouse CI
+        env:
+          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
         run: |
           lhci autorun || echo "LHCI failed!"
