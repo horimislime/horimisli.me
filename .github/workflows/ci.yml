@@ -1,15 +1,25 @@
 name: CI
-on: [push, pull_request]
+on: [pull_request]
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Source Code
         uses: actions/checkout@v2
-      - name: Set up Ruby
+      - name: Configure Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 10.x
+      - name: Configure Ruby
         uses: actions/setup-ruby@v1
-      - name: Build
+      - name: Install CLIs
         run: |
           gem install bundler
+          npm install -g @lhci/cli@0.3.x
+      - name: Build
+        run: |
           bundle install --jobs 4 --retry 3
           make clean build
+      - name: Lighthouse CI
+        run: |
+          lhci autorun || echo "LHCI failed!"
