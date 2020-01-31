@@ -1,0 +1,11 @@
+{
+    "ci": {
+        "collect": {
+            "numberOfRuns": 3,
+            "staticDistDir": "_site"
+        },
+        "upload": {
+            "target": "temporary-public-storage"
+        }
+    }
+}

@@ -3,6 +3,7 @@ _site
 .DS_Store
 .jekyll-cache
 .jekyll-metadata
+.lighthouseci
 .vscode
 
 # Ignore the config file that's used for gh-pages.
