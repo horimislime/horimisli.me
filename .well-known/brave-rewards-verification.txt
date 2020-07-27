@@ -1,0 +1,4 @@
+This is a Brave Rewards publisher verification file.
+
+Domain: horimisli.me
+Token: 386bc80c77082cb364031f79d278eba84b8b8722bc3caae87e736f329c3ae511
