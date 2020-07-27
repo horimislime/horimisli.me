@@ -13,4 +13,8 @@ Gemfile.lock
 node_modules
 vendor/bundle
 
+.firebaserc
 .firebase/*
+ui-debug.log
+
+images/
