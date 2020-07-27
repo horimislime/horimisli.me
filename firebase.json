@@ -1,6 +1,16 @@
 {
+  "functions": {
+    "source": "functions",
+    "runtime": "nodejs10"
+  },
   "hosting": {
     "public": "_site",
+    "rewrites": [
+      {
+        "source": "/images/**",
+        "function": "onRequestResizedImage"
+      }
+    ],
     "headers": [
       {
         "source": "**/*.@(jpg|jpeg|gif|png|css)",

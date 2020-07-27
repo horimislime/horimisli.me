@@ -1,0 +1,23 @@
+{
+  "name": "functions",
+  "version": "1.0.0",
+  "description": "Firebase Functions to return resized images from bucket",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/horimislime/horimisli.me.git"
+  },
+  "author": "horimislime",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/horimislime/horimisli.me/issues"
+  },
+  "homepage": "https://github.com/horimislime/horimisli.me#readme",
+  "dependencies": {
+    "firebase-admin": "^9.0.0",
+    "firebase-functions": "^3.8.0"
+  }
+}
