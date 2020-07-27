@@ -37,6 +37,7 @@ include: [
   ".well-known"
 ]
 exclude: [
+  "functions",
   "vendor",
   "README.md",
   "Gemfile*",
