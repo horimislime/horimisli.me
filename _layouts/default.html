@@ -43,18 +43,7 @@ layout: compress
     <!-- Icons -->
     <link rel="apple-touch-icon" sizes="180x180" href="/resources/apple-touch-icon.png">
     <link rel="icon" type="image/png" href="/resources/favicon.png" sizes="16x16">
-    <script type="text/javascript">
-        // Conditional css loading for prefers-color-scheme
-        if (window.matchMedia('(prefers-color-scheme: dark)').media === 'not all') {
-          document.documentElement.style.display = 'none';
-          document.head.insertAdjacentHTML(
-            'beforeend',
-            '<link rel="stylesheet" href="/resources/vendor/tomorrow.min.css" onload="document.documentElement.style.display = \'\'">'
-          );
-        }
-    </script>
-    <link rel="stylesheet" href="/resources/vendor/tomorrow.min.css" media="(prefers-color-scheme: dark)">
-    <link rel="stylesheet" href="/resources/vendor/agate.min.css" media="(prefers-color-scheme: no-preference), (prefers-color-scheme: light)">
+    <link rel="stylesheet" href="/resources/vendor/agate.min.css">
     {% seo %}
 </head>
     
