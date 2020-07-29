@@ -16,7 +16,7 @@ exports.onRequestResizedImage = functions
     // ["filename", "jpg"]
     const fileNameComponents = req.path.substr(1).split("."); 
     // ex.) "filename_1680x1680.jpg"
-    const filePath = `${fileNameComponents[0]}_${maxResizedSide}x${maxResizedSide}.${fileNameComponents[1]}`;
+    const filePath = fileNameComponents[1] == "gif" ? fileNameComponents.join(".") : `${fileNameComponents[0]}_${maxResizedSide}x${maxResizedSide}.${fileNameComponents[1]}`;
 
     admin
       .storage()
