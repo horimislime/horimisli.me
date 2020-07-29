@@ -4,28 +4,12 @@
   --font-size-h3: 20px;
   --spacing-small: 1rem;
   --spacing-large: 2rem;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    --background-color: white;
-    --dark-background-color: rgba(242, 242, 247, 1);
-    --primary-text-color: black;
-    --secondary-text-color: rgba(72, 72, 74, 1);
-    --link-color: rgba(0, 122, 255, 1);
-    --border-color: rgba(229, 229, 234, 1);
-  }
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background-color: rgba(53, 54, 58, 1);
-    --dark-background-color: rgba(44, 44, 46, 1);
-    --primary-text-color: rgba(242, 242, 247, 1);
-    --secondary-text-color: rgba(174, 174, 178, 1);
-    --link-color: rgba(10, 132, 255, 1);
-    --border-color: rgba(72, 72, 74, 1);
-  }
+  --background-color: white;
+  --dark-background-color: rgba(242, 242, 247, 1);
+  --primary-text-color: black;
+  --secondary-text-color: rgba(72, 72, 74, 1);
+  --link-color: rgba(0, 122, 255, 1);
+  --border-color: rgba(229, 229, 234, 1);
 }
 
 body {
