@@ -5,25 +5,7 @@ baseurl:     ""
 url:         "https://horimisli.me"
 date_format: "%Y/%m/%d"
 permalink: /entry/:title/
-
-# Google services
-google_verification:
-google_analytics: UA-30891696-1
-bing_verification:
-
-# Social icons
-github_username: horimislime
-stackoverflow_id: 1430224
-twitter_username: horimislime
-linkedin_username:
-medium_id:
-bitcoin_url: https://lh3.googleusercontent.com/-KUkJTrYEkdw/XesXwwlJ0ZI/AAAAAAABXao/o2QT_Rt52K8pZkAKjxwy1dpHr4UhVhqWwCE0YBhgL/btc-wallet.png
-
 paginate:     10
-# https://github.com/penibelst/jekyll-compress-html
-compress_html:
-  clippings: all
-  comments:  ["<!-- ", " -->"]
 
 # jekyll-seo-tag
 twitter:
