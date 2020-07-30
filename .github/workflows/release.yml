@@ -12,7 +12,7 @@ jobs:
         with:
           repository: horimislime/articles
           token: ${{ secrets.GITHUB_ACCESS_TOKEN }}
-          path: _posts/articles
+          path: _posts
       - name: Set up Ruby
         uses: actions/setup-ruby@v1
       - name: Build
