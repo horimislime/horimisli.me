@@ -25,7 +25,7 @@ exports.onRequestResizedImage = functions
       .get()
       .then((data) => {
         const file = data[0];
-        res.set("Cache-Control", 'public, max-age=604800');
+        res.set("Cache-Control", `public, max-age=${60*60*24*30}`);
         res.set("Content-Type", file.metadata['contentType']);
         file.createReadStream().pipe(res);
         res.status(200);
