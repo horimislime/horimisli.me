@@ -19,7 +19,7 @@ jobs:
         run: |
           gem install bundler
           bundle install --jobs 4 --retry 3
-          TZ=Asia/Tokyo make clean build
+          make clean build
       - name: Deploy to Firebase
         uses: w9jds/firebase-action@master
         with:
