@@ -77,8 +77,13 @@ layout: compress
   </footer>
 </body>
 {% if jekyll.environment == 'production' %}
-<script src="/__/firebase/7.9.3/firebase-app.js"></script>
-<script src="/__/firebase/7.9.3/firebase-analytics.js"></script>
-<script src="/__/firebase/init.js"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-30891696-5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-30891696-5');
+</script>
 {% endif %}
 </html>
