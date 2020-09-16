@@ -5,13 +5,9 @@ permalink: /about/
 tags: about
 ---
 
-五反田でソフトウェアエンジニアとして働いています。現在はiOSアプリケーション開発を中心にやっていて、ソフトウェア設計や自動化あたりが興味分野。
-
-詳しい経歴やインターネット上の活動は下記リンク先から参照できます。
-
-- [プロフィール - Wantedly](https://www.wantedly.com/users/12560)
-- [GitHub](https://github.com/horimislime)
-- [Stack Overflow](https://stackoverflow.com/users/1430224/horimislime)
-- [はてなブログ（技術的な事・日常のブログ）](http://horimislime.hateblo.jp/)
-- [Qiita](http://qiita.com/horimislime)
-- [Instagram](https://www.instagram.com/horimislime/)
+- [GitHub](https://github.com/horimislime){:target="_blank"}
+- [Stack Overflow](https://stackoverflow.com/users/1430224/horimislime){:target="_blank"}
+- [Speaker Ddeck](https://speakerdeck.com/horimislime){:target="_blank"}
+- [Qiita](http://qiita.com/horimislime){:target="_blank"}
+- [はてなブログ（旧ブログ）](http://horimislime.hateblo.jp/){:target="_blank"}
+- [Instagram](https://www.instagram.com/horimislime/){:target="_blank"}
