@@ -18,4 +18,5 @@ vendor/bundle
 ui-debug.log
 
 images/
+_images/
 _posts/
