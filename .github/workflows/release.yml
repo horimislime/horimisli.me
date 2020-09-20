@@ -13,6 +13,12 @@ jobs:
           repository: horimislime/articles
           token: ${{ secrets.GITHUB_ACCESS_TOKEN }}
           path: _posts
+      - name: Checkout Images
+        uses: actions/checkout@v2
+        with:
+          repository: horimislime/article-images
+          token: ${{ secrets.GITHUB_ACCESS_TOKEN }}
+          path: images
       - name: Set up Ruby
         uses: actions/setup-ruby@v1
       - name: Build
