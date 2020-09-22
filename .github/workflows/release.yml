@@ -19,13 +19,8 @@ jobs:
           repository: horimislime/article-images
           token: ${{ secrets.GITHUB_ACCESS_TOKEN }}
           path: images
-      - name: Set up Ruby
-        uses: actions/setup-ruby@v1
       - name: Build
-        run: |
-          gem install bundler
-          bundle install --jobs 4 --retry 3
-          make clean build
+        run: make build
       - name: Deploy to Firebase
         uses: w9jds/firebase-action@master
         with:
