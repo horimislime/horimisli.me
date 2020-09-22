@@ -27,5 +27,6 @@ exclude: [
   "*.yml",
   "*.json",
   "*.py",
+  "*.log",
   "LICENSE"
 ]
