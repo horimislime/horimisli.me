@@ -1,12 +1,12 @@
 version: "3.8"
 services:
   jekyll-build:
-    command: jekyll serve --incremental --future --unpublished --watch --livereload --port 4100
+    command: jekyll serve --incremental --future --unpublished --watch --livereload
     environment:
       TZ: Asia/Tokyo
     image: jekyll/minimal
     ports:
-      - 4100:4100
+      - 4100:4000
       - 35729:35729
     volumes:
       - $PWD:/srv/jekyll
