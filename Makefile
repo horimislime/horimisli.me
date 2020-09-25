@@ -1,7 +1,7 @@
 all: build publish
 
 build:
-	docker-compose run -e JEKYLL_ENV=production --rm jekyll-build jekyll build --destination /home/jekyll --disable-disk-cache
+	docker-compose run -e JEKYLL_ENV=production -e JEKYLL_UID=1001 -e JEKYLL_GID=116 --rm jekyll-build jekyll build
 
 publish:
 	@curl -s -o /dev/null -w "Hub: %{http_code}\n" 'https://pubsubhubbub.appspot.com' -d 'hub.mode=publish&hub.url=https://horimisli.me/feed.xml' -X POST
