@@ -21,6 +21,13 @@ class BearFile(object):
 def read_bearnote(filepath: str) -> BearNote:
 
     note_name = os.path.basename(filepath)
+    if os.path.splitext(note_name)[1] == '.txt':
+        # text only note
+        with open(filepath) as f:
+            content = f.read()
+            md = text_to_markdown(content)
+            return BearNote(body=md, images=[])
+    
     body = None
     images = []
     with zipfile.ZipFile(filepath, 'r') as zip:
@@ -28,27 +35,8 @@ def read_bearnote(filepath: str) -> BearNote:
             basename = os.path.basename(fileinfo.filename)
             name, extension = os.path.splitext(fileinfo.filename)
             if extension == '.txt':
-                body = zip.read(fileinfo).decode('utf-8')
-                body_lines = body.split('\n')
-                title = body_lines[0].replace('# ', '')
-                lines = [
-                    '---',
-                    'layout: post',
-                    f'title: {title}',
-                    f'date: {dt.now().strftime("%Y/%m/%d %H:00")}',
-                    'category: ["tech", "blog"]',
-                    'published: false',
-                    '---'
-                ]
-                for line in body_lines[1:]:
-                    if line.startswith('[assets/'):
-                        replaced = line.replace('[assets/', '![](/images/')[:-1] + ')'
-                        lines.append(replaced)
-                    else:
-                        lines.append(line)
-
-                formatted = '\n'.join(lines)
-                body = BearFile(name=f'{dt.now().strftime("%Y-%m-%d")}-{title.replace(" ", "")}', binary=formatted)
+                text = zip.read(fileinfo).decode('utf-8')
+                body = text_to_markdown(text)
             elif extension == '.json':
                 pass
             else:
@@ -64,6 +52,27 @@ def read_bearnote(filepath: str) -> BearNote:
 
     return BearNote(body=body, images=images)
 
+def text_to_markdown(text):
+    body_lines = text.split('\n')
+    title = body_lines[0].replace('# ', '')
+    lines = [
+        '---',
+        'layout: post',
+        f'title: {title}',
+        f'date: {dt.now().strftime("%Y/%m/%d %H:00")}',
+        'category: ["tech", "blog"]',
+        'published: false',
+        '---'
+    ]
+    for line in body_lines[1:]:
+        if line.startswith('[assets/'):
+            replaced = line.replace('[assets/', '![](/images/')[:-1] + ')'
+            lines.append(replaced)
+        else:
+            lines.append(line)
+
+    formatted = '\n'.join(lines)
+    return BearFile(name=f'{dt.now().strftime("%Y-%m-%d")}-{title.replace(" ", "")}', binary=formatted)
 
 def write_to_jekyll_dir(note: BearNote):
     with open(f'_posts/{note.body.name}.md', mode='w') as f:
