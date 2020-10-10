@@ -1,7 +1,7 @@
 version: "3.8"
 services:
   jekyll-build:
-    command: jekyll serve --incremental --future --unpublished --watch --livereload
+    command: jekyll serve --incremental --future --unpublished --watch --force_polling --livereload
     environment:
       TZ: Asia/Tokyo
     image: jekyll/minimal
