@@ -9,3 +9,7 @@ publish:
 
 preview:
 	docker-compose down && docker-compose up
+
+push_articles:
+	cd _posts && git add . && git commit -m "Add post" && git push origin `git rev-parse --abbrev-ref HEAD` && cd ..
+	cd _images && git add . && git commit -m "Add image" && git push origin `git rev-parse --abbrev-ref HEAD` && cd ..
