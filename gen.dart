@@ -37,7 +37,7 @@ class DefaultLayout implements Layout {
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="{% if page.meta_description %}{{ page.meta_description | xml_escape }}{% elsif page.summary %}{{ page.summary | xml_escape }}{% else %}{{ site.description | xml_escape }}{% endif %}">
   <meta name="author" content="{{ site.author }}">
-  ${page.categories.isNotEmpty ? '<meta name="keywords" content="${page.categories.join(', ')}">' : ''}
+  ${_keywordsTag}
   <link rel="canonical" href="${page.url.replaceAll('index.html', '')}">
   <link rel="alternate" type="application/rss+xml" title="RSS Feed for ${site.title}" href="/feed.xml" />
   <!-- Custom CSS -->
@@ -47,6 +47,12 @@ class DefaultLayout implements Layout {
   <link rel="icon" type="image/png" href="/resources/favicon.png" sizes="16x16">
   <link rel="stylesheet" href="/resources/vendor/agate.min.css">
   ''';
+
+  String get _keywordsTag {
+    return page.categories.isNotEmpty
+        ? '<meta name="keywords" content="${page.categories.join(', ')}">'
+        : '';
+  }
 
   String body(String injectionContent) => '''
   <div class="site-wrap">
