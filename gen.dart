@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:io' as io;
+import 'package:markdown/markdown.dart' as markdown;
 import 'package:meta/meta.dart';
 import 'package:universal_html/html.dart';
 import 'package:universal_html/prefer_universal/html.dart';
@@ -147,4 +150,14 @@ void main() {
   print(element.documentElement.outerHtml);
   final doc = Document();
   print(doc.toString());
+
+  final postDir = io.Directory('_posts');
+  final files = postDir.listSync();
+  for (final file in files) {
+    print('Path: ${file.path}');
+    final contents = io.File(file.path).readAsStringSync(encoding: utf8);
+    final md = markdown.markdownToHtml(contents);
+    print(md);
+  }
+  print('done');
 }
