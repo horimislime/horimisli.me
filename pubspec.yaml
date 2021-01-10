@@ -4,6 +4,7 @@ homepage: https://github.com/horimislime/horimisli.me
 environment:
   sdk: ">=2.10.4 <3.0.0"
 dependencies:
+  front_matter: 1.1.0
   universal_html: ^1.2.1
   meta: 1.2.4
   markdown: 3.0.0

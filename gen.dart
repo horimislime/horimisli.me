@@ -1,9 +1,12 @@
 import 'dart:convert';
 import 'dart:io' as io;
+import 'package:front_matter/front_matter.dart' as frontmatter;
 import 'package:markdown/markdown.dart' as markdown;
 import 'package:meta/meta.dart';
+import 'package:universal_html/driver.dart';
 import 'package:universal_html/html.dart';
 import 'package:universal_html/prefer_universal/html.dart';
+// import 'dart:html';
 
 class Site {
   final String title;
@@ -143,21 +146,36 @@ class EntryLayout extends DefaultLayout {
 void main() {
   final site = Site('horimisli.me', 'horimislime', 'horimislime\'s blog',
       'horimisli.me', 'horimisli.me');
-  final page = Page('Entry test', DateTime.now(), ['blog', 'test'], 'body text',
-      'horimisli.me/entry/example/');
-
-  final element = EntryLayout(site: site, page: page).build();
-  print(element.documentElement.outerHtml);
-  final doc = Document();
-  print(doc.toString());
 
   final postDir = io.Directory('_posts');
   final files = postDir.listSync();
   for (final file in files) {
     print('Path: ${file.path}');
-    final contents = io.File(file.path).readAsStringSync(encoding: utf8);
-    final md = markdown.markdownToHtml(contents);
-    print(md);
+    final regex =
+        RegExp('[0-9]{4}\-[0-9]{2}\-[0-9]{2}\-([0-9a-zA-Z\-]+)\.(md|markdown)');
+    final match = regex.firstMatch(file.path);
+    if (match == null) {
+      print('Skipping file ${file.path}');
+      continue;
+    }
+
+    final entryName = match.group(1);
+    final raw = io.File(file.path).readAsStringSync(encoding: utf8);
+    final document = frontmatter.parse(raw);
+    final htmlBody = markdown.markdownToHtml(document.content);
+
+    final page = Page(document.data['title'], DateTime.now(), ['blog', 'test'],
+        htmlBody, 'horimisli.me/entry/example/');
+
+    final element = EntryLayout(site: site, page: page).build();
+
+    final outputDirectory = io.Directory('_site/entry/$entryName');
+    if (!outputDirectory.existsSync()) {
+      outputDirectory.createSync();
+    }
+
+    final output = io.File('_site/entry/$entryName/index.html');
+    output.writeAsStringSync(element.documentElement.outerHtml);
   }
   print('done');
 }
