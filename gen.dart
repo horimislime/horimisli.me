@@ -35,10 +35,42 @@ abstract class Layout {
   Layout({@required this.site, @required this.page});
 }
 
+class CustomUriPolicy implements UriPolicy {
+  @override
+  bool allowsUri(String uri) => true;
+}
+
 class DefaultLayout implements Layout {
+  final NodeValidatorBuilder _htmlValidator = NodeValidatorBuilder.common()
+    ..allowElement('a',
+        attributes: ['href', 'data-size', 'data-show-count'],
+        uriPolicy: CustomUriPolicy())
+    ..allowElement('iframe',
+        attributes: ['scrolling', 'src'], uriPolicy: CustomUriPolicy())
+    ..allowElement('img', attributes: ['src'], uriPolicy: CustomUriPolicy())
+    ..allowElement('script',
+        attributes: [
+          'async',
+          'charset',
+          'src',
+          'type',
+          'data-id',
+          'data-ratio'
+        ],
+        uriPolicy: CustomUriPolicy())
+    ..allowElement('div', attributes: ['role', 'data-dest'])
+    ..allowElement('blockquote', attributes: [
+      'data-instgrm-version',
+      'data-instgrm-permalink',
+      'data-instgrm-captioned'
+    ])
+    ..allowSvg()
+    ..allowInlineStyles();
+
   String get meta => '''
-  <meta charset="utf-8">
+  
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta charset="utf-8">
   <title>${page.title}</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="{% if page.meta_description %}{{ page.meta_description | xml_escape }}{% elsif page.summary %}{{ page.summary | xml_escape }}{% else %}{{ site.description | xml_escape }}{% endif %}">
@@ -89,10 +121,11 @@ class DefaultLayout implements Layout {
   ''';
 
   HtmlDocument build({String injectionContent = ''}) {
-    return document
-      // ..append(ScriptElement()..async = true)
-      ..head.appendHtml(meta)
-      ..body.appendHtml(body(injectionContent));
+    return HtmlDriver().document
+      ..head.appendHtml(meta, validator: _htmlValidator)
+      ..body.appendHtml(body(injectionContent), validator: _htmlValidator)
+      ..body
+          .append(ScriptElement()..src = '/resources/vendor/highlight.min.js');
   }
 
   @override
