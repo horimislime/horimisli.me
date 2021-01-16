@@ -7,7 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="{% if page.meta_description %}{{ page.meta_description | xml_escape }}{% elsif page.summary %}{{ page.summary | xml_escape }}{% else %}{{ site.description | xml_escape }}{% endif %}">
     <meta name="author" content="{{ site.author }}">
-    {% if page.categories %}<meta name="keywords" content="{{ page.categories | join: ', ' }}">{% endif %}
     <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
     <link rel="alternate" type="application/rss+xml" title="horimisli.me" href="/feed.xml" />
 
@@ -43,7 +42,6 @@
     Served by <a href="https://github.com/horimislime/horimisli.me">horimislime/horimisli.me</a>
   </footer>
 </body>
-
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-30891696-5"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
