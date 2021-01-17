@@ -64,6 +64,19 @@ class DefaultLayout implements Layout {
       'data-instgrm-permalink',
       'data-instgrm-captioned'
     ])
+    ..allowElement('g', attributes: [
+      'stroke',
+      'transform',
+      'fill',
+      'fill-rule',
+      'stroke-width',
+      'viewbox',
+      'version',
+      'height',
+      'width'
+    ])
+    ..allowElement('svg')
+    ..allowElement('time', attributes: ['datetime'])
     ..allowSvg()
     ..allowInlineStyles();
 
