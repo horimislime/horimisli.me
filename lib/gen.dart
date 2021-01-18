@@ -6,18 +6,62 @@ import 'package:meta/meta.dart';
 import 'package:universal_html/driver.dart';
 import 'package:universal_html/html.dart';
 import 'package:universal_html/prefer_universal/html.dart';
+import 'models/site.dart';
 // import 'dart:html';
 
-class Site {
-  final String title;
-  final String author;
-  final String description;
-  final String baseUrl;
-  final String url;
-  final DateTime time;
+extension Interpolation on String {
+  String injected(Map<String, dynamic> data) {
+    return this.splitMapJoin(RegExp(r'{.*?}'),
+        onMatch: (match) => data[match.group(0)].toString() ?? '');
+  }
+}
 
-  Site(this.title, this.author, this.description, this.baseUrl, this.url)
-      : time = DateTime.now();
+extension Html on Element {
+  static Element header({String id, String className, List<Element> children}) {
+    return Element.tag('header')
+      ..id = id
+      ..className = className
+      ..nodes = children;
+  }
+
+  static DivElement div(
+      {String id, String className, List<Element> children, String innerText}) {
+    // return Element.div()
+    //   ..id = id
+    //   ..className = className
+    //   ..nodes = children
+    //   ..innerText = innerText;
+    return element('div', id: id, className: className, children: children);
+  }
+
+  static Element a({String href, String className, String innerText}) {
+    return Element.a()
+      ..setAttribute('href', href)
+      ..innerText = innerText;
+  }
+
+  static Element nav(String className, {String id, List<Element> children}) {
+    return element('nav', id: id, className: className, children: children);
+  }
+
+  static Element element(String name,
+      {String id,
+      String className,
+      List<Element> children,
+      String innerText,
+      String innerHtml}) {
+    final tag = Element.tag(name);
+    if (id != null) tag.id = id;
+    if (className != null) tag.className = className;
+    if (innerText != null) tag.innerText = innerText;
+    if (innerHtml != null) tag.innerHtml = innerHtml;
+    if (children != null) {
+      for (final child in children) {
+        tag.append(child);
+      }
+    }
+    return tag;
+  }
 }
 
 class Page {
@@ -137,6 +181,31 @@ class DefaultLayout implements Layout {
     return HtmlDriver().document
       ..head.appendHtml(meta, validator: _htmlValidator)
       ..body.appendHtml(body(injectionContent), validator: _htmlValidator)
+      ..body.nodes = [
+        Html.div(className: 'site-wrap', children: [
+          Html.header(className: 'site-header px2 px-responsive', children: [
+            Html.div(className: 'mt2 wrap', children: [
+              Html.div(className: 'measure', children: [
+                Html.a(
+                    href: '/', className: 'site-title', innerText: site.title),
+                Html.nav('site-nav',
+                    children: [Html.a(href: '/about', innerText: 'About')]),
+                Html.div(className: 'clearfix')
+              ])
+            ])
+          ]),
+          Html.div(className: 'post p2 p-responsive wrap', children: [
+            Html.div(className: 'measure', innerText: injectionContent)
+          ])
+        ]),
+        Html.element('footer', className: 'center', children: [
+          Html.div(className: 'measure', children: [
+            Html.element('small',
+                innerHtml:
+                    'Powered by <a href="https://github.com/horimislime/horimisli.me">horimislime/horimisli.me</a>')
+          ])
+        ])
+      ]
       ..body
           .append(ScriptElement()..src = '/resources/vendor/highlight.min.js');
   }
@@ -196,7 +265,6 @@ void main() {
   final postDir = io.Directory('_posts');
   final files = postDir.listSync();
   for (final file in files) {
-    print('Path: ${file.path}');
     final regex =
         RegExp('[0-9]{4}\-[0-9]{2}\-[0-9]{2}\-([0-9a-zA-Z\-]+)\.(md|markdown)');
     final match = regex.firstMatch(file.path);
@@ -223,5 +291,9 @@ void main() {
     final output = io.File('_site/entry/$entryName/index.html');
     output.writeAsStringSync(element.documentElement.outerHtml);
   }
+
+  final template =
+      io.File('_layouts/default.html').readAsStringSync(encoding: utf8);
+
   print('done');
 }
