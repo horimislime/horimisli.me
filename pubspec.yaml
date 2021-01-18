@@ -8,5 +8,8 @@ dependencies:
   universal_html: ^1.2.1
   meta: 1.2.4
   markdown: 3.0.0
+  json_annotation: ^3.0.0
 dev_dependencies:
   linter: ^0.1.113
+  build_runner: ^1.0.0
+  json_serializable: ^3.2.0
