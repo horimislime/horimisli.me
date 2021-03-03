@@ -1,36 +1,30 @@
 ---
 layout: default
 ---
-{% assign posts_count = paginator.posts | size %}
 
 <div class="home">
-  {% if posts_count > 0 %}
-    <div class="posts">
-      {% for post in paginator.posts %}
-        <div class="post py1">
-          <p class="post-meta">{{ post.date | date: site.date_format }}</p>
-          <a href="{{ post.url | prepend: site.baseurl }}" class="post-link"><h3 class="post-title">{{ post.title }}</h3></a>
-        </div>
-      {% endfor %}
-    </div>
-
-    {% if paginator.total_pages != 1 %}
-    <div class="pagination clearfix mb1 mt4">
-      <div class="left">
-        {% if paginator.previous_page %}
-          {% if paginator.page == 2 %}
-            <a class="pagination-item" href="{{ site.baseurl }}/">Newer</a>
-          {% else %}
-            <a class="pagination-item" href="{{ paginator.previous_page_path }}">Newer</a>
-          {% endif %}
-        {% endif %}
+  <div class="posts">
+    {% for post in paginator.posts %}
+      <div class="post py1">
+        <p class="post-meta">{{ post.date | date: site.date_format }}</p>
+        <a href="{{ post.url | prepend: site.baseurl }}" class="post-link"><h3 class="post-title">{{ post.title }}</h3></a>
       </div>
-      <div class="right">
-        {% if paginator.next_page %}
-          <a class="pagination-item" href="{{ paginator.next_page_path }}">Older</a>
+    {% endfor %}
+  </div>
+  <div class="pagination">
+    <div class="left">
+      {% if paginator.previous_page %}
+        {% if paginator.page == 2 %}
+          <a class="pagination-item" href="{{ site.baseurl }}/">Newer</a>
+        {% else %}
+          <a class="pagination-item" href="{{ paginator.previous_page_path }}">Newer</a>
         {% endif %}
-      </div>
+      {% endif %}
     </div>
-    {% endif %}
-  {% endif %}
+    <div class="right">
+      {% if paginator.next_page %}
+        <a class="pagination-item" href="{{ paginator.next_page_path }}">Older</a>
+      {% endif %}
+    </div>
+  </div>
 </div>
