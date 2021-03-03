@@ -29,7 +29,7 @@
     
 <body>
   <header class="site-header">
-    <a href="/" class="site-title">{{ site.title }}</a>
+    <a href="/" class="site-title">🏠 {{ site.title }}</a>
     <nav class="site-nav">
       <a href="/about">About</a>
     </nav>
@@ -37,8 +37,10 @@
   <div class="measure">
     {{ content }}
   </div>
+  <hr>
   <footer>
-    Powered by <a href="https://github.com/horimislime/horimisli.me">horimislime/horimisli.me</a>
+    ©︎ 2021 horimislime <br>
+    Served by <a href="https://github.com/horimislime/horimisli.me">horimislime/horimisli.me</a>
   </footer>
 </body>
 {% if jekyll.environment == 'production' %}
@@ -49,6 +51,9 @@
   gtag('js', new Date());
 
   gtag('config', 'UA-30891696-5');
+  window.addEventListener('scroll', () => {
+  document.body.style.setProperty('--scroll',window.pageYOffset / (document.body.offsetHeight - window.innerHeight));
+  }, false);
 </script>
 {% endif %}
 </html>
