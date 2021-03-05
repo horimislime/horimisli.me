@@ -1,8 +1,8 @@
 class Page {
-  final String title;
+  String title;
   final DateTime publishedAt;
   final List<String> categories;
-  final String content;
+  String content;
   final String url;
-  Page(this.title, this.publishedAt, this.categories, this.content, this.url);
+  Page({this.title, this.publishedAt, this.categories, this.content, this.url});
 }
