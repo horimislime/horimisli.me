@@ -35,6 +35,7 @@ final NodeValidatorBuilder htmlValidator = NodeValidatorBuilder.common()
   ])
   ..allowElement('svg')
   ..allowElement('time', attributes: ['datetime'])
+  ..allowElement('main', attributes: ['role'])
   ..allowSvg()
   ..allowInlineStyles();
 

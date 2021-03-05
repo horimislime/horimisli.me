@@ -59,6 +59,6 @@ class EntryLayout extends DefaultLayout {
 
   @override
   HtmlDocument build({Node innerContent}) {
-    return super.build(innerContent: _buildContent());
+    // return super.build(innerContent: _buildContent());
   }
 }
