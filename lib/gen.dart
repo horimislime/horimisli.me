@@ -1,10 +1,27 @@
 import 'dart:convert';
 import 'dart:io' as io;
+import 'package:blog/templates/default.dart';
 import 'package:front_matter/front_matter.dart' as frontmatter;
 import 'package:markdown/markdown.dart' as markdown;
 import 'models/site.dart';
 import 'models/page.dart';
 import 'templates/post.dart';
+
+class Post {
+  String title;
+  String htmlBody;
+  DateTime publishedDate;
+  List<String> categories;
+
+  Post._(this.title, this.htmlBody, this.publishedDate, this.categories);
+
+  static Post loadFromFile(String filePath) {
+    final raw = io.File(filePath).readAsStringSync(encoding: utf8);
+    final document = frontmatter.parse(raw);
+    final htmlBody = markdown.markdownToHtml(document.content);
+    return Post._(document.data['title'], htmlBody, DateTime.now(), ['test']);
+  }
+}
 
 void main() {
   final site = Site('horimisli.me', 'horimislime', 'horimislime\'s blog',
@@ -22,14 +39,9 @@ void main() {
     }
 
     final entryName = match.group(1);
-    final raw = io.File(file.path).readAsStringSync(encoding: utf8);
-    final document = frontmatter.parse(raw);
-    final htmlBody = markdown.markdownToHtml(document.content);
-
-    final page = Page(document.data['title'], DateTime.now(), ['blog', 'test'],
-        htmlBody, 'horimisli.me/entry/example/');
-
-    final element = EntryLayout(site: site, page: page).build();
+    final post = Post.loadFromFile(file.path);
+    final test = PostPage();
+    final renderedHtml = test.render(site, post);
 
     final outputDirectory = io.Directory('_site/entry/$entryName');
     if (!outputDirectory.existsSync()) {
@@ -37,11 +49,6 @@ void main() {
     }
 
     final output = io.File('_site/entry/$entryName/index.html');
-    output.writeAsStringSync(element.documentElement.outerHtml);
+    output.writeAsStringSync(renderedHtml);
   }
-
-  final template =
-      io.File('_layouts/default.html').readAsStringSync(encoding: utf8);
-
-  print('done');
 }
