@@ -2,7 +2,6 @@ import 'package:universal_html/driver.dart';
 import 'package:universal_html/html.dart';
 import 'package:universal_html/prefer_universal/html.dart';
 import '../gen.dart';
-import '../models/page.dart';
 import '../models/site.dart';
 import 'dart:io' as io;
 import 'dart:convert';
@@ -25,11 +24,11 @@ class DefaultLayout extends HtmlPage {
 
   DefaultLayout() : super();
 
-  String render(Site site, Page page) {
+  String render(Site site, String title, String content) {
     return (_document
-          ..title = page.title
+          ..title = title
           ..querySelector('.measure')
-              .appendHtml(page.content, validator: htmlValidator))
+              .appendHtml(content, validator: htmlValidator))
         .documentElement
         .innerHtml;
   }
@@ -52,10 +51,7 @@ class PostPage extends HtmlPage {
         .documentElement
         .innerHtml;
 
-    final page = Page()
-      ..content = innerContent
-      ..title = post.title;
-    return _layout.render(site, page);
+    return _layout.render(site, post.title, innerContent);
   }
 }
 
@@ -72,16 +68,29 @@ class IndexPage extends HtmlPage {
 
   IndexPage() : super();
 
-  String render(Site site, Page page) {
+  HtmlElement _buildEntryList(List<Post> posts) {
+    return div(className: 'posts', children: [
+      for (final post in posts)
+        div(className: 'post', children: [
+          Element.p()
+            ..className = 'post-meta'
+            ..innerText = post.publishedDate.toIso8601String(),
+          element('a',
+              attributes: {'href': '/entry/${post.pathName}'},
+              className: 'post-link',
+              children: [
+                element('h3', className: 'post-title', innerText: post.title)
+              ])
+        ])
+    ]);
+  }
+
+  String render(IndexPageData data) {
+    final postsElement = _buildEntryList(data.posts);
     final innerContent = (_document
-          ..querySelector('.post-meta').innerText =
-              page.publishedAt.toIso8601String()
-          ..querySelector('.post-title').innerText = page.title
-          ..querySelector('main')
-              .setInnerHtml(page.content, validator: htmlValidator))
+          ..querySelector('.posts').replaceWith(postsElement))
         .documentElement
         .innerHtml;
-
-    return _layout.render(site, page..content = innerContent);
+    return _layout.render(data.site, data.title, innerContent);
   }
 }
