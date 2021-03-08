@@ -62,3 +62,10 @@ void main() {
   final output = io.File('_site/index.html');
   output.writeAsStringSync(renderedHtml);
 }
+
+List<List<Post>> chunk(List<Post> posts) {
+  final chunkSize = 10;
+  final chunkCount = (posts.length / chunkSize).ceil();
+  return List.generate(
+      chunkCount, (i) => posts.skip(chunkSize * i).take(chunkSize));
+}
