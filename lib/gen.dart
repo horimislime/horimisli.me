@@ -63,6 +63,14 @@ void main() {
   output.writeAsStringSync(renderedHtml);
 }
 
+class Page<T> {
+  List<T> items;
+  bool hasPrev;
+  bool hasNext;
+}
+
+class Paginator<T> {}
+
 List<List<Post>> chunk(List<Post> posts) {
   final chunkSize = 10;
   final chunkCount = (posts.length / chunkSize).ceil();
