@@ -5,6 +5,36 @@ import 'package:front_matter/front_matter.dart' as frontmatter;
 import 'package:markdown/markdown.dart' as markdown;
 import 'models/site.dart';
 import 'package:path/path.dart' as path;
+import 'package:yaml/yaml.dart';
+
+class FrontMatter {
+  static const String delimiter = '---';
+  static Map<String, dynamic> parse(String content) {
+    var beganFrontMatterBlock = false;
+    final yamlValues = List<String>();
+    for (final line in content.split('\n')) {
+      if (line == delimiter) {
+        if (beganFrontMatterBlock) {
+          break;
+        }
+        beganFrontMatterBlock = true;
+        continue;
+      }
+
+      if (beganFrontMatterBlock) {
+        yamlValues.add(line);
+      }
+    }
+
+    final map = (loadYaml(yamlValues.join('\n')) as YamlMap).nodes;
+
+    final result = Map<String, dynamic>();
+    for (final key in map.keys) {
+      result[key.value as String] = map[key];
+    }
+    return result;
+  }
+}
 
 class Post {
   String title;
@@ -21,17 +51,34 @@ class Post {
     final document = frontmatter.parse(raw);
     final htmlBody = markdown.markdownToHtml(document.content);
     final fileName = path.posix.basenameWithoutExtension(filePath);
+
+    final test = FrontMatter.parse(raw);
+
+    final dateString = document.data['date'];
+    final publishedDate = DateTime.parse(dateString);
+    final t = document.data['categories'] as YamlList;
+    final categories = document.data['categories'].nodes
+        .map((e) => e.value as String)
+        .toList<String>();
+    print(categories);
     return Post._(
-        document.data['title'], htmlBody, DateTime.now(), ['test'], fileName);
+        document.data['title'], htmlBody, publishedDate, categories, fileName);
   }
 
   static List<Post> list(String directoryPath) {
     final files = io.Directory(directoryPath).listSync();
-    final markdowns = files.where((f) {
-      final ext = path.posix.extension(f.path);
-      return ext == '.md' || ext == '.markdown';
-    });
-    return markdowns.map((f) => loadFromFile(f.path)).toList();
+    final markdowns = files
+        .where((f) {
+          final ext = path.posix.extension(f.path);
+          return ext == '.md' || ext == '.markdown';
+        })
+        .map((f) => loadFromFile(f.path))
+        .toList();
+    markdowns.sort((a, b) =>
+        a.publishedDate.millisecondsSinceEpoch -
+        b.publishedDate.millisecondsSinceEpoch);
+
+    return markdowns;
   }
 }
 
@@ -53,27 +100,49 @@ void main() {
     output.writeAsStringSync(renderedHtml);
   }
 
-  final indexData = IndexPageData()
-    ..posts = posts
-    ..site = site
-    ..title = site.title;
-  final indexPage = IndexPage();
-  final renderedHtml = indexPage.render(indexData);
-  final output = io.File('_site/index.html');
-  output.writeAsStringSync(renderedHtml);
+  final paginator = Paginator(posts, 10);
+  for (var i = 0; i < paginator.pages.length; i++) {
+    final page = paginator.pages[i];
+    final indexData = IndexPageData()
+      ..posts = page.items
+      ..site = site
+      ..title = site.title;
+    final indexPage = IndexPage();
+    final renderedHtml = indexPage.render(indexData);
+
+    if (!page.hasPrev) {
+      final output = io.File('_site/index.html');
+      output.writeAsStringSync(renderedHtml);
+    } else {
+      final output = io.File('_site/page${i + 1}/index.html');
+      output.writeAsStringSync(renderedHtml);
+    }
+  }
 }
 
 class Page<T> {
   List<T> items;
   bool hasPrev;
   bool hasNext;
+  Page(this.items, this.hasPrev, this.hasNext);
 }
 
-class Paginator<T> {}
+class Paginator<T> {
+  final pages = List<Page<T>>();
 
-List<List<Post>> chunk(List<Post> posts) {
-  final chunkSize = 10;
-  final chunkCount = (posts.length / chunkSize).ceil();
-  return List.generate(
-      chunkCount, (i) => posts.skip(chunkSize * i).take(chunkSize));
+  Paginator(List<T> items, int itemsPerPage) {
+    final chunkedList = chunk(items, itemsPerPage);
+
+    for (var i = 0; i < chunkedList.length; i++) {
+      final hasPrev = i > 0;
+      final hasNext = i < chunkedList.length - 1;
+      pages.add(Page(chunkedList[i], hasPrev, hasNext));
+    }
+  }
+
+  List<List<T>> chunk(List<T> items, int chunkSize) {
+    final chunkCount = (items.length / chunkSize).ceil();
+    return List.generate(
+        chunkCount, (i) => items.skip(chunkSize * i).take(chunkSize).toList());
+  }
 }
