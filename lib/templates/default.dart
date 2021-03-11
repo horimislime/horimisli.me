@@ -28,7 +28,7 @@ class DefaultLayout extends HtmlPage {
     return (_document
           ..title = title
           ..querySelector('.measure')
-              .appendHtml(content, validator: htmlValidator))
+              .setInnerHtml(content, validator: htmlValidator))
         .documentElement
         .innerHtml;
   }
@@ -59,6 +59,9 @@ class IndexPageData {
   Site site;
   String title;
   List<Post> posts;
+  int page;
+  bool hasNext;
+  IndexPageData(this.site, this.title, this.posts, this.page, this.hasNext);
 }
 
 class IndexPage extends HtmlPage {
@@ -85,10 +88,33 @@ class IndexPage extends HtmlPage {
     ]);
   }
 
+  HtmlElement _buildPagination(int page, bool hasNext) {
+    return div(className: 'pagination', children: [
+      div(className: 'left', children: [
+        if (page == 2)
+          a(className: 'pagination-item', href: '/', innerText: 'Newer')
+        else
+          a(
+              className: 'pagination-item',
+              href: '/page${page - 1}',
+              innerText: 'Newer')
+      ]),
+      div(className: 'right', children: [
+        if (hasNext)
+          a(
+              className: 'pagination-item',
+              href: '/page${page + 1}',
+              innerText: 'Older')
+      ])
+    ]);
+  }
+
   String render(IndexPageData data) {
     final postsElement = _buildEntryList(data.posts);
+    final paginationElement = _buildPagination(data.page, data.hasNext);
     final innerContent = (_document
-          ..querySelector('.posts').replaceWith(postsElement))
+          ..querySelector('.posts').replaceWith(postsElement)
+          ..querySelector('.pagination').replaceWith(paginationElement))
         .documentElement
         .innerHtml;
     return _layout.render(data.site, data.title, innerContent);
