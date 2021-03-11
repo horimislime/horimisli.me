@@ -52,15 +52,10 @@ class Post {
     final htmlBody = markdown.markdownToHtml(document.content);
     final fileName = path.posix.basenameWithoutExtension(filePath);
 
-    final test = FrontMatter.parse(raw);
-
     final dateString = document.data['date'];
     final publishedDate = DateTime.parse(dateString);
-    final t = document.data['categories'] as YamlList;
-    final categories = document.data['categories'].nodes
-        .map((e) => e.value as String)
-        .toList<String>();
-    print(categories);
+    final categories =
+        (document.data['categories'] as YamlList ?? []).cast<String>().toList();
     return Post._(
         document.data['title'], htmlBody, publishedDate, categories, fileName);
   }
@@ -75,8 +70,8 @@ class Post {
         .map((f) => loadFromFile(f.path))
         .toList();
     markdowns.sort((a, b) =>
-        a.publishedDate.millisecondsSinceEpoch -
-        b.publishedDate.millisecondsSinceEpoch);
+        b.publishedDate.millisecondsSinceEpoch -
+        a.publishedDate.millisecondsSinceEpoch);
 
     return markdowns;
   }
@@ -103,10 +98,8 @@ void main() {
   final paginator = Paginator(posts, 10);
   for (var i = 0; i < paginator.pages.length; i++) {
     final page = paginator.pages[i];
-    final indexData = IndexPageData()
-      ..posts = page.items
-      ..site = site
-      ..title = site.title;
+    final indexData =
+        IndexPageData(site, site.title, page.items, i + 1, page.hasNext);
     final indexPage = IndexPage();
     final renderedHtml = indexPage.render(indexData);
 
