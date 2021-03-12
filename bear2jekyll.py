@@ -59,7 +59,7 @@ def text_to_markdown(text):
         '---',
         'layout: post',
         f'title: {title}',
-        f'date: {dt.now().strftime("%Y/%m/%d %H:00")}',
+        f'date: {dt.now().strftime("%Y-%m-%d %HH:00")}',
         'category: ["tech", "blog"]',
         'published: false',
         '---'

@@ -5,7 +5,7 @@ import '../models/page.dart';
 import '../models/site.dart';
 import './default.dart';
 
-class EntryLayout extends DefaultLayout {
+class EntryLayout extends BaseLayout {
   @override
   final Page page;
   @override

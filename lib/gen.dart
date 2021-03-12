@@ -84,7 +84,8 @@ void main() {
   final posts = Post.list('_posts');
   for (final post in posts) {
     final test = PostPage();
-    final renderedHtml = test.render(site, post);
+    final renderedHtml = test.render(PostPageData(
+        site.title, post.htmlBody, post.publishedDate.toIso8601String()));
 
     final outputDirectory = io.Directory('_site/entry/${post.pathName}');
     if (!outputDirectory.existsSync()) {
