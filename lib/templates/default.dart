@@ -1,3 +1,4 @@
+import 'package:json_annotation/json_annotation.dart';
 import 'package:universal_html/driver.dart';
 import 'package:universal_html/html.dart';
 import 'package:universal_html/prefer_universal/html.dart';
@@ -8,6 +9,7 @@ import 'dart:convert';
 import 'package:blog/html_syntax.dart';
 
 class HtmlPage {
+  static const sanitizer = HtmlEscape();
   String htmlFilePath;
   HtmlDocument _document;
   HtmlPage() {
@@ -16,42 +18,57 @@ class HtmlPage {
     driver.setDocumentFromContent(body);
     _document = driver.document;
   }
+
+  String renderJson(Map<String, dynamic> data) {
+    var renderedText = _document.documentElement.outerHtml;
+    for (final key in data.keys) {
+      final value = sanitizer.convert(data[key]);
+      renderedText = renderedText.replaceAll('{{ $key }}', value);
+    }
+    return renderedText;
+  }
 }
 
-class DefaultLayout extends HtmlPage {
+@JsonSerializable()
+class LayoutData {
+  String title;
+  String content;
+  LayoutData(this.title, this.content);
+  Map<String, dynamic> toJson() => {'title': title, 'content': content};
+}
+
+class BaseLayout extends HtmlPage {
   @override
   String htmlFilePath = '_layouts/default.html';
 
-  DefaultLayout() : super();
+  BaseLayout() : super();
 
-  String render(Site site, String title, String content) {
-    return (_document
-          ..title = title
-          ..querySelector('.measure')
-              .setInnerHtml(content, validator: htmlValidator))
-        .documentElement
-        .innerHtml;
+  String render(LayoutData data) {
+    return renderJson(data.toJson());
   }
+}
+
+class PostPageData {
+  String title;
+  String content;
+  String publishedDate;
+
+  PostPageData(this.title, this.content, this.publishedDate);
+
+  Map<String, dynamic> toJson() =>
+      {'title': title, 'content': content, 'publishedDate': publishedDate};
 }
 
 class PostPage extends HtmlPage {
   @override
   String htmlFilePath = '_layouts/post.html';
-  final _layout = DefaultLayout();
+  final _layout = BaseLayout();
 
   PostPage() : super();
 
-  String render(Site site, Post post) {
-    final innerContent = (_document
-          ..querySelector('.post-meta').innerText =
-              post.publishedDate.toIso8601String()
-          ..querySelector('.post-title').innerText = post.title
-          ..querySelector('main')
-              .setInnerHtml(post.htmlBody, validator: htmlValidator))
-        .documentElement
-        .innerHtml;
-
-    return _layout.render(site, post.title, innerContent);
+  String render(PostPageData data) {
+    final pageContent = renderJson(data.toJson());
+    return _layout.render(LayoutData(data.title, pageContent));
   }
 }
 
@@ -67,7 +84,7 @@ class IndexPageData {
 class IndexPage extends HtmlPage {
   @override
   String htmlFilePath = 'index.html';
-  final _layout = DefaultLayout();
+  final _layout = BaseLayout();
 
   IndexPage() : super();
 
@@ -117,6 +134,6 @@ class IndexPage extends HtmlPage {
           ..querySelector('.pagination').replaceWith(paginationElement))
         .documentElement
         .innerHtml;
-    return _layout.render(data.site, data.title, innerContent);
+    return _layout.render(LayoutData(data.title, innerContent));
   }
 }
