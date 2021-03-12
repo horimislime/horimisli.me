@@ -1,9 +1,10 @@
 <div class="post-header">
-  <span class="post-meta">{{ page.date | date: site.date_format }}</span>
-  <h1 class="post-title">{{ page.title }}</h1>
+  <span class="post-meta">{{ publishedDate }}</span>
+  <h1 class="post-title">{{ title }}</h1>
 </div>
 
 <main role="main">
+  {{ content }}
 </main>
 
 <div class="share-links">

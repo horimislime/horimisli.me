@@ -3,27 +3,14 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>{{ page.title | strip_html }}</title>
+    <title>{{ title }}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="{% if page.meta_description %}{{ page.meta_description | xml_escape }}{% elsif page.summary %}{{ page.summary | xml_escape }}{% else %}{{ site.description | xml_escape }}{% endif %}">
-    <meta name="author" content="{{ site.author }}">
-    <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
     <link rel="alternate" type="application/rss+xml" title="horimisli.me" href="/feed.xml" />
 
     <link rel="stylesheet" href="/resources/style.css" type="text/css">
     <link rel="stylesheet" href="/resources/vendor/agate.min.css">
     <link rel="apple-touch-icon" sizes="180x180" href="/resources/apple-touch-icon.png">
     <link rel="icon" type="image/png" href="/resources/favicon.png" sizes="16x16">
-
-    <meta property="og:type" content="article">
-    <meta property="og:title" content="{% if page.title %}{{ page.title | xml_escape }}{% else %}{{ site.title | xml_escape }}{% endif %}">
-    <meta property="og:description" content="{% if page.description %}{{ page.description | xml_escape }}{% else %}{{ site.description | xml_escape }}{% endif %}">
-    <meta property="og:url" content="{{ site.url }}{{ page.url }}">
-    <meta property="og:site_name" content="{{ site.title | xml_escape }}">
-    {% if site.post_preview_image %}
-    <meta property="og:image" content="/images/slime.jpg">
-    {% endif %}
-    {% seo %}
 </head>
     
 <body>
