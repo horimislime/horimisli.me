@@ -12,7 +12,9 @@ class SiteGenerator {
   SiteGenerator(this.config);
 
   Future<void> build() async {
-    return Future.wait([compilePageTasks(), ...copyAssetTasks()]);
+    print('Building site...');
+    return Future.wait([compilePageTasks(), ...copyAssetTasks()])
+        .then((_) => print('Done.'));
   }
 
   Future<void> createFile(String content, String filePath) async {
