@@ -7,10 +7,6 @@ class BuildCommand extends Command {
   final description = "Build site";
   SiteGenerator _builder;
 
-  BuildCommand() {
-    argParser.addFlag('watch', abbr: 'w');
-  }
-
   void run() async {
     final config = await Config.load();
     _builder = SiteGenerator(config);
