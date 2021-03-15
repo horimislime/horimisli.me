@@ -1,11 +1,11 @@
 import 'dart:io' as io;
-import 'package:blog/templates/feed.dart';
+import 'package:blog/pages/feed.dart';
 import 'package:path/path.dart' as path;
 import 'package:blog/models/config.dart';
 import 'package:blog/models/page.dart';
 import 'package:blog/models/post.dart';
-import 'package:blog/templates/index.dart';
-import 'package:blog/templates/post.dart';
+import 'package:blog/pages/index.dart';
+import 'package:blog/pages/post.dart';
 
 class SiteGenerator {
   final Config config;
