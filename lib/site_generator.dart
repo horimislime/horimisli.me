@@ -1,4 +1,5 @@
 import 'dart:io' as io;
+import 'package:blog/templates/feed.dart';
 import 'package:path/path.dart' as path;
 import 'package:blog/models/config.dart';
 import 'package:blog/models/page.dart';
@@ -55,8 +56,10 @@ class SiteGenerator {
     final config = await Config.load();
     final posts = Post.list('_posts');
     final paginator = Paginator(posts, 10);
+    final feedXml = Feed(config, posts.take(10).toList()).build();
 
     return [
+      createFile(feedXml, '_site/feed.xml'),
       ...posts.map((post) {
         final html = PostPage(config, post).build();
         return createFile(html, '_site/entry/${post.pathName}/index.html');
