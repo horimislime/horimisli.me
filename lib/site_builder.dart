@@ -1,66 +1,81 @@
+import 'dart:io' as io;
+import 'package:path/path.dart' as path;
 import 'package:blog/models/config.dart';
 import 'package:blog/models/page.dart';
 import 'package:blog/models/post.dart';
-import 'package:blog/models/site.dart';
-import 'package:blog/templates/html.dart';
 import 'package:blog/templates/index.dart';
 import 'package:blog/templates/post.dart';
-import 'dart:io' as io;
 
 class SiteBuilder {
-  Future<void> build() {
-    return Future.wait([buildPosts(), copyAssets()]);
+  final Config config;
+
+  SiteBuilder(this.config);
+
+  Future<void> build() async {
+    return Future.wait([compilePageTasks(), ...copyAssetTasks()]);
   }
 
-  Future<void> buildPosts() async {
-    print('Compiling posts...');
-    final site = Site('horimisli.me', 'horimislime', 'horimislime\'s blog',
-        'horimisli.me', 'horimisli.me');
+  Future<void> createFile(String content, String filePath) async {
+    return io.File(filePath)
+        .create(recursive: true)
+        .then((f) => f.writeAsString(content))
+        .then((f) => print('wrote ${f.path}'));
+  }
 
-    final config = await Config.load();
+  Future<void> copyFile(String sourcePath, String destinationPath) async {
+    return io.File(destinationPath)
+        .create(recursive: true)
+        .then((destination) =>
+            io.File(sourcePath).openRead().pipe(destination.openWrite()))
+        .then((_) => print('copied $sourcePath => $destinationPath'));
+  }
 
-    final posts = Post.list('_posts');
-    // for (final post in posts) {
-    //   final test = PostPage();
-    //   final renderedHtml = test.render(PostPageData(
-    //       site.title, post.htmlBody, post.publishedDate.toIso8601String()));
-
-    //   final outputDirectory = io.Directory('_site/entry/${post.pathName}');
-    //   if (!outputDirectory.existsSync()) {
-    //     outputDirectory.createSync();
-    //   }
-
-    //   final output = io.File('_site/entry/${post.pathName}/index.html');
-    //   output.writeAsStringSync(renderedHtml);
-    //   print('wrote ${output.path}');
-    // }
-
-    final paginator = Paginator(posts, 10);
-    for (var i = 0; i < paginator.pages.length; i++) {
-      final page = paginator.pages[i];
-      final indexPage = IndexPage(config, page.items, i + 1, page.hasNext);
-      final renderedHtml = indexPage.build();
-
-      if (!page.hasPrev) {
-        final output = io.File('_site/index.html');
-        output.writeAsStringSync(renderedHtml);
-        print('wrote ${output.path}');
-      } else {
-        final output = io.File('_site/page${i + 1}/index.html');
-        output.writeAsStringSync(renderedHtml);
-        print('wrote ${output.path}');
+  Future<void> copyDirectory(String sourcePath, String destinationPath) async {
+    return io.Directory(sourcePath).list().forEach((source) {
+      final baseName = path.posix.basename(source.path);
+      if (baseName.startsWith('.')) {
+        return Future.value().then((_) => print('skipping $baseName'));
       }
-    }
-
-    print('Done.');
+      final sourceFilePath = '$sourcePath/$baseName';
+      final destinationFullPath = '$destinationPath/$baseName';
+      if ((source is io.Directory)) {
+        return copyDirectory(source.path, destinationFullPath);
+      }
+      return io.File(destinationFullPath)
+          .create(recursive: true)
+          .then((destination) =>
+              io.File(source.path).openRead().pipe(destination.openWrite()))
+          .then((_) => print('copied $sourceFilePath => $destinationFullPath'));
+    });
   }
 
-  Future<void> copyAssets() async {
-    // io.Directory('_images').list().forEach((element) {
-    //   (element as io.File).copy('_site/images');
-    // });
-    // io.Directory('resources').list().forEach((element) {
-    //   (element as io.File).copy('_site/resources');
-    // });
+  Future<void> compilePageTasks() async {
+    final config = await Config.load();
+    final posts = Post.list('_posts');
+    final paginator = Paginator(posts, 10);
+
+    return [
+      ...posts.map((post) {
+        final html = PostPage(config, post).build();
+        return createFile(html, '_site/entry/${post.pathName}/index.html');
+      }),
+      ...paginator.pages.map((page) {
+        final html =
+            IndexPage(config, page.items, page.pageNo, page.hasNext).build();
+        final filePath = page.pageNo == 1
+            ? '_site/index.html'
+            : '_site/page${page.pageNo}/index.html';
+        return createFile(html, filePath);
+      })
+    ];
+  }
+
+  List<Future<void>> copyAssetTasks() {
+    return config.resourceDirectories.map((directory) {
+      final destination = directory.startsWith('_')
+          ? directory.replaceFirst('_', '')
+          : directory;
+      return copyDirectory(directory, '_site/$destination');
+    }).toList();
   }
 }
