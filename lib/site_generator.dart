@@ -6,10 +6,10 @@ import 'package:blog/models/post.dart';
 import 'package:blog/templates/index.dart';
 import 'package:blog/templates/post.dart';
 
-class SiteBuilder {
+class SiteGenerator {
   final Config config;
 
-  SiteBuilder(this.config);
+  SiteGenerator(this.config);
 
   Future<void> build() async {
     return Future.wait([compilePageTasks(), ...copyAssetTasks()]);
