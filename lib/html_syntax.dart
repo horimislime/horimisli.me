@@ -1,5 +1,9 @@
 import 'package:universal_html/html.dart';
 import 'package:universal_html/prefer_universal/html.dart';
+import 'package:universal_html/driver.dart';
+
+export 'package:universal_html/prefer_universal/html.dart';
+export 'package:universal_html/driver.dart';
 
 class CustomUriPolicy implements UriPolicy {
   @override
