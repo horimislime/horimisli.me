@@ -1,7 +1,7 @@
-import 'package:blog/html_syntax.dart';
+import 'package:blog/html.dart';
 import 'package:blog/models/config.dart';
 import 'package:blog/models/post.dart';
-import 'package:blog/templates/default.dart';
+import 'package:blog/pages/default.dart';
 
 class PostPage extends DefaultPage {
   final Post post;
