@@ -1,10 +1,4 @@
 import 'package:json_annotation/json_annotation.dart';
-
-import 'package:universal_html/html.dart';
-import 'package:universal_html/prefer_universal/html.dart';
-import '../gen.dart';
-import '../models/site.dart';
-import 'package:blog/html_syntax.dart';
 import 'package:blog/templates/html.dart';
 
 @JsonSerializable()
