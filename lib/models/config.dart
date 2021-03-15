@@ -7,13 +7,18 @@ class Config {
   final String description;
   final String urlString;
   final int entryPerPage;
-  final List<String> includeFileNames;
+
+  final List<String> resourceDirectories = [
+    '.well-known',
+    'resources',
+    '_images'
+  ];
 
   final bool isDev;
   static const int devServerPort = 4100;
 
   Config._(this.title, this.author, this.description, this.urlString,
-      this.entryPerPage, this.includeFileNames, this.isDev);
+      this.entryPerPage, this.isDev);
 
   static Future<Config> load(
       {String configFilePath = '_config.yml', bool isDev = true}) async {
@@ -26,7 +31,6 @@ class Config {
         config['description'],
         isDev ? 'http://localhost:$devServerPort' : config['url'],
         config['paginate'],
-        (config['include'] as YamlList ?? []).cast<String>().toList(),
         isDev);
   }
 }

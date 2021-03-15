@@ -1,8 +1,9 @@
 class Page<T> {
   List<T> items;
+  int pageNo;
   bool hasPrev;
   bool hasNext;
-  Page(this.items, this.hasPrev, this.hasNext);
+  Page(this.items, this.pageNo, this.hasPrev, this.hasNext);
 }
 
 class Paginator<T> {
@@ -14,7 +15,7 @@ class Paginator<T> {
     for (var i = 0; i < chunkedList.length; i++) {
       final hasPrev = i > 0;
       final hasNext = i < chunkedList.length - 1;
-      pages.add(Page(chunkedList[i], hasPrev, hasNext));
+      pages.add(Page(chunkedList[i], i + 1, hasPrev, hasNext));
     }
   }
 
