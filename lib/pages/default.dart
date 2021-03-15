@@ -1,4 +1,4 @@
-import 'package:blog/html_syntax.dart';
+import 'package:blog/html.dart';
 import 'package:blog/models/config.dart';
 
 class DefaultPage {

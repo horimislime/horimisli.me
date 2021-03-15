@@ -1,6 +1,6 @@
 import 'package:blog/models/config.dart';
 import 'package:blog/models/post.dart';
-import 'package:blog/html_syntax.dart';
+import 'package:blog/html.dart';
 
 class Feed {
   final Config config;
