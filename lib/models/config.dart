@@ -2,17 +2,21 @@ import 'dart:io' as io;
 import 'package:yaml/yaml.dart';
 
 class Config {
-  String title;
-  String author;
-  String description;
-  String urlString;
-  int entryPerPage;
-  List<String> includeFileNames;
+  final String title;
+  final String author;
+  final String description;
+  final String urlString;
+  final int entryPerPage;
+  final List<String> includeFileNames;
+
+  final bool isDev;
+  static const int devServerPort = 4100;
 
   Config._(this.title, this.author, this.description, this.urlString,
-      this.entryPerPage, this.includeFileNames);
+      this.entryPerPage, this.includeFileNames, this.isDev);
 
-  static Future<Config> load({String configFilePath = '_config.yml'}) async {
+  static Future<Config> load(
+      {String configFilePath = '_config.yml', bool isDev = true}) async {
     final configString = await io.File(configFilePath).readAsString();
     final config = loadYaml(configString);
 
@@ -20,8 +24,9 @@ class Config {
         config['title'],
         config['author'],
         config['description'],
-        config['url'],
+        isDev ? 'http://localhost:$devServerPort' : config['url'],
         config['paginate'],
-        (config['include'] as YamlList ?? []).cast<String>().toList());
+        (config['include'] as YamlList ?? []).cast<String>().toList(),
+        isDev);
   }
 }
