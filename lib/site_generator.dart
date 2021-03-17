@@ -25,8 +25,11 @@ class SiteGenerator {
         .then((f) => print('wrote ${f.path}'));
   }
 
-  Future<void> copyFile(String sourcePath, String destinationPath) async {
-    return io.File(destinationPath)
+  Future<void> copyFile(String sourcePath,
+      {String destinationPath = ''}) async {
+    final filename = path.posix.basename(sourcePath);
+    return io.File(
+            destinationPath.isEmpty ? '_site/$filename' : destinationPath)
         .create(recursive: true)
         .then((destination) =>
             io.File(sourcePath).openRead().pipe(destination.openWrite()))
@@ -76,11 +79,14 @@ class SiteGenerator {
   }
 
   List<Future<void>> copyAssetTasks() {
-    return config.resourceDirectories.map((directory) {
-      final destination = directory.startsWith('_')
-          ? directory.replaceFirst('_', '')
-          : directory;
-      return copyDirectory(directory, '_site/$destination');
-    }).toList();
+    return [
+      copyFile('keybase.txt'),
+      ...config.resourceDirectories.map((directory) {
+        final destination = directory.startsWith('_')
+            ? directory.replaceFirst('_', '')
+            : directory;
+        return copyDirectory(directory, '_site/$destination');
+      }).toList()
+    ];
   }
 }
