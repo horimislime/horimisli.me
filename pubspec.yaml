@@ -2,16 +2,11 @@ name: blog
 description: My personal blog
 homepage: https://github.com/horimislime/horimisli.me
 environment:
-  sdk: ">=2.10.4 <3.0.0"
+  sdk: 2.10.4
 dependencies:
-  args: 2.0.0
-  front_matter: 1.1.0
+  args: 1.6.0
   universal_html: ^1.2.1
-  meta: 1.2.4
   markdown: 3.0.0
-  mime: 1.0.0
-  json_annotation: ^3.0.0
+  mime: 0.9.7
 dev_dependencies:
-  linter: ^0.1.113
-  build_runner: ^1.0.0
-  json_serializable: ^3.2.0
+  linter: 0.1.129

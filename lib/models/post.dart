@@ -1,36 +1,34 @@
 import 'dart:convert';
-import 'package:front_matter/front_matter.dart' as frontmatter;
 import 'package:markdown/markdown.dart' as markdown;
 import 'package:path/path.dart' as path;
 import 'package:yaml/yaml.dart';
 import 'dart:io' as io;
 
-class FrontMatter {
+class FrontMatterDocument {
   static const String delimiter = '---';
-  static Map<String, dynamic> parse(String content) {
-    var beganFrontMatterBlock = false;
-    final yamlValues = List<String>();
-    for (final line in content.split('\n')) {
-      if (line == delimiter) {
-        if (beganFrontMatterBlock) {
-          break;
-        }
-        beganFrontMatterBlock = true;
-        continue;
+  final Map<String, dynamic> meta;
+  final String body;
+
+  FrontMatterDocument._(this.meta, this.body);
+
+  static FrontMatterDocument parse(String content) {
+    final yamlValues = Map<String, dynamic>();
+    var body = '';
+
+    final lines = content.split('\n');
+    final beginIndex = lines.indexWhere((l) => l == delimiter);
+    final endIndex = lines.indexWhere((l) => l == delimiter, beginIndex + 1);
+
+    if (beginIndex == 0) {
+      final yamlString = lines.sublist(beginIndex + 1, endIndex).join('\n');
+
+      final map = (loadYaml(yamlString) as YamlMap).nodes;
+      for (final key in map.keys) {
+        yamlValues[key.value as String] = map[key];
       }
-
-      if (beganFrontMatterBlock) {
-        yamlValues.add(line);
-      }
+      body = lines.sublist(endIndex + 1).join('\n');
     }
-
-    final map = (loadYaml(yamlValues.join('\n')) as YamlMap).nodes;
-
-    final result = Map<String, dynamic>();
-    for (final key in map.keys) {
-      result[key.value as String] = map[key];
-    }
-    return result;
+    return FrontMatterDocument._(yamlValues, body);
   }
 }
 
@@ -46,16 +44,16 @@ class Post {
 
   static Post loadFromFile(String filePath) {
     final raw = io.File(filePath).readAsStringSync(encoding: utf8);
-    final document = frontmatter.parse(raw);
-    final htmlBody = markdown.markdownToHtml(document.content);
+    final document = FrontMatterDocument.parse(raw);
+    final htmlBody = markdown.markdownToHtml(document.body);
     final fileName = path.posix.basenameWithoutExtension(filePath);
 
-    final dateString = document.data['date'];
+    final dateString = (document.meta['date'] as YamlScalar).value;
     final publishedDate = DateTime.parse(dateString);
     final categories =
-        (document.data['categories'] as YamlList ?? []).cast<String>().toList();
-    return Post._(
-        document.data['title'], htmlBody, publishedDate, categories, fileName);
+        (document.meta['categories'] as YamlList ?? []).cast<String>().toList();
+    return Post._((document.meta['title'] as YamlScalar).value, htmlBody,
+        publishedDate, categories, fileName);
   }
 
   static List<Post> list(String directoryPath) {
