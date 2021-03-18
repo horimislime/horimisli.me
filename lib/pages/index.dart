@@ -21,7 +21,7 @@ class IndexPage extends DefaultPage {
             ..children = [
               Element.p()
                 ..className = 'post-meta'
-                ..innerText = post.publishedDate.toIso8601String(),
+                ..innerText = post.publishedDate,
               Element.a()
                 ..attributes = {'href': '/entry/${post.pathName}'}
                 ..className = 'post-link'

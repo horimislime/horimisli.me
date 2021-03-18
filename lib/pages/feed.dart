@@ -31,8 +31,7 @@ class Feed {
             ..children = [
               TitleElement()..innerText = post.title,
               Element.tag('description')..innerText = post.htmlBody,
-              Element.tag('pubDate')
-                ..innerText = post.publishedDate.toIso8601String(),
+              Element.tag('pubDate')..innerText = post.publishedDate,
               Element.tag('link')
                 ..innerText = '${config.urlString}/${post.pathName}',
               Element.tag('guid')

@@ -1,20 +1,25 @@
 import 'dart:convert';
 import 'dart:io' as io;
+import 'package:intl/intl.dart';
 import 'package:markdown/markdown.dart' as markdown;
 import 'package:path/path.dart' as path;
 import 'package:yaml/yaml.dart';
 import 'package:blog/models/front_matter.dart';
 
+final _dateFormat = DateFormat('yyyy/MM/dd');
+
 class Post {
   String title;
   String htmlBody;
-  DateTime publishedDate;
+  DateTime _publishedDate;
+  String publishedDate;
   List<String> categories;
   String pathName;
   bool published;
 
-  Post._(this.title, this.htmlBody, this.publishedDate, this.categories,
-      this.pathName, this.published);
+  Post._(this.title, this.htmlBody, this._publishedDate, this.categories,
+      this.pathName, this.published)
+      : this.publishedDate = _dateFormat.format(_publishedDate);
 
   static Post loadFromFile(String filePath) {
     final raw = io.File(filePath).readAsStringSync(encoding: utf8);
@@ -44,8 +49,8 @@ class Post {
         .map((f) => loadFromFile(f.path))
         .toList();
     markdowns.sort((a, b) =>
-        b.publishedDate.millisecondsSinceEpoch -
-        a.publishedDate.millisecondsSinceEpoch);
+        b._publishedDate.millisecondsSinceEpoch -
+        a._publishedDate.millisecondsSinceEpoch);
 
     return markdowns;
   }
