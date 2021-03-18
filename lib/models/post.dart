@@ -11,9 +11,10 @@ class Post {
   DateTime publishedDate;
   List<String> categories;
   String pathName;
+  bool published;
 
   Post._(this.title, this.htmlBody, this.publishedDate, this.categories,
-      this.pathName);
+      this.pathName, this.published);
 
   static Post loadFromFile(String filePath) {
     final raw = io.File(filePath).readAsStringSync(encoding: utf8);
@@ -25,8 +26,12 @@ class Post {
     final publishedDate = DateTime.parse(dateString);
     final categories =
         (document.meta['categories'] as YamlList ?? []).cast<String>().toList();
+    final published = document.meta['published'] is YamlScalar
+        ? document.meta['published'].value
+        : true;
+
     return Post._((document.meta['title'] as YamlScalar).value, htmlBody,
-        publishedDate, categories, fileName);
+        publishedDate, categories, fileName, published);
   }
 
   static List<Post> list(String directoryPath) {
