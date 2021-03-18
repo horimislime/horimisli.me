@@ -30,12 +30,14 @@ class BuildCommand extends Command {
         });
       }
     });
+    argParser.addFlag('unpublished', defaultsTo: false);
   }
 
   void run() async {
     _config = await Config.load();
     _builder = SiteGenerator(_config);
-    await _builder.build();
+    final includeDraft = argResults['unpublished'];
+    await _builder.build(includeDraft: includeDraft);
   }
 
   Future<void> runServer(String basePath) async {

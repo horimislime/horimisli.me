@@ -12,9 +12,9 @@ class SiteGenerator {
 
   SiteGenerator(this.config);
 
-  Future<void> build() async {
+  Future<void> build({bool includeDraft = false}) async {
     print('Building site...');
-    return Future.wait([compilePageTasks(), ...copyAssetTasks()])
+    return Future.wait([compilePageTasks(includeDraft), ...copyAssetTasks()])
         .then((_) => print('Done.'));
   }
 
@@ -55,15 +55,17 @@ class SiteGenerator {
     });
   }
 
-  Future<void> compilePageTasks() async {
+  Future<void> compilePageTasks(bool includeDraft) async {
     final config = await Config.load();
-    final posts = Post.list('_posts');
-    final paginator = Paginator(posts, 10);
-    final feedXml = Feed(config, posts.take(10).toList()).build();
+    final allPosts = Post.list('_posts');
+    final postsToBuild =
+        includeDraft ? allPosts : allPosts.where((p) => p.published).toList();
+    final paginator = Paginator(postsToBuild, 10);
+    final feedXml = Feed(config, postsToBuild.take(10).toList()).build();
 
     return [
       createFile(feedXml, '_site/feed.xml'),
-      ...posts.map((post) {
+      ...postsToBuild.map((post) {
         final html = PostPage(config, post).build();
         return createFile(html, '_site/entry/${post.pathName}/index.html');
       }),
