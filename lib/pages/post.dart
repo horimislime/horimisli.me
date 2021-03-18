@@ -15,7 +15,7 @@ class PostPage extends DefaultPage {
         ..children = [
           SpanElement()
             ..className = 'post-meta'
-            ..innerText = post.publishedDate.toIso8601String(),
+            ..innerText = post.publishedDate,
           HeadingElement.h1()
             ..className = 'post-title'
             ..innerText = post.title

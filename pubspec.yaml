@@ -5,8 +5,9 @@ environment:
   sdk: 2.10.4
 dependencies:
   args: 1.6.0
-  universal_html: ^1.2.1
+  intl: 0.16.1
   markdown: 3.0.0
   mime: 0.9.7
+  universal_html: ^1.2.1
 dev_dependencies:
   linter: 0.1.129
