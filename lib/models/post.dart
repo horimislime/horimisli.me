@@ -9,13 +9,13 @@ import 'package:blog/models/front_matter.dart';
 final _dateFormat = DateFormat('yyyy/MM/dd');
 
 class Post {
-  String title;
-  String htmlBody;
-  DateTime _publishedDate;
-  String publishedDate;
-  List<String> categories;
-  String pathName;
-  bool published;
+  final String title;
+  final String htmlBody;
+  final DateTime _publishedDate;
+  final String publishedDate;
+  final List<String> categories;
+  final String pathName;
+  final bool published;
 
   Post._(this.title, this.htmlBody, this._publishedDate, this.categories,
       this.pathName, this.published)
