@@ -2,8 +2,8 @@ import 'package:blog/html.dart';
 import 'package:blog/models/config.dart';
 
 class DefaultPage {
-  Config config;
-  String title;
+  final Config config;
+  final String title;
 
   DefaultPage(this.config, this.title);
 

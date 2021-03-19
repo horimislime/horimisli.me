@@ -1,8 +1,8 @@
 class Page<T> {
-  List<T> items;
-  int pageNo;
-  bool hasPrev;
-  bool hasNext;
+  final List<T> items;
+  final int pageNo;
+  final bool hasPrev;
+  final bool hasNext;
   Page(this.items, this.pageNo, this.hasPrev, this.hasNext);
 }
 
