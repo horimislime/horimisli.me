@@ -1,12 +1,13 @@
 version: "3.8"
 services:
-  jekyll-build:
-    command: jekyll serve --incremental --future --unpublished --watch --force_polling --livereload
+  dart-build:
+    command: pub get && dart lib/main.dart build --preview --watch
     environment:
       TZ: Asia/Tokyo
-    image: jekyll/minimal:4.1.0
+    image: google/dart:2.10.4
     ports:
       - 4100:4000
       - 35729:35729
     volumes:
-      - $PWD:/srv/jekyll
+      - $PWD:/srv/blog
+    working_dir: /srv/blog
