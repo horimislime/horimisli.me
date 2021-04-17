@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 
-import { listEntries } from '../entities/Entry';
+import { listEntries } from '../src/entities/Entry';
 
 (async () => {
   const now = new Date().toISOString();
@@ -18,13 +18,12 @@ import { listEntries } from '../entities/Entry';
     ...entries
       .filter((e) => e.type === 'normal')
       .map((e) => ({
-        url: `https://${process.env.NEXT_PUBLIC_SITE_DOMAIN}/entry/${e.id}`,
+        url: `https://${process.env.NEXT_PUBLIC_SITE_DOMAIN}/entry/${e.id}/`,
         lastUpdated: e.date,
       })),
   ];
 
-  const sitemap = `
-<?xml version="1.0" encoding="UTF-8"?>
+  const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   ${items
     .map(

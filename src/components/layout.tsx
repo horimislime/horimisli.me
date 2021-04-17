@@ -13,6 +13,12 @@ const Layout = (params: {
     <div className="max-w-4xl m-6 lg:m-auto">
       <Head>
         <link rel="icon" href="/favicon.png" />
+        <link
+          rel="alternate"
+          type="application/rss+xml"
+          title="horimisli.me"
+          href="/feed.xml"
+        />
         <meta name="og:title" content={process.env.NEXT_PUBLIC_SITE_NAME} />
         <meta name="description" content="Personal website by horimislime" />
         {params.ogImagePath ? (

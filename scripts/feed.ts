@@ -3,7 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import rss from 'rss';
 
-import { findEntryById, listEntries } from '../entities/Entry';
+import { findEntryById, listEntries } from '../src/entities/Entry';
 
 (async () => {
   const feed = new rss({
@@ -19,7 +19,7 @@ import { findEntryById, listEntries } from '../entities/Entry';
   entriesWithBody.forEach((entry) => {
     feed.item({
       title: entry.title,
-      url: `https://${process.env.NEXT_PUBLIC_SITE_DOMAIN}/entry/${entry.id}`,
+      url: `https://${process.env.NEXT_PUBLIC_SITE_DOMAIN}/entry/${entry.id}/`,
       date: parseISO(entry.date),
       description: entry.content,
       author: process.env.NEXT_PUBLIC_SITE_AUTHOR,
