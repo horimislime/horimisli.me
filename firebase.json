@@ -4,7 +4,7 @@
     "runtime": "nodejs10"
   },
   "hosting": {
-    "public": "_site",
+    "public": "out",
     "headers": [
       {
         "source": "**/*.@(jpg|jpeg|gif|png|css)",
