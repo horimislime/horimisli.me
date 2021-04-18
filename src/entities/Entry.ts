@@ -28,13 +28,15 @@ export class Entry {
 }
 
 export function getAllEntryIds(): PostId[] {
-  return getAllEntryPaths().map((entryPath) => {
-    return {
-      params: {
-        id: path.basename(entryPath).replace(/\.md$/, ''),
-      },
-    };
-  });
+  return getAllEntryPaths()
+    .filter((p) => p.includes('/blog/'))
+    .map((entryPath) => {
+      return {
+        params: {
+          id: path.basename(entryPath).replace(/\.md$/, ''),
+        },
+      };
+    });
 }
 
 const getAllEntryPaths = (directory = postsDirectory): string[] => {
