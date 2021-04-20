@@ -37,6 +37,8 @@ public/sitemap.xml
 # dev
 .lighthouseci
 .vscode
+.config
 .firebaserc
 .firebase/*
+firebase-debug.log
 ui-debug.log
