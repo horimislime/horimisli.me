@@ -33,6 +33,7 @@ public/sitemap.xml
 
 # submodules
 /posts
+/public/images
 
 # dev
 .lighthouseci
