@@ -20,8 +20,10 @@ const Home: NextPage<Props> = (props) => {
         <div className="m-4">
           <img
             src="/images/profile.jpg"
+            width="80"
+            height="80"
             className="border-gray-400 rounded-full object-fill h-auto w-20"
-            alt={process.env.NEXT_PUBLIC_AUTHOR}
+            alt="My profile image"
           />
         </div>
         <p className="">
