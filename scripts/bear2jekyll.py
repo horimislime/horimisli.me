@@ -27,7 +27,7 @@ def read_bearnote(filepath: str) -> BearNote:
             content = f.read()
             md = text_to_markdown(content)
             return BearNote(body=md, images=[])
-    
+
     body = None
     images = []
     with zipfile.ZipFile(filepath, 'r') as zip:
@@ -60,7 +60,7 @@ def text_to_markdown(text):
         'layout: post',
         f'title: {title}',
         f'date: {dt.now().strftime("%Y-%m-%d %HH:00")}',
-        'category: ["tech", "blog"]',
+        'category: ["tech"]',
         'published: false',
         '---'
     ]
@@ -75,11 +75,11 @@ def text_to_markdown(text):
     return BearFile(name=f'{dt.now().strftime("%Y-%m-%d")}-{title.replace(" ", "")}', binary=formatted)
 
 def write_to_jekyll_dir(note: BearNote):
-    with open(f'_posts/{note.body.name}.md', mode='w') as f:
+    with open(f'posts/blog/{note.body.name}.md', mode='w') as f:
         f.write(note.body.binary)
 
     for image in note.images:
-        image.binary.save(f'images/{image.name}')
+        image.binary.save(f'public/images/{image.name}')
 
 
 def convert(files):
@@ -106,8 +106,8 @@ def convert(files):
             print(f'{file} converted from {image.width}x{image.height} to {resized.width}x{resized.height}')
             image = resized
 
-        image.save(f'images/{file}', quality=80, subsampling=0)
-        
+        image.save(f'public/images/{file}', quality=80, subsampling=0)
+
 
 def main():
     bearnote_path = sys.argv[1]
