@@ -1,7 +1,9 @@
 import { GetStaticProps, NextPage } from 'next';
 import Head from 'next/head';
+import Image from 'next/image';
 import Link from 'next/link';
 
+import profileImage from '../../public/images/profile.jpg';
 import EntryList from '../components/entry';
 import Layout from '../components/layout';
 import { Entry, listEntries } from '../entities/Entry';
@@ -18,10 +20,8 @@ const Home: NextPage<Props> = (props) => {
       </Head>
       <section className="flex items-center p-4">
         <div className="m-4">
-          <img
-            src="/images/profile.jpg"
-            width="80"
-            height="80"
+          <Image
+            src={profileImage}
             className="border-gray-400 rounded-full object-fill h-auto w-20"
             alt="My profile image"
           />
