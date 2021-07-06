@@ -6,7 +6,8 @@
     "dev": "next dev",
     "prod": "npm run gen-feed && npm run gen-sitemap && next build && next export",
     "gen-feed": "ts-node -r dotenv/config scripts/feed.ts",
-    "gen-sitemap": "ts-node -r dotenv/config scripts/sitemap.ts"
+    "gen-sitemap": "ts-node -r dotenv/config scripts/sitemap.ts",
+    "import": "ts-node -r dotenv/config scripts/bear_note_importer.ts"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.35",
