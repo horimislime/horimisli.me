@@ -2,6 +2,15 @@ import * as path from 'path';
 
 export {};
 
+type BearNote = {
+  body: string;
+  images: BinaryType[];
+};
+
+function readBearNote(filePath: string): BearNote {
+  return { body: '', images: [] };
+}
+
 const main = () => {
   console.log('hello');
   const filePath = process.argv[2];
