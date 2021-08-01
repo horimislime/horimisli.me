@@ -1,11 +1,11 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import Head from 'next/head';
 import { ParsedUrlQuery } from 'querystring';
+import { TwitterIcon, TwitterShareButton } from 'react-share';
 
 import Date from '../../components/date';
 import Layout from '../../components/layout';
 import { Entry, findEntryById, getAllEntryIds } from '../../entities/Entry';
-
 type Props = {
   entry: Entry;
 };
@@ -16,18 +16,28 @@ interface Params extends ParsedUrlQuery {
 
 const EntryPage: NextPage<Props> = (props) => {
   return (
-    <Layout ogImagePath={props.entry.image}>
-      <Head>
-        <title>{props.entry.title}</title>
-      </Head>
-      <article>
-        <h1>{props.entry.title}</h1>
-        <div className="text-lg text-gray-500">
-          <Date dateString={props.entry.date} />
-        </div>
-        <div dangerouslySetInnerHTML={{ __html: props.entry.content ?? '' }} />
-      </article>
-    </Layout>
+    <>
+      <Layout ogImagePath={props.entry.image}>
+        <Head>
+          <title>{props.entry.title}</title>
+        </Head>
+        <article>
+          <h1>{props.entry.title}</h1>
+          <div className="text-lg text-gray-500">
+            <Date dateString={props.entry.date} />
+          </div>
+          <div
+            dangerouslySetInnerHTML={{ __html: props.entry.content ?? '' }}
+          />
+        </article>
+        <TwitterShareButton
+          title={`${props.entry.title}`}
+          url={`https://horimisli.me/entry/${props.entry.id}`}
+        >
+          <TwitterIcon size="32" />
+        </TwitterShareButton>
+      </Layout>
+    </>
   );
 };
 
