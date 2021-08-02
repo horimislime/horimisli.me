@@ -17,7 +17,7 @@ interface Params extends ParsedUrlQuery {
 const EntryPage: NextPage<Props> = (props) => {
   return (
     <>
-      <Layout ogImagePath={props.entry.image}>
+      <Layout title={props.entry.title} ogImagePath={props.entry.image}>
         <Head>
           <title>{props.entry.title}</title>
         </Head>
