@@ -7,6 +7,7 @@ const HomeButton = dynamic(() => import('./button'), { ssr: false });
 
 const Layout = (params: {
   children: ReactNode;
+  title?: string;
   ogImagePath?: string;
 }): JSX.Element => {
   return (
@@ -19,7 +20,10 @@ const Layout = (params: {
           title="horimisli.me"
           href="/feed.xml"
         />
-        <meta name="og:title" content={process.env.NEXT_PUBLIC_SITE_NAME} />
+        <meta
+          name="og:title"
+          content={params.title ?? process.env.NEXT_PUBLIC_SITE_NAME}
+        />
         <meta name="description" content="Personal website by horimislime" />
         {params.ogImagePath ? (
           <>
