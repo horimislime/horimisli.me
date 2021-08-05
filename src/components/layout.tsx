@@ -1,7 +1,9 @@
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 import { ReactNode } from 'react';
-// import Link from 'next/link';
+
+import TweetButton from './tweet_button';
 
 const HomeButton = dynamic(() => import('./button'), { ssr: false });
 
@@ -9,6 +11,7 @@ const Layout = (params: {
   children: ReactNode;
   title?: string;
   ogImagePath?: string;
+  showTweetButton?: boolean;
 }): JSX.Element => {
   return (
     <div className="max-w-4xl m-6 lg:m-auto">
@@ -37,7 +40,7 @@ const Layout = (params: {
           <meta name="twitter:card" content="summary" />
         )}
       </Head>
-      <header className="p-4">
+      <header className="py-4">
         <div
           className="text-xl flex space-x-4 justify-between"
           role="navigation"
@@ -58,8 +61,18 @@ const Layout = (params: {
         </div>
       </header>
       <hr className="p-4" />
-      <main className="prose max-w-none m-auto">{params.children}</main>
-      <hr />
+      <main className="prose max-w-none mb-12">{params.children}</main>
+      {params.showTweetButton === true ? (
+        <>
+          <TweetButton
+            title={params.title ?? process.env.NEXT_PUBLIC_SITE_NAME}
+            path={useRouter().asPath}
+          />
+          <hr className="mt-8" />
+        </>
+      ) : (
+        <hr />
+      )}
       <footer className="p-4 text-center">
         ©︎ 2021 {process.env.NEXT_PUBLIC_SITE_AUTHOR} <br />
         {/* Served by{' '}
