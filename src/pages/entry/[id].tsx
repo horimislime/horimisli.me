@@ -1,7 +1,6 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import Head from 'next/head';
 import { ParsedUrlQuery } from 'querystring';
-import { TwitterIcon, TwitterShareButton } from 'react-share';
 
 import Date from '../../components/date';
 import Layout from '../../components/layout';
@@ -17,7 +16,11 @@ interface Params extends ParsedUrlQuery {
 const EntryPage: NextPage<Props> = (props) => {
   return (
     <>
-      <Layout title={props.entry.title} ogImagePath={props.entry.image}>
+      <Layout
+        title={props.entry.title}
+        ogImagePath={props.entry.image}
+        showTweetButton={true}
+      >
         <Head>
           <title>{props.entry.title}</title>
         </Head>
@@ -30,12 +33,6 @@ const EntryPage: NextPage<Props> = (props) => {
             dangerouslySetInnerHTML={{ __html: props.entry.content ?? '' }}
           />
         </article>
-        <TwitterShareButton
-          title={`${props.entry.title}`}
-          url={`https://horimisli.me/entry/${props.entry.id}`}
-        >
-          <TwitterIcon size="32" />
-        </TwitterShareButton>
       </Layout>
     </>
   );
