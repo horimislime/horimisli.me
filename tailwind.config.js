@@ -1,5 +1,5 @@
 module.exports = {
-  purge: ['./src/**/*.tsx'],
+  purge: ['./src/**/*.tsx', './posts/blog/**/*.md'],
   darkMode: false,
   theme: {
     extend: {},
