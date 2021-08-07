@@ -26,7 +26,7 @@ const EntryPage: NextPage<Props> = (props) => {
         </Head>
         <article>
           <h1>{props.entry.title}</h1>
-          <div className="text-lg text-gray-500">
+          <div className="text-lg text-gray-500 mb-8">
             <Date dateString={props.entry.date} />
           </div>
           <div
