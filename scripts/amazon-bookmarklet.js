@@ -12,7 +12,7 @@ javascript: (() => {
     productUrl +
     '" target="_blank"> <img src="' +
     imageUrl +
-    '" class="h-40"> </a> </div> <div class="m-8"> <p>' +
+    '" class="max-h-60"> </a> </div> <div class="m-8"> <p>' +
     title +
     '<br/>' +
     detail +
