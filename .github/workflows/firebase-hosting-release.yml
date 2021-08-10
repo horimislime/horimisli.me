@@ -1,5 +1,5 @@
 name: Deploy to Firebase by Repository Dispatch
-'on': 
+'on':
   repository_dispatch
 jobs:
   build_and_deploy:
@@ -12,15 +12,19 @@ jobs:
         with:
           repository: horimislime/articles
           token: ${{ secrets.GITHUB_ACCESS_TOKEN }}
-          path: _posts
+          path: posts
       - name: Checkout Images
         uses: actions/checkout@v2
         with:
           repository: horimislime/article-images
           token: ${{ secrets.GITHUB_ACCESS_TOKEN }}
-          path: images
+          path: public/images
+      - name: Set up Node
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '14'
       - name: Build
-        run: make build
+        run: npm run prod
       - name: Deploy to Live Channel
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
