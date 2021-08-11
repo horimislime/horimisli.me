@@ -1,6 +1,7 @@
 name: Deploy to Firebase by Repository Dispatch
 'on':
-  repository_dispatch
+  repository_dispatch:
+  workflow_dispatch:
 jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
