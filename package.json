@@ -18,7 +18,7 @@
     "adm-zip": "^0.5.5",
     "date-fns": "^2.11.1",
     "date-fns-timezone": "^0.1.4",
-    "dotenv": "^8.2.0",
+    "dotenv": "^10.0.0",
     "gray-matter": "^4.0.2",
     "next": "^11.1.0",
     "prismjs": "^1.23.0",
