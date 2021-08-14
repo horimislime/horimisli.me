@@ -1,0 +1,13 @@
+{
+	"name": "Dev Environment",
+	"image": "mcr.microsoft.com/vscode/devcontainers/typescript-node:14",
+    "extensions": [
+        "eamodio.gitlens",
+        "oderwat.indent-rainbow",
+        "visualstudioexptteam.vscodeintellicode",
+        "taichi.vscode-textlint",
+        "esbenp.prettier-vscode",
+        "github.copilot"
+    ],
+    "postCreateCommand": "npm install"
+}
