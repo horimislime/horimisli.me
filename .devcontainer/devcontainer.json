@@ -9,5 +9,19 @@
         "esbenp.prettier-vscode",
         "github.copilot"
     ],
-    "postCreateCommand": "npm install"
+    "remoteEnv": {
+      "TZ": "Asia/Tokyo"
+    },
+    "settings": {
+      "terminal.integrated.profiles.linux": {
+        "zsh": {
+          "path": "zsh",
+          "args": [
+            "-l"
+          ]
+        }
+      },
+      "terminal.integrated.defaultProfile.linux": "zsh"
+    },
+    "postCreateCommand": "sudo npm install"
 }
