@@ -11,12 +11,14 @@ jobs:
         with:
           repository: horimislime/articles
           token: ${{ secrets.GITHUB_ACCESS_TOKEN || github.token }}
+          ref: master
           path: posts
       - name: Checkout Images
         uses: actions/checkout@v2
         with:
           repository: horimislime/article-images
           token: ${{ secrets.GITHUB_ACCESS_TOKEN || github.token }}
+          ref: master
           path: public/images
       - name: Set up Node
         uses: actions/setup-node@v2
