@@ -19,7 +19,7 @@
     "@tailwindcss/aspect-ratio": "^0.3.0",
     "@tailwindcss/typography": "^0.4.0",
     "adm-zip": "^0.5.5",
-    "date-fns": "^2.11.1",
+    "date-fns": "^2.25.0",
     "date-fns-timezone": "^0.1.4",
     "dotenv": "^8.2.0",
     "gray-matter": "^4.0.2",
