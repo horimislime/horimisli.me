@@ -1,4 +1,4 @@
-name: Deploy to Firebase Hosting on PR
+name: Build and deploy preview
 'on': pull_request
 jobs:
   build_and_preview:
@@ -6,24 +6,13 @@ jobs:
     steps:
       - name: Checkout Source Code
         uses: actions/checkout@v2
-      - name: Checkout Articles
-        uses: actions/checkout@v2
-        with:
-          repository: horimislime/articles
-          token: ${{ secrets.GITHUB_TOKEN || github.token }}
-          ref: master
-          path: posts
-      - name: Checkout Images
-        uses: actions/checkout@v2
-        with:
-          repository: horimislime/article-images
-          token: ${{ secrets.GITHUB_TOKEN || github.token }}
-          ref: master
-          path: public/images
       - name: Set up Node
         uses: actions/setup-node@v2
         with:
           node-version: '14'
+      - name: Create posts dir to make build works
+        run: |
+          mkdir posts
       - name: Build
         run: |
           npm install
