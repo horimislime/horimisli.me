@@ -16,7 +16,7 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.35",
     "@fortawesome/free-solid-svg-icons": "^5.15.3",
     "@fortawesome/react-fontawesome": "^0.1.14",
-    "@tailwindcss/aspect-ratio": "^0.2.0",
+    "@tailwindcss/aspect-ratio": "^0.3.0",
     "@tailwindcss/typography": "^0.4.0",
     "adm-zip": "^0.5.5",
     "date-fns": "^2.11.1",
