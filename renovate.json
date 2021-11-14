@@ -1,0 +1,10 @@
+{
+  "extends": [
+    "config:base"
+  ],
+  "automerge": true,
+  "rebaseWhen": "auto",
+  "npm": {
+    "stabilityDays": 3
+  }
+}
