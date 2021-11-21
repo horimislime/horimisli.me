@@ -3,7 +3,7 @@ import { convertToTimeZone } from 'date-fns-timezone';
 import fs from 'fs';
 import matter from 'gray-matter';
 import path from 'path';
-import { remark } from 'remark';
+import remark from 'remark';
 import html from 'remark-html';
 import prism from 'remark-prism';
 
