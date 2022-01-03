@@ -12,4 +12,5 @@ jobs:
           fetch-depth: 0
       - uses: FantasticFiasco/action-update-license-year@v2
         with:
+          path: './src/components/layout.tsx'
           token: ${{ secrets.GITHUB_TOKEN }}
