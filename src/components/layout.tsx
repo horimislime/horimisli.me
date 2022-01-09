@@ -76,7 +76,7 @@ const Layout = (params: {
         <hr />
       )}
       <footer className="p-4 text-center">
-        ©︎ 2021 {process.env.NEXT_PUBLIC_SITE_AUTHOR} <br />
+        ©︎ {process.env.NEXT_PUBLIC_SITE_AUTHOR} <br />
         {/* Served by{' '}
         <a
           href="https://github.com/horimislime/horimisli.me"
