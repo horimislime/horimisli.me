@@ -1,6 +1,5 @@
 module.exports = {
-  purge: ['./src/**/*.tsx', './posts/blog/**/*.md'],
-  darkMode: false,
+  content: ['./src/**/*.tsx', './posts/blog/**/*.md'],
   theme: {
     extend: {},
   },
