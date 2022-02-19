@@ -1,6 +1,6 @@
 {
 	"name": "Dev Environment",
-	"image": "mcr.microsoft.com/vscode/devcontainers/typescript-node:14",
+	"image": "mcr.microsoft.com/vscode/devcontainers/typescript-node:16",
     "extensions": [
         "eamodio.gitlens",
         "oderwat.indent-rainbow",
@@ -23,5 +23,5 @@
       },
       "terminal.integrated.defaultProfile.linux": "zsh"
     },
-    "postCreateCommand": "sudo npm install"
+    "postCreateCommand": ".devcontainer/setup.sh"
 }
