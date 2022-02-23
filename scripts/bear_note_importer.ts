@@ -42,6 +42,16 @@ function loadNote(filePath: string): BearNote {
   }
 }
 
+function normalizeContent(
+  content: string,
+  categories: string[],
+  publishedAt: Date,
+): string {
+  const lines = content.split('\n');
+
+  return '';
+}
+
 (async () => {
   console.log('hello');
   const filePath = process.argv[2];
