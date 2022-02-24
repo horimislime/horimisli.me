@@ -42,25 +42,52 @@ function loadNote(filePath: string): BearNote {
   }
 }
 
-function normalizeContent(
+function formatAsMarkdown(
   content: string,
   categories: string[],
   publishedAt: Date,
 ): string {
   const lines = content.split('\n');
+  const title = lines[0].replace('# ', '').trim();
+  const header = `
+  ---
+  layout: post
+  title: ${title}
+  date: ${publishedAt.toISOString()}
+  categories: [${categories.map((e) => `"${e}"`).join(', ')}]
+  published: false
+  ---
 
-  return '';
+  `;
+
+  const output: string[] = [];
+  for (let i = 1; i < lines.length; i++) {
+    const line = lines[i];
+    if (line.startsWith('[assets/')) {
+      const formatted = line.replace('[assets/', '![](/images/');
+      output.push(formatted);
+    } else {
+      output.push(line);
+    }
+  }
+  return header + output.join('\n');
 }
 
 (async () => {
   console.log('hello');
   const filePath = process.argv[2];
 
-  // const rl = readline.createInterface({ input, output });
-  // const slug = await rl.question('slug:');
-  // rl.close();
-  // console.log(`File name will be posts/${slug}.md`);
+  const rl = readline.createInterface({ input, output });
+  const slug = await rl.question('slug:');
+  const categories = await rl
+    .question('categories (comma separated):')
+    .split(',')
+    .map((e) => e.trim());
+  rl.close();
+  console.log(`File name will be posts/${slug}.md`);
 
   const note = loadNote(filePath);
+  const markdown = formatAsMarkdown(note.body, categories, new Date());
+  fs.writeFileSync(`posts/${slug}.md`, markdown);
   console.log(note);
 })();
