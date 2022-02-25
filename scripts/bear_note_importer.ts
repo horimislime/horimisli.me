@@ -49,8 +49,7 @@ function formatAsMarkdown(
 ): string {
   const lines = content.split('\n');
   const title = lines[0].replace('# ', '').trim();
-  const header = `
-  ---
+  const header = `---
   layout: post
   title: ${title}
   date: ${publishedAt.toISOString()}
@@ -79,15 +78,16 @@ function formatAsMarkdown(
 
   const rl = readline.createInterface({ input, output });
   const slug = await rl.question('slug:');
-  const categories = await rl
-    .question('categories (comma separated):')
-    .split(',')
-    .map((e) => e.trim());
+  const categories = await rl.question('categories (comma separated):');
   rl.close();
   console.log(`File name will be posts/${slug}.md`);
 
   const note = loadNote(filePath);
-  const markdown = formatAsMarkdown(note.body, categories, new Date());
+  const markdown = formatAsMarkdown(
+    note.body,
+    categories.split(',').map((e) => e.trim()),
+    new Date(),
+  );
   fs.writeFileSync(`posts/${slug}.md`, markdown);
   console.log(note);
 })();
