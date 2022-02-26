@@ -1,5 +1,6 @@
 import AdmZip from 'adm-zip';
 import * as fs from 'fs';
+import { DateTime } from 'luxon';
 import * as path from 'path';
 import { stdin as input, stdout as output } from 'process';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -45,14 +46,14 @@ function loadNote(filePath: string): BearNote {
 function formatAsMarkdown(
   content: string,
   categories: string[],
-  publishedAt: Date,
+  publishedAt: DateTime,
 ): string {
   const lines = content.split('\n');
   const title = lines[0].replace('# ', '').trim();
   const header = `---
   layout: post
   title: ${title}
-  date: ${publishedAt.toISOString()}
+  date: ${publishedAt.toFormat('yyyy-MM-dd HH:mm')}
   categories: [${categories.map((e) => `"${e}"`).join(', ')}]
   published: false
   ---
@@ -81,13 +82,12 @@ function formatAsMarkdown(
   const categories = await rl.question('categories (comma separated):');
   rl.close();
   console.log(`File name will be posts/${slug}.md`);
-
   const note = loadNote(filePath);
   const markdown = formatAsMarkdown(
     note.body,
     categories.split(',').map((e) => e.trim()),
-    new Date(),
+    DateTime.now(),
   );
-  fs.writeFileSync(`posts/${slug}.md`, markdown);
+  fs.writeFileSync(`posts/blog/${slug}.md`, markdown);
   console.log(note);
 })();
