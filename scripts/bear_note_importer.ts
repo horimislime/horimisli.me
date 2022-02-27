@@ -7,33 +7,33 @@ import { stdin as input, stdout as output } from 'process';
 // @ts-ignore
 import * as readline from 'readline/promises';
 
+type Image = {
+  fileName: string;
+  data: Buffer;
+};
+
 type BearNote = {
   body: string;
-  images: Buffer[];
+  images: Image[];
 };
 
 function loadNote(filePath: string): BearNote {
   const fileExtension = path.extname(filePath);
-  console.log(process.argv);
-  console.log(`ext: ${fileExtension}`);
   if (fileExtension === '.txt') {
-    console.log('read text');
     const text = fs.readFileSync(filePath, { encoding: 'utf8' });
     return { body: text, images: [] };
   } else if (fileExtension === '.bearnote') {
-    console.log('note with images');
     const archive = new AdmZip(filePath);
     let text = '';
-    const images: Buffer[] = [];
+    const images: Image[] = [];
     const zipContents = archive
       .getEntries()
       .filter((e) => !e.entryName.endsWith('.json'));
     for (const entry of zipContents) {
-      console.log('archive content', entry.name);
       if (entry.name.endsWith('.txt')) {
         text = archive.readAsText(entry);
       } else {
-        images.push(archive.readFile(entry));
+        images.push({ fileName: entry.name, data: archive.readFile(entry) });
       }
     }
     return { body: text, images };
@@ -74,13 +74,13 @@ function formatAsMarkdown(
 }
 
 (async () => {
-  console.log('hello');
   const filePath = process.argv[2];
 
   const rl = readline.createInterface({ input, output });
   const slug = await rl.question('slug:');
   const categories = await rl.question('categories (comma separated):');
   rl.close();
+
   console.log(`File name will be posts/${slug}.md`);
   const note = loadNote(filePath);
   const markdown = formatAsMarkdown(
@@ -88,6 +88,13 @@ function formatAsMarkdown(
     categories.split(',').map((e) => e.trim()),
     DateTime.now(),
   );
-  fs.writeFileSync(`posts/blog/${slug}.md`, markdown);
-  console.log(note);
+  const entryPath = `posts/blog/${slug}.md`;
+  fs.writeFileSync(entryPath, markdown);
+
+  console.log(`wrote ${entryPath}`);
+  for (const image of note.images) {
+    const imagePath = `public/images/${image.fileName}`;
+    fs.writeFileSync(imagePath, image.data);
+    console.log(`wrote ${imagePath}`);
+  }
 })();
