@@ -82,13 +82,14 @@ function formatAsMarkdown(
   rl.close();
 
   console.log(`File name will be posts/${slug}.md`);
+  const now = DateTime.now();
   const note = loadNote(filePath);
   const markdown = formatAsMarkdown(
     note.body,
     categories.split(',').map((e) => e.trim()),
-    DateTime.now(),
+    now,
   );
-  const entryPath = `posts/blog/${slug}.md`;
+  const entryPath = `posts/blog/${now.year}/${slug}.md`;
   fs.writeFileSync(entryPath, markdown);
 
   console.log(`wrote ${entryPath}`);
