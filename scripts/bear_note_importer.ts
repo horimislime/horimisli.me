@@ -64,7 +64,9 @@ function formatAsMarkdown(
   for (let i = 1; i < lines.length; i++) {
     const line = lines[i];
     if (line.startsWith('[assets/')) {
-      const formatted = line.replace('[assets/', '![](/images/');
+      const formatted = line.replace(/\[assets\/(.+)\]/g, (_, imagePath) => {
+        return `![](${imagePath})`;
+      });
       output.push(formatted);
     } else {
       output.push(line);
