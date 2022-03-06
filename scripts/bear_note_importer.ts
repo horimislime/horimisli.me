@@ -51,21 +51,20 @@ function formatAsMarkdown(
   const lines = content.split('\n');
   const title = lines[0].replace('# ', '').trim();
   const header = `---
-  layout: post
-  title: ${title}
-  date: ${publishedAt.toFormat('yyyy-MM-dd HH:mm')}
-  categories: [${categories.map((e) => `"${e}"`).join(', ')}]
-  published: false
-  ---
-
-  `;
+layout: post
+title: ${title}
+date: ${publishedAt.toFormat('yyyy-MM-dd HH:mm')}
+category: [${categories.map((e) => `'${e}'`).join(', ')}]
+published: false
+---
+`;
 
   const output: string[] = [];
   for (let i = 1; i < lines.length; i++) {
     const line = lines[i];
     if (line.startsWith('[assets/')) {
       const formatted = line.replace(/\[assets\/(.+)\]/g, (_, imagePath) => {
-        return `![](${imagePath})`;
+        return `![](/images/${imagePath})`;
       });
       output.push(formatted);
     } else {
