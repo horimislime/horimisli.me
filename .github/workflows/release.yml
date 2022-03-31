@@ -7,21 +7,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Source Code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Checkout Articles
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           repository: horimislime/articles
           token: ${{ secrets.GITHUB_ACCESS_TOKEN }}
           path: posts
       - name: Checkout Images
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           repository: horimislime/article-images
           token: ${{ secrets.GITHUB_ACCESS_TOKEN }}
           path: public/images
       - name: Set up Node
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: '14'
       - name: Build
