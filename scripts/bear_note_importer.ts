@@ -64,7 +64,7 @@ published: false
     const line = lines[i];
     if (line.startsWith('[assets/')) {
       const formatted = line.replace(/\[assets\/(.+)\]/g, (_, imagePath) => {
-        return `![](/images/${imagePath})`;
+        return `![](/images/${publishedAt.year}/${imagePath})`;
       });
       output.push(formatted);
     } else {
@@ -94,8 +94,15 @@ published: false
   fs.writeFileSync(entryPath, markdown);
 
   console.log(`wrote ${entryPath}`);
+
+  const imageDir = `public/images/${now.year}`;
+  if (!fs.existsSync(imageDir)) {
+    fs.mkdirSync(imageDir);
+    console.log(`created ${imageDir}`);
+  }
+
   for (const image of note.images) {
-    const imagePath = `public/images/${image.fileName}`;
+    const imagePath = `${imageDir}/${image.fileName}`;
     fs.writeFileSync(imagePath, image.data);
     console.log(`wrote ${imagePath}`);
   }
