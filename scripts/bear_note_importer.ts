@@ -71,6 +71,12 @@ published: false
       output.push(line);
     }
   }
+
+  // remove tag
+  if (output[output.length - 1] === '#blog') {
+    output.pop();
+  }
+
   return header + output.join('\n');
 }
 
