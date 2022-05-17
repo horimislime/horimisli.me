@@ -5,14 +5,21 @@ import rss from 'rss';
 
 import { findEntryById, listEntries } from '../src/entities/Entry';
 
-(async () => {
+
+async function generateFeed(filename: string, tags: string[] = []) {
   const feed = new rss({
     title: process.env.NEXT_PUBLIC_SITE_NAME,
     site_url: `https://${process.env.NEXT_PUBLIC_SITE_DOMAIN}`,
-    feed_url: `https://${process.env.NEXT_PUBLIC_SITE_DOMAIN}/feed.xml`,
+    feed_url: `https://${process.env.NEXT_PUBLIC_SITE_DOMAIN}/${filename}`,
   });
 
-  const entries = await listEntries(10);
+  const allEntries = await listEntries(10);
+  const entries =
+    tags.length === 0
+      ? allEntries
+      : allEntries.filter((entry) =>
+          entry.categories.some((tag) => tags.includes(tag)),
+        );
   const entriesWithBody = await Promise.all(
     entries.map((e) => findEntryById(e.id, true)),
   );
@@ -27,7 +34,12 @@ import { findEntryById, listEntries } from '../src/entities/Entry';
   });
 
   fs.writeFileSync(
-    path.join(process.cwd(), 'public/feed.xml'),
+    path.join(process.cwd(), `public/${filename}`),
     feed.xml({ indent: true }),
   );
+}
+
+(async () => {
+  await generateFeed('feed.xml');
+  await generateFeed('feed-internal.xml', ['share']);
 })();

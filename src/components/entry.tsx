@@ -14,7 +14,9 @@ export default function EntryList(params: { entries: Entry[] }): JSX.Element {
             <small className="text-sm flex">
               <Date dateString={date} />
               <div className="flex ml-2">
-                {Array.from(categories).map((category, i) => (
+                {Array.from(
+                  categories.filter((category) => category !== 'share'),
+                ).map((category, i) => (
                   <div
                     key={`${id}-category-${i}`}
                     className="ml-2 pl-1 pr-1 rounded text-white bg-gray-400"

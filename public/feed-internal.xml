@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title><![CDATA[horimisli.me]]></title>
+        <description><![CDATA[horimisli.me]]></description>
+        <link>https://horimisli.me</link>
+        <generator>RSS for Node</generator>
+        <lastBuildDate>Tue, 17 May 2022 13:54:24 GMT</lastBuildDate>
+        <atom:link href="https://horimisli.me/feed-internal.xml" rel="self" type="application/rss+xml"/>
+        <item>
+            <title><![CDATA[自作PCを組んだ]]></title>
+            <description><![CDATA[<p><img src="/images/IMG_4621.jpeg" alt=""></p>
+<p>個人の PC 環境を macOS から Windows に移行するべく自作 PC を組み立てた。</p>
+<p>きっかけとしては macOS 上で頑張り続けてきた PC ゲーム環境が限界を迎えつつあったから。ハードウェアは Intel 製 Mac に eGPU を接続して頑張ってたんだけど、 M1 Mac では使えなくなってしまったし Intel マシンでも Monterey 以降動作がとても不安定だったりと不満が溜まっていた。</p>
+<p>ソフトウェア面ではそもそも対応ゲームが少ないし、最近よくプレイしてた FF14 も Wine 的な仕組みで動いている事もありハードウェアを積んでもパフォーマンスに限界がありそう。さらに EpicGames と Apple の訴訟問題により Fortnite 等のアップデート配信が停止されたりと、もうこれ以上 Mac をゲーム環境にするのは厳しいという結論になった。</p>
+<p>ゲーム用途だけで大きいハードウェアを増やしたくなかったんだけど、最近はソフトウェア開発で Mac(Xcode)がどうしても必要な場面も減り、もう個人 PC 環境をまるっと Windows に移行するのもありだなと考えた。</p>
+<h1>パーツ構成</h1>
+<p><img src="/images/IMG_4756.jpeg" alt="MBにCPUを装着した様子"></p>
+<p>パーツは以下のものを選んだ。</p>
+<ul>
+<li>CPU: AMD Ryzen 5950X</li>
+<li>RAM: Crucial 32GB DDR4 PC4-25600 x2</li>
+<li>SSD: Samsung 980 1TB NVMe PCIe 3.0</li>
+<li>MB: GIGABYTE B550 VISION D-P</li>
+<li>GPU: MSI GeForce RTX 3080 Ti VENTUS 3X 12G OC</li>
+<li>電源: Corsair RM1000x</li>
+<li>CPU クーラー: CoolerMaster MasterAir MA624 Stealth</li>
+<li>PC ケース: Fractal Design Define S2 Vision RGB</li>
+</ul>
+<p>GPU に RTX 3080Ti を選んだのはプレミアム価格の落ち着き具合から。3080 を狙っていたが今は希望小売価格からの乖離が大きすぎて買う気にならなかった。3080 とさほど価格差がなく、2022 年頭の時点で唯一希望小売価格+10%程度の落ち着きだったことが 3080Ti の決め手だった。</p>
+<p>マザーボードは Thunderbolt3 の映像出力が欲しくて B550 VISION D-P を選択。SSD だけ唯一選択を失敗して、よく調べずに PCIe 3.0 のものを買ってしまったので頃合いをみて換装したい…。</p>
+<p>冷却機構は将来的に DIY 水冷化したいという目論見で一旦その場しのぎとして空冷クーラーを選んだ。今のところ 5950X でも十分冷えてる。</p>
+<p>PC ケースは最初星野金属のアルミケース（18 年モノ）を使ったんだけど、流石に設計が古すぎて CPU クーラーが収まらない・今どき全く必要ないフロントベイが邪魔、など色々問題があったのでいよいよ買い替えることにした。</p>
+<p><img src="/images/DSCF2446.jpg" alt=""></p>
+<p>今回買った Design Define S2 Vision RGB 。バチバチに光ってかっこいい。最近のケースはケーブルを隠してスッキリさせる工夫がされているのも良い。</p>
+<p><img src="/images/IMG_4968.jpeg" alt="">
+<img src="/images/IMG_4983.jpeg" alt=""></p>
+<h1>Windows11 のインストール</h1>
+<p><a href="https://blog.jarinosuke.com/posts/built-a-gaming-pc">ゲーミング PC を組んだ | jarinosuke blog</a> を以前に読ませていただいていて、記事中で紹介されている <a href="https://qiita.com/sohsatoh/items/9fe0dcdc084ef9f7cbf8">【2020 対応版】Mac で Windows インストール USB を作成する方法 - Qiita</a> に沿ってすんなり行けた。</p>
+<p>Windows11 ではハードウェア側が TPM 2.0 というセキュリティ機能に対応していることが必須要件。これは Apple でいう T2 チップのようなものらしく、今回用意した B550 マザーボードには搭載されていたのでよかった。BIOS の初期設定では無効化されているため、以下の設定を変更した。</p>
+<ul>
+<li>Trusted Computing: Enabled に</li>
+<li>AMD fTPM: Enabled に</li>
+</ul>
+<p>参考:</p>
+<ul>
+<li><a href="https://news.mynavi.jp/article/20210630-1912599/">Windows 11 プレビュー版を Ryzen 9 5900X＆RTX 3070 の自作 PC に入れてみた | マイナビニュース</a></li>
+<li><a href="https://www.gigabyte.com/jp/Press/News/-246">GIGABYTE マザーボード製品 Windows 11 対応設定 | ニュース - GIGABYTE Japan</a></li>
+</ul>
+<h1>LG UltraFine 5K Display を使う</h1>
+<p>ずっとメインで使っているこのディスプレイは入力に Thunderbolt １本しかない特殊なデスプレイなので、Windows での利用は一切考慮されておらず一工夫が必要。わりとレアな構成だと思うので情報として書き残しておく。</p>
+<p>まず映像に関してはすんなり映る。3080Ti から引いた DP ケーブルを B550 マザーの DP 入力端子に挿すことで、Thunderbolt ポートから正常に映像出力できた。</p>
+<p>ただしこの時点では UltraFine ディスプレイの映像以外の機能（スピーカー、USB-C ハブ等）が動かなかった。どうやら Thunderbolt ポートに流せるデータ容量の上限をいじる必要があるらしく、BIOS の Thunderbolt Configuration でバッファサイズを最大に設定することでスピーカーと USB-C ハブのデバイスは動いた。カメラはどうにも動かなかった。</p>
+<p>また Windows Update を行うとスピーカーや USB ハブが動かなくなる事が多かった。どうやら Tunderbolt3 アクセサリにはありがちな問題らしい。</p>
+<p><a href="https://kb.plugable.com/ja_JP/860361">Windows Windows Update 適用後に、Thunderbolt 3 ドッキングステーションが正しく機能しない - Plugable ナレッジベース</a></p>
+<p>なんとか誤魔化しながら使ってはいるものの、やはり Windows 環境下での利用は厳しい感じ。そのうちディスプレイは買い換えるかもしれない...。</p>
+<h1>感想</h1>
+<p>まだ思う存分使えてないけど、適当にベンチマークを回してテンションを上げるなどしている。</p>
+<p><img src="/images/ffbench_capture.png" alt=""></p>
+<p>ひとまず FF14 を軽く遊んでるけど、最高画質設定で常時 60fps 出せて明らかに体感できるレベルで快適。大きな都市で大勢のプレイヤーがぬるぬる動いていて感動した。もともと無理のある環境を使っていたのもあって快適さに驚いてる。</p>
+<p><img src="/images/ff14_6.png" alt=""></p>
+<p>やっぱりゲームタイトルの選択肢が多くなるのは嬉しい。早速 Steam で色々物色して懐かしゲーの Half Life を軽くプレイしたりしている。せっかくのマシンスペックは全く活かせていない...。</p>
+<p><img src="/images/Half-Life2_LostCoast.png" alt=""></p>
+<p>ゲーム以外の面でいうと、macOS に慣れてから触れた Windows11 はまずまず印象がよい。Windows Hello を初めて利用したんだけど、こんな感じの 2000 円程度の指紋スキャンドングルを買って指紋認証が使えるようになって早速ハードウェアの自由さの恩恵を受けた。</p>
+<p><img src="/images/IMG_4984.jpeg" alt="Amazonで買った2000円の指紋リーダー"></p>
+<p>他にもまだ機能を調べながら試してるところだけど、これが致命的に嫌で Mac に戻りたくて仕方がない、みたいなのは今の所ない。結構覚悟して使い始めたので嬉しい誤算だった。</p>
+<p>とはいえ普段 macOS で便利に使っているソフトウェアの殆どは Windows 版が提供されていないし、キーバインド周りなど使い勝手が全く異なる部分はある。ゲーム等以外の面だと Mac から Windows への移行して快適に暮らすにはそれなりの時間が必要そう。このへんは一つづつ解決していって別の記事にでも書きたい。</p>
+]]></description>
+            <link>https://horimisli.me/entry/building-desktop-pc/</link>
+            <guid isPermaLink="true">https://horimisli.me/entry/building-desktop-pc/</guid>
+            <dc:creator><![CDATA[horimislime]]></dc:creator>
+            <pubDate>Sun, 10 Apr 2022 14:27:00 GMT</pubDate>
+        </item>
+    </channel>
+</rss>
