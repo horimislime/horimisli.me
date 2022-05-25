@@ -5,7 +5,6 @@ import rss from 'rss';
 
 import { findEntryById, listEntries } from '../src/entities/Entry';
 
-
 async function generateFeed(filename: string, tags: string[] = []) {
   const feed = new rss({
     title: process.env.NEXT_PUBLIC_SITE_NAME,
