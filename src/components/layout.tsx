@@ -2,7 +2,6 @@ import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { ReactNode } from 'react';
-
 import TweetButton from './tweet_button';
 
 const HomeButton = dynamic(() => import('./button'), { ssr: false });
@@ -77,13 +76,13 @@ const Layout = (params: {
       )}
       <footer className="p-4 text-center">
         ©︎ {process.env.NEXT_PUBLIC_SITE_AUTHOR} <br />
-        {/* Served by{' '}
+        Served by{' '}
         <a
           href="https://github.com/horimislime/horimisli.me"
           className="underline font-medium"
         >
           horimislime/horimisli.me
-        </a> */}
+        </a>
       </footer>
     </div>
   );

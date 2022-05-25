@@ -19,5 +19,6 @@
   "rebaseWhen": "auto",
   "npm": {
     "stabilityDays": 3
-  }
+  },
+  "platform": "github"
 }
