@@ -7,7 +7,7 @@
   },
   "scripts": {
     "build": "next build",
-    "dev": "next dev",
+    "dev": "next-remote-watch ./posts",
     "prod": "npm run gen-feed && npm run gen-sitemap && next build && next export",
     "gen-feed": "ts-node -r dotenv/config scripts/feed.ts",
     "gen-sitemap": "ts-node -r dotenv/config scripts/sitemap.ts",
@@ -26,6 +26,7 @@
     "gray-matter": "4.0.3",
     "luxon": "2.4.0",
     "next": "12.1.6",
+    "next-remote-watch": "^1.0.0",
     "prismjs": "1.28.0",
     "react": "18.1.0",
     "react-dom": "18.1.0",
