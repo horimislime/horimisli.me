@@ -5,6 +5,8 @@ name: Deploy to Firebase by Repository Dispatch
 jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
+    env:
+      TZ: Asia/Tokyo
     steps:
       - name: Checkout Source Code
         uses: actions/checkout@v3
