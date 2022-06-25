@@ -3,9 +3,6 @@ import { convertToTimeZone } from 'date-fns-timezone';
 import fs from 'fs';
 import matter from 'gray-matter';
 import path from 'path';
-import remark from 'remark';
-import html from 'remark-html';
-import prism from 'remark-prism';
 
 const postsDirectory = path.join(process.cwd(), 'posts');
 
@@ -108,11 +105,7 @@ const load = async (fullPath: string, includeBody = false): Promise<Entry> => {
 
   let content = '';
   if (includeBody) {
-    const result = await remark()
-      .use(html)
-      .use(prism)
-      .process(matterResult.content);
-    content = result.toString();
+    content = matterResult.content;
   }
 
   const dateString = matterResult.data['date'] || matterResult.data['Date'];
