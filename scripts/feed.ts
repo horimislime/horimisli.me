@@ -29,14 +29,13 @@ async function generateFeed(filename: string, tags: string[] = []) {
     const contentHtml = await remark()
       .use(html)
       .use(prism)
-      .process(entry.content)
-      .toString();
+      .process(entry.content);
 
     feed.item({
       title: entry.title,
       url: `https://${process.env.NEXT_PUBLIC_SITE_DOMAIN}/entry/${entry.id}/`,
       date: parseISO(entry.date),
-      description: contentHtml,
+      description: contentHtml.toString(),
       author: process.env.NEXT_PUBLIC_SITE_AUTHOR,
     });
   }
