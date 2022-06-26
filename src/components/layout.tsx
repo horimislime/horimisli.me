@@ -61,7 +61,7 @@ const Layout = (params: {
         </div>
       </header>
       <hr className="p-4" />
-      <main className="prose prose-sm lg:prose-lg max-w-none mb-12">
+      <main className="prose max-w-none mb-12 prose-img:mb-0 prose-img:mt-0 prose-headings:pt-4">
         {params.children}
       </main>
       {params.showTweetButton === true ? (
