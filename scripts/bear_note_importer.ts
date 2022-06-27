@@ -33,7 +33,8 @@ function loadNote(filePath: string): BearNote {
       if (entry.name.endsWith('.txt')) {
         text = archive.readAsText(entry);
       } else {
-        images.push({ fileName: entry.name, data: archive.readFile(entry) });
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        images.push({ fileName: entry.name, data: archive.readFile(entry)! });
       }
     }
     return { body: text, images };
@@ -93,7 +94,7 @@ published: false
   const note = loadNote(filePath);
   const markdown = formatAsMarkdown(
     note.body,
-    categories.split(',').map((e) => e.trim()),
+    categories.split(',').map((e: string) => e.trim()),
     now,
   );
   const entryPath = `posts/blog/${now.year}/${slug}.md`;
