@@ -67,7 +67,8 @@ const Layout = (params: {
       {params.showTweetButton === true ? (
         <>
           <TweetButton
-            title={params.title ?? process.env.NEXT_PUBLIC_SITE_NAME}
+            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+            title={params.title ?? process.env.NEXT_PUBLIC_SITE_NAME!}
             path={useRouter().asPath}
           />
           <hr className="mt-8" />

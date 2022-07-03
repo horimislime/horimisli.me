@@ -10,7 +10,8 @@ import { findEntryById, listEntries } from '../src/entities/Entry';
 
 async function generateFeed(filename: string, tags: string[] = []) {
   const feed = new rss({
-    title: process.env.NEXT_PUBLIC_SITE_NAME,
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    title: process.env.NEXT_PUBLIC_SITE_NAME!,
     site_url: `https://${process.env.NEXT_PUBLIC_SITE_DOMAIN}`,
     feed_url: `https://${process.env.NEXT_PUBLIC_SITE_DOMAIN}/${filename}`,
   });

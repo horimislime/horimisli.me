@@ -2,6 +2,7 @@ import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import Head from 'next/head';
 import { ParsedUrlQuery } from 'querystring';
 import ReactMarkdown from 'react-markdown'
+import rehypeRaw from "rehype-raw";
 
 import Date from '../../components/date';
 import Layout from '../../components/layout';
@@ -31,10 +32,11 @@ const EntryPage: NextPage<Props> = (props) => {
             <Date dateString={props.entry.date} />
           </div>
           <ReactMarkdown
+            rehypePlugins={[rehypeRaw]}
             components={{
               img({node}) {
-                  const alt = node.properties.alt as string
-                  const path = node.properties.src as string;
+                  const alt = (node.properties?.alt ?? '') as string
+                  const path = (node.properties?.src ?? '') as string;
                   const filename = path.replace('/images/', '');
                   const showOptimizedImage = process.env.NODE_ENV === 'production' && !path.startsWith('http');
 
