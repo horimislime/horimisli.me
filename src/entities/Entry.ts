@@ -13,14 +13,14 @@ type PostId = {
 export type EntryType = 'normal' | 'hatena' | 'qiita';
 
 export class Entry {
-  id: string;
-  title: string;
-  categories: string[];
-  date: string;
+  id!: string;
+  title!: string;
+  categories!: string[];
+  date!: string;
   image?: string;
-  published: boolean;
-  content?: string;
-  type: EntryType;
+  published!: boolean;
+  content!: string;
+  type!: EntryType;
   externalURL?: string;
 }
 
@@ -55,7 +55,9 @@ const getAllEntryPaths = (directory = postsDirectory): string[] => {
   return paths;
 };
 
-export async function listEntries(limit = undefined): Promise<Entry[]> {
+export async function listEntries(
+  limit: number | undefined = undefined,
+): Promise<Entry[]> {
   const entries = await Promise.all(getAllEntryPaths().map((p) => load(p)));
   return entries
     .filter((e) => process.env.INCLUDE_DRAFT === '1' || e.published)
@@ -92,22 +94,16 @@ const checkEntryType = (matter: matter.GrayMatterFile<string>): EntryType => {
 const load = async (fullPath: string, includeBody = false): Promise<Entry> => {
   let fileContents: string;
   if (path.extname(fullPath) === '') {
-    fileContents = fs.readFileSync(
-      path.join(postsDirectory, `${fullPath}.md`),
-      'utf8',
-    );
+    fileContents = fs
+      .readFileSync(path.join(postsDirectory, `${fullPath}.md`), 'utf8')
+      .toString();
   } else {
     fileContents = fs.readFileSync(fullPath, 'utf8');
   }
 
   const id = path.basename(fullPath, '.md');
   const matterResult = matter(fileContents);
-
-  let content = '';
-  if (includeBody) {
-    content = matterResult.content;
-  }
-
+  const content = includeBody ? matterResult.content : '';
   const dateString = matterResult.data['date'] || matterResult.data['Date'];
 
   const normalizeDate = (data: string | Date) => {

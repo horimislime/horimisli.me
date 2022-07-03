@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { toArray } from 'react-emoji-render';
-import * as EmojiAliases from 'react-emoji-render/data/aliases';
+const EmojiAliases = require('react-emoji-render/data/aliases');
 
 const parseEmojis = (value: string) => {
   const emojisArray = toArray(value);
