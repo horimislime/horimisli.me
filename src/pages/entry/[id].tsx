@@ -41,7 +41,7 @@ const EntryPage: NextPage<Props> = (props) => {
                   const alt = (node.properties?.alt ?? '') as string
                   const path = (node.properties?.src ?? '') as string;
                   const filename = path.replace('/images/', '');
-                  const showOptimizedImage = process.env.NODE_ENV === 'production' && !path.startsWith('http');
+                  const showOptimizedImage = !path.startsWith('http');
 
                   return (
                     <div className="image-container py-6 flex flex-col space-y-2">
