@@ -13,6 +13,7 @@ const Layout = (params: {
   ogImagePath?: string;
   showTweetButton?: boolean;
 }): JSX.Element => {
+  const ogImageFileName = params.ogImagePath?.replace('/images/', '');
   return (
     <div className="max-w-4xl m-6 lg:m-auto">
       <Head>
@@ -28,12 +29,12 @@ const Layout = (params: {
           content={params.title ?? process.env.NEXT_PUBLIC_SITE_NAME}
         />
         <meta name="description" content="Personal website by horimislime" />
-        {params.ogImagePath ? (
+        {ogImageFileName ? (
           <>
             <meta name="twitter:card" content="summary_large_image" />
             <meta
               property="og:image"
-              content={`https://${process.env.NEXT_PUBLIC_SITE_DOMAIN}${params.ogImagePath}`}
+              content={`https://${process.env.NEXT_PUBLIC_SITE_DOMAIN}${require(`@public/images/${ogImageFileName}`)}`}
             />
           </>
         ) : (
