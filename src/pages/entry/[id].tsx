@@ -2,11 +2,14 @@ import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import Head from 'next/head';
 import { ParsedUrlQuery } from 'querystring';
 import ReactMarkdown from 'react-markdown'
+import {Prism as SyntaxHighlighter} from 'react-syntax-highlighter'
+import {dracula} from 'react-syntax-highlighter/dist/cjs/styles/prism'
 import rehypeRaw from "rehype-raw";
 
 import Date from '../../components/date';
 import Layout from '../../components/layout';
 import { Entry, findEntryById, getAllEntryIds } from '../../entities/Entry';
+
 type Props = {
   entry: Entry;
 };
@@ -52,6 +55,26 @@ const EntryPage: NextPage<Props> = (props) => {
                     }
                     </div>
                   )
+              },
+              code({inline, className, children, ...props}) {
+                const match = /language-(\w+)/.exec(className || '')
+                const innerElement = String(children).replace(/\n$/, '')
+                const styles = { background: "inherit", margin: "0px" }
+
+                return !inline && match ? (
+                  <SyntaxHighlighter
+                    style={dracula}
+                    language={match[1]}
+                    PreTag="div"
+                    customStyle={styles}
+                  >
+                    {innerElement}
+                  </SyntaxHighlighter>
+                ) : (
+                  <code className={className} {...props}>
+                    {children}
+                  </code>
+                )
               }
             }}>
             {props.entry.content}
