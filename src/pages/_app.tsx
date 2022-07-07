@@ -1,4 +1,3 @@
-import 'prismjs/themes/prism-tomorrow.css';
 import 'tailwindcss/tailwind.css';
 
 import type { AppProps } from 'next/app';
