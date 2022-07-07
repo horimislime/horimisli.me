@@ -11,7 +11,8 @@
     "prod": "npm run gen-feed && npm run gen-sitemap && next build && next export",
     "gen-feed": "ts-node -r dotenv/config scripts/feed.ts",
     "gen-sitemap": "ts-node -r dotenv/config scripts/sitemap.ts",
-    "import": "ts-node -r dotenv/config scripts/bear_note_importer.ts"
+    "import": "ts-node -r dotenv/config scripts/bear_note_importer.ts",
+    "push-entries": "cd posts;git add .;git commit -m 'add post'; git p; cd ../public/images; git add .; git commit -m 'add post'; git p; cd ../.."
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "6.1.1",
