@@ -42,11 +42,17 @@ const EntryPage: NextPage<Props> = (props) => {
                   const path = (node.properties?.src ?? '') as string;
                   const filename = path.replace('/images/', '');
                   const showOptimizedImage = !path.startsWith('http');
+                  let imageSrc = '';
+                  try {
+                    imageSrc = require(`@public/images/${filename}`);
+                  } catch (_) {
+                    // Workaround for Renovate CI
+                  }
 
                   return (
                     <div className="image-container py-6 flex flex-col space-y-2">
                     {showOptimizedImage ?
-                      (<img src={require(`@public/images/${filename}`)} alt={alt} />) :
+                      (<img src={imageSrc} alt={alt} />) :
                       (<img src={path} alt={alt} />)
                     }
                     {alt.length > 0 ?
