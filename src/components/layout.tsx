@@ -14,6 +14,12 @@ const Layout = (params: {
   showTweetButton?: boolean;
 }): JSX.Element => {
   const ogImageFileName = params.ogImagePath?.replace('/images/', '');
+  let ogImageSrc = ''
+  try {
+    ogImageSrc = `https://${process.env.NEXT_PUBLIC_SITE_DOMAIN}${require(`@public/images/${ogImageFileName}`)}`
+  } catch(_) {
+    // Workaround for Renovate CI
+  }
   return (
     <div className="max-w-4xl m-6 lg:m-auto">
       <Head>
@@ -29,12 +35,12 @@ const Layout = (params: {
           content={params.title ?? process.env.NEXT_PUBLIC_SITE_NAME}
         />
         <meta name="description" content="Personal website by horimislime" />
-        {ogImageFileName ? (
+        {ogImageSrc.length > 0 ? (
           <>
             <meta name="twitter:card" content="summary_large_image" />
             <meta
               property="og:image"
-              content={`https://${process.env.NEXT_PUBLIC_SITE_DOMAIN}${require(`@public/images/${ogImageFileName}`)}`}
+              content={ogImageSrc}
             />
           </>
         ) : (
