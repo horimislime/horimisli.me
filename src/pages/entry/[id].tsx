@@ -5,6 +5,7 @@ import ReactMarkdown from 'react-markdown'
 import {Prism as SyntaxHighlighter} from 'react-syntax-highlighter'
 import {dracula} from 'react-syntax-highlighter/dist/cjs/styles/prism'
 import rehypeRaw from "rehype-raw";
+import remarkUnwrapImages from 'remark-unwrap-images';
 
 import Date from '../../components/date';
 import Layout from '../../components/layout';
@@ -35,7 +36,9 @@ const EntryPage: NextPage<Props> = (props) => {
             <Date dateString={props.entry.date} />
           </div>
           <ReactMarkdown
+            remarkPlugins={[remarkUnwrapImages]}
             rehypePlugins={[rehypeRaw]}
+            disallowedElements={['figure']}
             components={{
               img({node}) {
                   const alt = (node.properties?.alt ?? '') as string
@@ -50,16 +53,16 @@ const EntryPage: NextPage<Props> = (props) => {
                   }
 
                   return (
-                    <div className="image-container py-6 flex flex-col space-y-2">
+                    <figure className="image-container py-6 flex flex-col space-y-2">
                     {showOptimizedImage ?
                       (<img src={imageSrc} alt={alt} />) :
                       (<img src={path} alt={alt} />)
                     }
                     {alt.length > 0 ?
-                      <div className="caption text-sm text-gray-500 text-center" aria-label={alt}>{alt}</div> :
+                      <figcaption className="caption text-sm text-gray-500 text-center" aria-label={alt}>{alt}</figcaption> :
                       null
                     }
-                    </div>
+                    </figure>
                   )
               },
               code({inline, className, children, ...props}) {
