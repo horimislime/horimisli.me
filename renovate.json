@@ -14,7 +14,7 @@
       "groupSlug": "all"
     }
   ],
-  "ignoreDeps": ["remark", "remark-html"],
+  "ignoreDeps": ["remark", "remark-html", "imagemin-mozjpeg"],
   "automerge": true,
   "rebaseWhen": "auto",
   "npm": {
