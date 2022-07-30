@@ -14,7 +14,7 @@
     "import": "ts-node -r dotenv/config scripts/bear_note_importer.ts",
     "push-entries": "cd posts;git add .;git commit -m 'add post'; git p; cd ../public/images; git add .; git commit -m 'add post'; git p; cd ../..",
     "release": "gh workflow run release.yml",
-    "releasew": "npm run release && gh run list --workflow=release.yml --json=databaseId --limit=1 --jq '.[].databaseId' | xargs -IJOB_ID gh run watch JOB_ID"
+    "release-watch": "npm run release && gh run list --workflow=release.yml --json=databaseId --limit=1 --jq '.[].databaseId' | xargs -IJOB_ID gh run watch JOB_ID"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "6.1.1",
