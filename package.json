@@ -35,7 +35,7 @@
     "next-compose-plugins": "2.2.1",
     "next-optimized-images": "2.6.2",
     "next-remote-watch": "1.0.0",
-    "prismjs": "1.28.0",
+    "prismjs": "1.29.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-emoji-render": "1.2.4",
