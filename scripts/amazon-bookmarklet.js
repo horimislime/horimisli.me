@@ -2,8 +2,8 @@ javascript: (() => {
   const productUrl = document
     .querySelector('link[rel="canonical"]')
     .href.replace(/amazon.co.jp\/.*\/dp/, 'amazon.co.jp/dp');
-  const imageUrl = document.querySelector('#main-image-container img')
-    .attributes['src'].textContent;
+  const asin = document.querySelector('#ASIN').value;
+  const imageUrl = 'http://images-jp.amazon.com/images/P/' + asin + '.09.LZZZZZZZ.jpg';
   const title = document.querySelector('#productTitle').innerText;
   const detailElement = document.querySelector('#bylineInfo');
   const detail = detailElement == undefined ? '' : detailElement.innerText;
