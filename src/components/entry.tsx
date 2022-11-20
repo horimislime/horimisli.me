@@ -27,8 +27,8 @@ export default function EntryList(params: { entries: Entry[] }): JSX.Element {
               </div>
             </small>
             {type === 'normal' ? (
-              <Link href={`/entry/${id}`}>
-                <a className="underline font-medium">{title}</a>
+              <Link href={`/entry/${id}`} className="underline font-medium">
+                {title}
               </Link>
             ) : (
               <a

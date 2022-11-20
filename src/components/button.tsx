@@ -23,11 +23,13 @@ const HomeButton = (): JSX.Element => {
   const emoji = randomEmoji();
   const emojiString = parseEmojis(emoji);
   return (
-    <Link href="/">
-      <a className="border-2 border-black border-solid px-2 py-1 font-extrabold hover:bg-black hover:text-white">
-        {emojiString} {process.env.NEXT_PUBLIC_SITE_NAME}
-      </a>
-    </Link>
+    (<Link
+      href="/"
+      className="border-2 border-black border-solid px-2 py-1 font-extrabold hover:bg-black hover:text-white">
+
+      {emojiString} {process.env.NEXT_PUBLIC_SITE_NAME}
+
+    </Link>)
   );
 };
 

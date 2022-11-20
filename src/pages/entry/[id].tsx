@@ -20,78 +20,76 @@ interface Params extends ParsedUrlQuery {
 }
 
 const EntryPage: NextPage<Props> = (props) => {
-  return (
-    <>
-      <Layout
-        title={props.entry.title}
-        ogImagePath={props.entry.image}
-        showTweetButton={true}
-      >
-        <Head>
-          <title>{props.entry.title}</title>
-        </Head>
-        <article>
-          <h1>{props.entry.title}</h1>
-          <div className="text-lg text-gray-500 mb-8">
-            <Date dateString={props.entry.date} />
-          </div>
-          <ReactMarkdown
-            remarkPlugins={[remarkUnwrapImages]}
-            rehypePlugins={[rehypeRaw]}
-            disallowedElements={['figure']}
-            components={{
-              img({node}) {
-                  const alt = (node.properties?.alt ?? '') as string
-                  const path = (node.properties?.src ?? '') as string;
-                  const filename = path.replace('/images/', '');
-                  const showOptimizedImage = !path.startsWith('http');
-                  let imageSrc = '';
-                  try {
-                    imageSrc = require(`@public/images/${filename}`);
-                  } catch (_) {
-                    // Workaround for Renovate CI
+  return <>
+    <Layout
+      title={props.entry.title}
+      ogImagePath={props.entry.image}
+      showTweetButton={true}
+    >
+      <Head>
+        <title>{props.entry.title}</title>
+      </Head>
+      <article>
+        <h1>{props.entry.title}</h1>
+        <div className="text-lg text-gray-500 mb-8">
+          <Date dateString={props.entry.date} />
+        </div>
+        <ReactMarkdown
+          remarkPlugins={[remarkUnwrapImages]}
+          rehypePlugins={[rehypeRaw]}
+          disallowedElements={['figure']}
+          components={{
+            img({node}) {
+                const alt = (node.properties?.alt ?? '') as string
+                const path = (node.properties?.src ?? '') as string;
+                const filename = path.replace('/images/', '');
+                const showOptimizedImage = !path.startsWith('http');
+                let imageSrc = '';
+                try {
+                  imageSrc = require(`@public/images/${filename}`);
+                } catch (_) {
+                  // Workaround for Renovate CI
+                }
+
+                return (
+                  <figure className="image-container py-6 flex flex-col space-y-2">
+                  {showOptimizedImage ?
+                    (<img src={imageSrc} alt={alt} />) :
+                    (<img src={path} alt={alt} />)
                   }
-
-                  return (
-                    <figure className="image-container py-6 flex flex-col space-y-2">
-                    {showOptimizedImage ?
-                      (<img src={imageSrc} alt={alt} />) :
-                      (<img src={path} alt={alt} />)
-                    }
-                    {alt.length > 0 ?
-                      <figcaption className="caption text-sm text-gray-500 text-center" aria-label={alt}>{alt}</figcaption> :
-                      null
-                    }
-                    </figure>
-                  )
-              },
-              code({inline, className, children, ...props}) {
-                const match = /language-(\w+)/.exec(className || '')
-                const innerElement = String(children).replace(/\n$/, '')
-                const styles = { background: "inherit", margin: "0px" }
-
-                return !inline && match ? (
-                  <SyntaxHighlighter
-                    style={dracula}
-                    language={match[1]}
-                    PreTag="div"
-                    customStyle={styles}
-                  >
-                    {innerElement}
-                  </SyntaxHighlighter>
-                ) : (
-                  <code className={className} {...props}>
-                    {children}
-                  </code>
+                  {alt.length > 0 ?
+                    <figcaption className="caption text-sm text-gray-500 text-center" aria-label={alt}>{alt}</figcaption> :
+                    null
+                  }
+                  </figure>
                 )
-              }
-            }}>
-            {props.entry.content}
-          </ReactMarkdown>
-        </article>
-      </Layout>
-    </>
-  );
+            },
+            code({inline, className, children, ...props}) {
+              const match = /language-(\w+)/.exec(className || '')
+              const innerElement = String(children).replace(/\n$/, '')
+              const styles = { background: "inherit", margin: "0px" }
+
+              return !inline && match ? (
+                <SyntaxHighlighter
+                  style={dracula}
+                  language={match[1]}
+                  PreTag="div"
+                  customStyle={styles}
+                >
+                  {innerElement}
+                </SyntaxHighlighter>
+              ) : (
+                <code className={className} {...props}>
+                  {children}
+                </code>
+              )
+            }
+          }}>
+          {props.entry.content}
+        </ReactMarkdown>
+      </article>
+    </Layout>
+  </>;
 };
 
 export default EntryPage;
