@@ -7,7 +7,7 @@
   },
   "scripts": {
     "build": "next build",
-    "dev": "next dev",
+    "dev": "next-remote-watch ./posts",
     "prod": "npm run gen-feed && npm run gen-sitemap && next build && next export",
     "gen-feed": "ts-node -r dotenv/config scripts/feed.ts",
     "gen-sitemap": "ts-node -r dotenv/config scripts/sitemap.ts",
