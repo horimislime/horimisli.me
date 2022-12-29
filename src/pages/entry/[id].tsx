@@ -32,8 +32,24 @@ const EntryPage: NextPage<Props> = (props) => {
       <article>
         <h1>{props.entry.title}</h1>
         <div className="text-lg text-gray-500 mb-8">
-          <Date dateString={props.entry.date} />
+
+          <small className="text-sm flex">
+            <Date dateString={props.entry.date} />
+              <div className="flex ml-2">
+                {Array.from(
+                  props.entry.categories.filter((category) => category !== 'share'),
+                ).map((category, i) => (
+                  <div
+                    key={`category-${i}`}
+                    className="ml-2 pl-1 pr-1 rounded text-white bg-gray-400"
+                  >
+                    #{category}
+                  </div>
+                ))}
+              </div>
+            </small>
         </div>
+
         <ReactMarkdown
           remarkPlugins={[remarkUnwrapImages]}
           rehypePlugins={[rehypeRaw]}
