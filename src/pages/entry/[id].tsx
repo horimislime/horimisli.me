@@ -40,7 +40,8 @@ const EntryPage: NextPage<Props> = (props) => {
           disallowedElements={['figure']}
           components={{
             img({node}) {
-                const alt = (node.properties?.alt ?? '') as string
+                const alt = (node.properties?.alt ?? '') as string;
+                const classNames = ((node.properties?.className ?? []) as string[]).join(' ');
                 const path = (node.properties?.src ?? '') as string;
                 const filename = path.replace('/images/', '');
                 const showOptimizedImage = !path.startsWith('http');
@@ -53,10 +54,7 @@ const EntryPage: NextPage<Props> = (props) => {
 
                 return (
                   <figure className="image-container py-6 flex flex-col space-y-2">
-                  {showOptimizedImage ?
-                    (<img src={imageSrc} alt={alt} />) :
-                    (<img src={path} alt={alt} />)
-                  }
+                  <img src={showOptimizedImage ? imageSrc : path} alt={alt} className={classNames} />
                   {alt.length > 0 ?
                     <figcaption className="caption text-sm text-gray-500 text-center" aria-label={alt}>{alt}</figcaption> :
                     null
