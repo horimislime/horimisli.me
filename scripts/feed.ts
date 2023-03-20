@@ -2,8 +2,6 @@ import { parseISO } from 'date-fns';
 import fs from 'fs';
 import path from 'path';
 import remark from 'remark';
-import html from 'remark-html';
-import prism from 'remark-prism';
 import rss from 'rss';
 
 import { findEntryById, listEntries } from '../src/entities/Entry';
@@ -28,8 +26,8 @@ async function generateFeed(filename: string, tags: string[] = []) {
   );
   for (const entry of entriesWithBody) {
     const contentHtml = await remark()
-      .use(html)
-      .use(prism)
+      .use(require('remark-html'))
+      .use(require('remark-prism'))
       .process(entry.content);
 
     feed.item({
