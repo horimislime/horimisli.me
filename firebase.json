@@ -1,6 +1,12 @@
 {
   "hosting": {
     "public": "out",
+    "rewrites": [
+      {
+        "source": "/images/**",
+        "function": "onRequestResizedImage"
+      }
+    ],
     "headers": [
       {
         "source": "**/*.@(jpg|jpeg|gif|png|css)",
