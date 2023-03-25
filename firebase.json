@@ -3,7 +3,7 @@
     "public": "out",
     "rewrites": [
       {
-        "source": "/images/**",
+        "source": "/images/**/*",
         "function": "onRequestResizedImage"
       }
     ],
