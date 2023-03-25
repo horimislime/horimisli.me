@@ -1,6 +1,9 @@
 {
   "hosting": {
     "public": "out",
+    "ignore": [
+      "images/**"
+    ],
     "rewrites": [
       {
         "source": "/images/**",
