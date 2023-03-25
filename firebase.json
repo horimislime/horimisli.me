@@ -4,7 +4,8 @@
     "rewrites": [
       {
         "source": "/images/**",
-        "function": "onRequestResizedImage"
+        "function": "onRequestResizedImage",
+        "region": "asia-northeast1"
       }
     ],
     "headers": [
