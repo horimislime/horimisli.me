@@ -12,7 +12,9 @@ exports.onRequestResizedImage = functions
     .region('asia-northeast1')
     .https.onRequest((req, res) => {
     // split req.path by "/" to get path components
-      const pathComponents = req.path.split('/');
+      const pathComponents = req.path.split('/').filter((e) => {
+        return e.length > 0;
+      });
       const pathWithoutFilename = pathComponents.slice(
           0,
           pathComponents.length - 1,
