@@ -11,12 +11,6 @@ type Props = {
 };
 
 const Home: NextPage<Props> = (props) => {
-  let profileImageSrc = '';
-  try {
-    profileImageSrc = require("@public/images/profile.jpg");
-  } catch (_) {
-    // Workaround for Renovate CI
-  }
   return (
     <Layout>
       <Head>
@@ -25,7 +19,7 @@ const Home: NextPage<Props> = (props) => {
       <section className="flex items-center p-4">
         <div className="m-4">
           <img
-            src={profileImageSrc}
+            src={"/images/profile.jpg"}
             width="80"
             height="80"
             className="border-gray-400 rounded-full object-fill h-auto w-20"
