@@ -1,5 +1,5 @@
 import { Bucket } from '@google-cloud/storage';
-import { ObjectMetadata } from 'firebase-functions/lib/providers/storage';
+import { ObjectMetadata } from 'firebase-functions/v1/storage';
 import * as os from 'os';
 import * as path from 'path';
 import * as sharp from 'sharp';
