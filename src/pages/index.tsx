@@ -19,7 +19,7 @@ const Home: NextPage<Props> = (props) => {
       <section className="flex items-center p-4">
         <div className="m-4">
           <img
-            src={"/images/profile.jpg"}
+            src={"https://storage.googleapis.com/horimislime-static/images/generated/profile_small.jpg"}
             width="80"
             height="80"
             className="border-gray-400 rounded-full object-fill h-auto w-20"
