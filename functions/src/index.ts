@@ -3,10 +3,10 @@ import * as admin from 'firebase-admin';
 import * as functions from 'firebase-functions';
 import { logger } from 'firebase-functions';
 import { ObjectMetadata } from 'firebase-functions/v1/storage';
-import * as mkdirp from 'mkdirp';
+import mkdirp from 'mkdirp';
 import * as os from 'os';
 import * as path from 'path';
-import * as sharp from 'sharp';
+import sharp from 'sharp';
 import { uuid } from 'uuidv4';
 
 import { config, ImageSize } from './config';
