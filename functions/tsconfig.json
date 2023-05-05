@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "outDir": "lib",
+    "target": "ES2020",
+    "module": "commonjs",
+    "noImplicitReturns": true,
+    "sourceMap": false,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true
+  },
+  "compileOnSave": true,
+  "include": ["src"],
+  "extends": "../tsconfig.json"
+}

@@ -13,13 +13,6 @@ const Layout = (params: {
   ogImagePath?: string;
   showTweetButton?: boolean;
 }): JSX.Element => {
-  const ogImageFileName = params.ogImagePath?.replace('/images/', '');
-  let ogImageSrc = ''
-  try {
-    ogImageSrc = `https://${process.env.NEXT_PUBLIC_SITE_DOMAIN}${require(`@public/images/${ogImageFileName}`)}`
-  } catch(_) {
-    // Workaround for Renovate CI
-  }
   return (
     <div className="max-w-4xl m-6 lg:m-auto">
       <Head>
@@ -35,12 +28,12 @@ const Layout = (params: {
           content={params.title ?? process.env.NEXT_PUBLIC_SITE_NAME}
         />
         <meta name="description" content="Personal website by horimislime" />
-        {ogImageSrc.length > 0 ? (
+        {params.ogImagePath ? (
           <>
             <meta name="twitter:card" content="summary_large_image" />
             <meta
               property="og:image"
-              content={ogImageSrc}
+              content={params.ogImagePath}
             />
           </>
         ) : (

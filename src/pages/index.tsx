@@ -11,12 +11,6 @@ type Props = {
 };
 
 const Home: NextPage<Props> = (props) => {
-  let profileImageSrc = '';
-  try {
-    profileImageSrc = require("@public/images/profile.jpg");
-  } catch (_) {
-    // Workaround for Renovate CI
-  }
   return (
     <Layout>
       <Head>
@@ -25,7 +19,7 @@ const Home: NextPage<Props> = (props) => {
       <section className="flex items-center p-4">
         <div className="m-4">
           <img
-            src={profileImageSrc}
+            src={"https://storage.googleapis.com/horimislime-static/images/generated/profile_small.jpg"}
             width="80"
             height="80"
             className="border-gray-400 rounded-full object-fill h-auto w-20"
@@ -49,7 +43,7 @@ const Home: NextPage<Props> = (props) => {
             <a
               href="https://github.com/horimislime"
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
             >
               GitHub
             </a>
@@ -58,7 +52,7 @@ const Home: NextPage<Props> = (props) => {
             <a
               href="https://qiita.com/horimislime"
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
             >
               Qiita
             </a>
@@ -67,7 +61,7 @@ const Home: NextPage<Props> = (props) => {
             <a
               href="https://stackoverflow.com/users/1430224/horimislime"
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
             >
               Stack Overflow
             </a>
@@ -76,7 +70,7 @@ const Home: NextPage<Props> = (props) => {
             <a
               href="https://speakerdeck.com/horimislime"
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
             >
               Speaker Deck
             </a>
@@ -85,7 +79,7 @@ const Home: NextPage<Props> = (props) => {
             <a
               href="https://twitter.com/horimislime"
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
             >
               Twitter
             </a>
@@ -94,7 +88,7 @@ const Home: NextPage<Props> = (props) => {
             <a
               href="https://horimislime.hateblo.jp"
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
             >
               はてなブログ（旧ブログ）
             </a>

@@ -1,5 +1,5 @@
 # dependencies
-/node_modules
+node_modules
 /.pnp
 .pnp.js
 
@@ -43,3 +43,6 @@ public/sitemap.xml
 .firebase/*
 firebase-debug.log
 ui-debug.log
+
+# functions
+functions/lib

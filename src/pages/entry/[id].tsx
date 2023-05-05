@@ -8,6 +8,7 @@ import rehypeRaw from "rehype-raw";
 import remarkUnwrapImages from 'remark-unwrap-images';
 
 import Date from '../../components/date';
+import { Image } from '../../components/image';
 import Layout from '../../components/layout';
 import { Entry, findEntryById, getAllEntryIds } from '../../entities/Entry';
 
@@ -59,24 +60,13 @@ const EntryPage: NextPage<Props> = (props) => {
                 const alt = (node.properties?.alt ?? '') as string;
                 const classNames = ((node.properties?.className ?? []) as string[]).join(' ');
                 const path = (node.properties?.src ?? '') as string;
-                const filename = path.replace('/images/', '');
-                const showOptimizedImage = !path.startsWith('http');
-                let imageSrc = '';
-                try {
-                  imageSrc = require(`@public/images/${filename}`);
-                } catch (_) {
-                  // Workaround for Renovate CI
-                }
-
-                return (
-                  <figure className="image-container py-6 flex flex-col space-y-2">
-                  <img src={showOptimizedImage ? imageSrc : path} alt={alt} className={classNames} />
-                  {alt.length > 0 ?
-                    <figcaption className="caption text-sm text-gray-500 text-center" aria-label={alt}>{alt}</figcaption> :
-                    null
-                  }
-                  </figure>
-                )
+                return Image({
+                  imagePath: path,
+                  imageSize: 'large',
+                  className: classNames,
+                  alt: alt,
+                  showCaption: true,
+                });
             },
             code({inline, className, children, ...props}) {
               const match = /language-(\w+)/.exec(className || '')
