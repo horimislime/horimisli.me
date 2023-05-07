@@ -22,7 +22,7 @@ function loadNote(filePath: string): BearNote {
   if (fileExtension === '.txt') {
     const text = fs.readFileSync(filePath, { encoding: 'utf8' });
     return { body: text, images: [] };
-  } else if (fileExtension === '.bearnote') {
+  } else if (fileExtension === '.bear') {
     const archive = new AdmZip(filePath);
     let text = '';
     const images: Image[] = [];
@@ -30,7 +30,8 @@ function loadNote(filePath: string): BearNote {
       .getEntries()
       .filter((e) => !e.entryName.endsWith('.json'));
     for (const entry of zipContents) {
-      if (entry.name.endsWith('.txt')) {
+      console.log(`name = ${entry.name}`);
+      if (entry.name.endsWith('.md')) {
         text = archive.readAsText(entry);
       } else {
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -63,10 +64,13 @@ published: false
   const output: string[] = [];
   for (let i = 1; i < lines.length; i++) {
     const line = lines[i];
-    if (line.startsWith('[assets/')) {
-      const formatted = line.replace(/\[assets\/(.+)\]/g, (_, imagePath) => {
-        return `![](/images/${publishedAt.year}/${imagePath})`;
-      });
+    if (line.startsWith('![](assets/')) {
+      const formatted = line.replace(
+        /!\[\]\(assets\/(.+)\)/g,
+        (_, imagePath) => {
+          return `![](/images/${publishedAt.year}/${imagePath})`;
+        },
+      );
       output.push(formatted);
     } else {
       output.push(line);
