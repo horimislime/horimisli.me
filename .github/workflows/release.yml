@@ -2,7 +2,7 @@ name: Release
 'on':
   push:
     branches:
-      - "main"
+      - 'main'
   workflow_dispatch:
 jobs:
   build_and_deploy:
@@ -27,7 +27,7 @@ jobs:
       - name: Set up Node
         uses: actions/setup-node@v3
         with:
-          node-version: '14'
+          node-version-file: '.node-version'
       - name: Build
         run: |
           npm install
