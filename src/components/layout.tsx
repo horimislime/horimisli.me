@@ -3,6 +3,7 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { ReactNode } from 'react';
 
+import { TwitterCardImage } from './image';
 import TweetButton from './tweet_button';
 
 const HomeButton = dynamic(() => import('./button'), { ssr: false });
@@ -29,13 +30,7 @@ const Layout = (params: {
         />
         <meta name="description" content="Personal website by horimislime" />
         {params.ogImagePath ? (
-          <>
-            <meta name="twitter:card" content="summary_large_image" />
-            <meta
-              property="og:image"
-              content={params.ogImagePath}
-            />
-          </>
+          <TwitterCardImage imagePath={params.ogImagePath} />
         ) : (
           <meta name="twitter:card" content="summary" />
         )}

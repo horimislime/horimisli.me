@@ -2,6 +2,30 @@ import path from 'path';
 
 export type ImageSize = 'large' | 'medium' | 'small';
 
+const imageUrlForPath = (imagePath: string, imageSize: ImageSize): string => {
+  if (process.env.NODE_ENV === 'production') {
+    const extension = path.extname(imagePath);
+    const fileName = path.basename(imagePath, extension);
+    const dirName = path.dirname(imagePath);
+    return `${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}${dirName}/generated/${fileName}_${imageSize}${extension}`;
+  } else {
+    return imagePath;
+  }
+}
+
+export function TwitterCardImage(params: {
+  imagePath: string;
+}): JSX.Element {
+  const urlString = imageUrlForPath(params.imagePath, 'small');
+  return <>
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta
+    property="og:image"
+    content={urlString}
+  />
+</>;
+}
+
 export function Image(params: {
   imagePath: string;
   imageSize: ImageSize;
@@ -9,16 +33,7 @@ export function Image(params: {
   alt?: string;
   showCaption?: boolean;
 }): JSX.Element {
-  const urlString = (() => {
-    if (process.env.NODE_ENV === 'production') {
-      const extension = path.extname(params.imagePath);
-      const fileName = path.basename(params.imagePath, extension);
-      const dirName = path.dirname(params.imagePath);
-      return `${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}${dirName}/generated/${fileName}_${params.imageSize}${extension}`;
-    } else {
-      return params.imagePath;
-    }
-  })();
+  const urlString = imageUrlForPath(params.imagePath, params.imageSize);
 
   const imgTag = <img src={urlString} alt={params.alt} className={params.className} />;
   if (params.showCaption === true) {
