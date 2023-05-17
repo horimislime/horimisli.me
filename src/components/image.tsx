@@ -35,6 +35,7 @@ export function Image(params: {
 }): JSX.Element {
   const urlString = imageUrlForPath(params.imagePath, params.imageSize);
 
+  // eslint-disable-next-line @next/next/no-img-element
   const imgTag = <img src={urlString} alt={params.alt} className={params.className} />;
   if (params.showCaption === true) {
     return (
