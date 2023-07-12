@@ -116,13 +116,6 @@ export function shouldResize(object: ObjectMetadata): boolean {
     return false;
   }
 
-  if (object.contentEncoding === 'gzip') {
-    logger.log(
-      "Images encoded with 'gzip' are not supported by this extension",
-    );
-    return false;
-  }
-
   if (!supportedContentTypes.includes(contentType)) {
     logger.log(
       `'${contentType}' is not supported, supported types are ${supportedContentTypes.join(
