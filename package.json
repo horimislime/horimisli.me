@@ -5,12 +5,13 @@
   "engines": {
     "npm": "<10.0.0"
   },
+  "type": "module",
   "scripts": {
     "build": "next build",
     "dev": "next-remote-watch ./posts",
     "prod": "npm run gen-feed && npm run gen-sitemap && next build",
-    "gen-feed": "ts-node -r dotenv/config scripts/feed.ts",
-    "gen-sitemap": "ts-node -r dotenv/config scripts/sitemap.ts",
+    "gen-feed": "ts-node -r dotenv/config --esm scripts/feed.ts",
+    "gen-sitemap": "ts-node -r dotenv/config --esm scripts/sitemap.ts",
     "import": "ts-node -r dotenv/config scripts/bear_note_importer.ts",
     "push-entries": "cd posts;git add .;git commit -m 'add post'; git p; cd ../public/images; git add .; git commit -m 'add post'; git p; cd ../..",
     "pull-entries": "cd posts;git pull; cd ../public/images; git pull; cd ../..",

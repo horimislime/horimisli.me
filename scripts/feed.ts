@@ -1,10 +1,9 @@
 import { parseISO } from 'date-fns';
 import fs from 'fs';
 import path from 'path';
-import remark from 'remark';
 import rss from 'rss';
 
-import { findEntryById, listEntries } from '../src/entities/Entry';
+import { findEntryById, listEntries } from '../src/entities/Entry.js';
 
 async function generateFeed(filename: string, tags: string[] = []) {
   const feed = new rss({
@@ -25,16 +24,11 @@ async function generateFeed(filename: string, tags: string[] = []) {
     entries.map((e) => findEntryById(e.id, true)),
   );
   for (const entry of entriesWithBody) {
-    const contentHtml = await remark()
-      .use(require('remark-html'))
-      .use(require('remark-prism'))
-      .process(entry.content);
-
     feed.item({
       title: entry.title,
       url: `https://${process.env.NEXT_PUBLIC_SITE_DOMAIN}/entry/${entry.id}/`,
       date: parseISO(entry.date),
-      description: contentHtml.toString(),
+      description: '',
       author: process.env.NEXT_PUBLIC_SITE_AUTHOR,
     });
   }

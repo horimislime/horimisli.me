@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 
-import { listEntries } from '../src/entities/Entry';
+import { listEntries } from '../src/entities/Entry.js';
 
 (async () => {
   const now = new Date().toISOString();
