@@ -3,6 +3,12 @@ import { convertToTimeZone } from 'date-fns-timezone';
 import fs from 'fs';
 import matter from 'gray-matter';
 import path from 'path';
+import rehypeRaw from 'rehype-raw';
+import stringify from 'rehype-stringify';
+import { unified } from 'unified';
+import { extractKeywords } from 'uniorg-extract-keywords';
+import uparse from 'uniorg-parse';
+import uniorg2rehype from 'uniorg-rehype';
 
 const postsDirectory = path.join(process.cwd(), 'posts');
 
@@ -25,15 +31,16 @@ export class Entry {
 }
 
 export function getAllEntryIds(): PostId[] {
-  return getAllEntryPaths()
-    .filter((p) => p.includes('/blog/'))
-    .map((entryPath) => {
-      return {
-        params: {
-          id: path.basename(entryPath).replace(/\.md$/, ''),
-        },
-      };
-    });
+  const paths = getAllEntryPaths().filter((p) => p.includes('/blog/'));
+  return paths.map((entryPath) => {
+    return {
+      params: {
+        id: entryPath.endsWith('.org')
+          ? getOrgEntryId(entryPath)
+          : path.basename(entryPath).replace(/\.md$/, ''),
+      },
+    };
+  });
 }
 
 const getAllEntryPaths = (directory = postsDirectory): string[] => {
@@ -76,7 +83,8 @@ export async function findEntryById(
   includeBody = false,
 ): Promise<Entry> {
   const entryPath = getAllEntryPaths().filter(
-    (postPath) => path.basename(postPath) === `${id}.md`,
+    (postPath) =>
+      path.basename(postPath) === `${id}.md` || getOrgEntryId(postPath) === id,
   )[0];
   return load(entryPath, includeBody);
 }
@@ -91,7 +99,61 @@ const checkEntryType = (matter: matter.GrayMatterFile<string>): EntryType => {
   }
 };
 
+const convertToDateTime = (dateString: string): Date => {
+  const format = dateString.includes(' ') ? 'yyyy-MM-dd HH:mm' : 'yyyy-MM-dd';
+  const parsedDate = parse(dateString, format, new Date());
+  return convertToTimeZone(parsedDate, { timeZone: 'Asia/Tokyo' });
+};
+
+type OrgMetadata = {
+  title: string;
+  date: string;
+  tags: string;
+  image?: string;
+  draft?: string;
+};
+
+const getOrgEntryId = (fullPath: string): string => {
+  const parsedPath = path.parse(fullPath);
+  return parsedPath.dir.split('/').pop() as string;
+};
+
+const loadOrg = async (
+  fullPath: string,
+  includeBody = false,
+): Promise<Entry> => {
+  const processor = unified()
+    .use(uparse)
+    .use(extractKeywords)
+    .use(uniorg2rehype)
+    .use(rehypeRaw)
+    .use(stringify);
+
+  const res = await processor.process(fs.readFileSync(fullPath, 'utf8'));
+  const metadata = res.data as OrgMetadata;
+  const postDate = convertToDateTime(metadata.date);
+  const categories = metadata.tags.split(' ');
+  const isDraft = metadata.draft === 'true';
+  const slug = getOrgEntryId(fullPath);
+
+  return {
+    id: slug,
+    title: metadata.title,
+    categories: categories,
+    date: postDate.toISOString(),
+    image: metadata.image ?? '',
+    content: includeBody ? res.value.toString() : '',
+    published: !isDraft,
+    type: 'normal',
+    externalURL: '',
+  };
+};
+
 const load = async (fullPath: string, includeBody = false): Promise<Entry> => {
+  if (path.extname(fullPath) === '.org') {
+    return loadOrg(fullPath, includeBody);
+  }
+
   let fileContents: string;
   if (path.extname(fullPath) === '') {
     fileContents = fs
