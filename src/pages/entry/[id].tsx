@@ -1,6 +1,7 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import Head from 'next/head';
 import { ParsedUrlQuery } from 'querystring';
+import { ReactElement } from 'react';
 import ReactMarkdown from 'react-markdown'
 import {Prism as SyntaxHighlighter} from 'react-syntax-highlighter'
 import {dracula} from 'react-syntax-highlighter/dist/cjs/styles/prism'
@@ -57,9 +58,9 @@ const EntryPage: NextPage<Props> = (props) => {
           disallowedElements={['figure']}
           components={{
             img({node}) {
-                const alt = (node.properties?.alt ?? '') as string;
-                const classNames = ((node.properties?.className ?? []) as string[]).join(' ');
-                const path = (node.properties?.src ?? '') as string;
+                const alt = (node?.properties?.alt ?? '') as string;
+                const classNames = ((node?.properties?.className ?? []) as string[]).join(' ');
+                const path = (node?.properties?.src ?? '') as string;
                 return Image({
                   imagePath: path,
                   imageSize: 'large',
@@ -68,12 +69,26 @@ const EntryPage: NextPage<Props> = (props) => {
                   showCaption: true,
                 });
             },
-            code({inline, className, children, ...props}) {
+            p({ children}) {
+              if (Array.isArray(children) && children.filter((child) => child.props?.node?.tagName === 'img').length > 0) {
+
+                return (<>{children.map((child) => {
+                  if (child.props?.node?.tagName === 'img') {
+                    return <>{child}</>;
+                  }
+                  // eslint-disable-next-line react/jsx-key
+                  return <p>{child}</p>;
+                })}</>);
+              }
+              const c = children as ReactElement;
+              return c.props?.node?.tagName === 'img' ? (<>{children}</>) : (<p>{children}</p>);
+            },
+            code({className, children, ...props}) {
               const match = /language-(\w+)/.exec(className || '')
               const innerElement = String(children).replace(/\n$/, '')
               const styles = { background: "inherit", margin: "0px" }
 
-              return !inline && match ? (
+              return match ? (
                 <SyntaxHighlighter
                   style={dracula}
                   language={match[1]}
