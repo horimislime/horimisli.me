@@ -171,7 +171,7 @@ const generateResizedImageHandler = async (
   await Promise.all(tasks);
 };
 
-export const generateResizedImage = functions
+export const resizeImage = functions
   .region('asia-northeast1')
   .runWith({ memory: '2GB', timeoutSeconds: 300 })
   .storage.bucket(config.bucket)
