@@ -1,12 +1,17 @@
 import path from 'path';
+import url from 'url';
 
 export type ImageSize = 'large' | 'medium' | 'small';
 
 const imageUrlForPath = (imagePath: string, imageSize: ImageSize): string => {
+  if (imagePath.startsWith('https') && url.parse(imagePath).hostname != process.env.NEXT_PUBLIC_SITE_DOMAIN) {
+    return imagePath;
+  }
+
   if (process.env.NODE_ENV === 'production') {
     const extension = path.extname(imagePath);
     const fileName = path.basename(imagePath, extension);
-    const dirName = path.dirname(imagePath);
+    const dirName = path.dirname(imagePath) === '.' ? '/images' : path.dirname(imagePath);
     return `${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}${dirName}/generated/${fileName}_${imageSize}${extension}`;
   } else {
     return imagePath;
