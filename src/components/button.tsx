@@ -25,7 +25,7 @@ const HomeButton = (): JSX.Element => {
   return (
     (<Link
       href="/"
-      className="border-2 border-black border-solid px-2 py-1 font-extrabold hover:bg-black hover:text-white">
+      className="border-2 border-black border-solid px-2 py-1 font-extrabold hover:bg-black hover:text-white mr-auto">
 
       {emojiString} {process.env.NEXT_PUBLIC_SITE_NAME}
 

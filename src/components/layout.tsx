@@ -1,5 +1,6 @@
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { ReactNode } from 'react';
 
@@ -36,22 +37,13 @@ const Layout = (params: {
         )}
       </Head>
       <header className="py-4">
-        <div
-          className="text-xl flex space-x-4 justify-between"
-          role="navigation"
-        >
+        <div className="text-xl flex gap-4" role="navigation">
           <HomeButton />
-          <div className="border-2 border-transparent px-2 py-1">
-            <div className="menu justify-between">
-              {/* <Link href="/entry">
-                <a className="ml-4 border-b-4 border-gray-800 font-semibold hover:text-blue-600">
-                  Posts
-                </a>
-              </Link>
-              <Link href="/about">
-                <a className="ml-4 font-semibold hover:text-blue-600">About</a>
-              </Link> */}
-            </div>
+          <div className="flex items-center">
+            <Link href="/entry" className="flex underline font-semibold">Archive</Link>
+          </div>
+          <div className="flex items-center">
+            <a className="flex underline font-semibold" href="/feed.xml">Feed</a>
           </div>
         </div>
       </header>
