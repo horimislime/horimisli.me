@@ -12,7 +12,7 @@ const imageUrlForPath = (imagePath: string, imageSize: ImageSize): string => {
     const extension = path.extname(imagePath);
     const fileName = path.basename(imagePath, extension);
     const dirName = path.dirname(imagePath) === '.' ? '/images' : path.dirname(imagePath);
-    return `${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}${dirName}/generated/${fileName}_${imageSize}${extension}`;
+    return `${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}${dirName}/generated/${fileName}_${imageSize}.webp`;
   } else {
     return imagePath;
   }
