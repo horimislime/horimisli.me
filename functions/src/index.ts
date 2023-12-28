@@ -16,7 +16,7 @@ sharp.cache(false);
 admin.initializeApp();
 logger.log('Initializing extension with configuration', config);
 
-function resize(file: string, size: ImageSize) {
+export function resize(file: string, size: ImageSize) {
   const longSide = (() => {
     if (size === 'large') {
       return 1920;
@@ -32,6 +32,7 @@ function resize(file: string, size: ImageSize) {
       fit: 'inside',
       withoutEnlargement: true,
     })
+    .webp()
     .toBuffer();
 }
 
@@ -39,7 +40,6 @@ const supportedContentTypes = [
   'image/jpeg',
   'image/png',
   'image/tiff',
-  'image/webp',
   'image/gif',
   'image/avif',
 ];
