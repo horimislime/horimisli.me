@@ -66,6 +66,7 @@ const modifyImage = async ({
   } = parsedPath;
 
   const modifiedFileName = `${fileNameWithoutExtension}_${size}.webp`;
+  logger.log(`modifledFileName = ${modifiedFileName}`);
   const modifiedFilePath = path.normalize(
     path.posix.join(fileDir, config.resizedImagesPath, modifiedFileName),
   );
