@@ -76,7 +76,7 @@ const modifyImage = async ({
   const metadata: { [key: string]: any } = {
     contentEncoding: objectMetadata.contentEncoding,
     contentLanguage: objectMetadata.contentLanguage,
-    contentType: contentType,
+    contentType: 'image/webp',
     metadata: objectMetadata.metadata ? { ...objectMetadata.metadata } : {},
   };
   metadata.metadata.resizedImage = true;
