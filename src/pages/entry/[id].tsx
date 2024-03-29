@@ -39,7 +39,7 @@ const EntryPage: NextPage<Props> = (props) => {
             <Date dateString={props.entry.date} />
               <div className="flex ml-2">
                 {Array.from(
-                  props.entry.categories.filter((category) => category !== 'share'),
+                  props.entry.visibleCategories,
                 ).map((category, i) => (
                   <div
                     key={`category-${i}`}

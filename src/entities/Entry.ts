@@ -11,6 +11,7 @@ import uparse from 'uniorg-parse';
 import uniorg2rehype from 'uniorg-rehype';
 
 const postsDirectory = path.join(process.cwd(), 'posts');
+const hiddenCategories = ['share', 'blog'];
 
 type PostId = {
   params: { id: string };
@@ -28,6 +29,7 @@ export class Entry {
   content!: string;
   type!: EntryType;
   externalURL?: string;
+  visibleCategories!: string[];
 }
 
 export function getAllEntryIds(): PostId[] {
@@ -146,6 +148,7 @@ const loadOrg = async (
     published: !isDraft,
     type: 'normal',
     externalURL: '',
+    visibleCategories: categories.filter((c) => !hiddenCategories.includes(c)),
   };
 };
 
@@ -185,16 +188,18 @@ const load = async (fullPath: string, includeBody = false): Promise<Entry> => {
 
   const normalizedDate = normalizeDate(dateString);
   const date = convertToTimeZone(normalizedDate, { timeZone: 'Asia/Tokyo' });
+  const categories = matterResult.data['category'] ?? [];
 
   return {
     id: id,
     title: matterResult.data['title'] || matterResult.data['Title'],
-    categories: matterResult.data['category'] ?? [],
+    categories: categories,
     date: date.toISOString(),
     image: matterResult.data['image'] ?? '',
     content: content,
     published: matterResult.data['published'] ?? true,
     type: checkEntryType(matterResult),
     externalURL: matterResult.data['URL'] ?? '',
+    visibleCategories: categories.filter((c: string) => !hiddenCategories.includes(c)),
   };
 };
