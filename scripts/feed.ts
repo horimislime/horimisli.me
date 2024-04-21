@@ -5,7 +5,11 @@ import rss from 'rss';
 
 import { findEntryById, listEntries } from '../src/entities/Entry.js';
 
-async function generateFeed(filename: string, tags: string[] = []) {
+async function generateFeed(
+  filename: string,
+  tags: string[] = [],
+  includeTags: boolean = false,
+) {
   const feed = new rss({
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     title: process.env.NEXT_PUBLIC_SITE_NAME!,
@@ -24,8 +28,12 @@ async function generateFeed(filename: string, tags: string[] = []) {
     entries.map((e) => findEntryById(e.id, true)),
   );
   for (const entry of entriesWithBody) {
+    const tagsString = entry.categories
+      .filter((tag) => tag != 'share')
+      .map((tag) => `#${tag}`)
+      .join(' ');
     feed.item({
-      title: entry.title,
+      title: includeTags ? `${entry.title} ${tagsString}` : entry.title,
       url: `https://${process.env.NEXT_PUBLIC_SITE_DOMAIN}/entry/${entry.id}/`,
       date: parseISO(entry.date),
       description: '',
@@ -41,5 +49,5 @@ async function generateFeed(filename: string, tags: string[] = []) {
 
 (async () => {
   await generateFeed('feed.xml');
-  await generateFeed('feed-internal.xml', ['share']);
+  await generateFeed('feed-internal.xml', ['share'], true);
 })();
