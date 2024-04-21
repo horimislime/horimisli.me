@@ -126,11 +126,6 @@ export function shouldResize(object: ObjectMetadata): boolean {
     return false;
   }
 
-  if (object.metadata && object.metadata.resizedImage === 'true') {
-    logger.log(`Skipping ${name} since the file is already resized.`);
-    return false;
-  }
-
   return true;
 }
 
