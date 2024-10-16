@@ -19,6 +19,7 @@ const Layout = (params: {
     <div className="max-w-4xl m-6 lg:m-auto">
       <Head>
         <link rel="icon" href="/favicon.png" />
+        <link rel="author" href="https://www.hatena.ne.jp/horimislime/" />
         <link
           rel="alternate"
           type="application/rss+xml"
