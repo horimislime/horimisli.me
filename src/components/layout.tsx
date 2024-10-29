@@ -31,6 +31,7 @@ const Layout = (params: {
           content={params.title ?? process.env.NEXT_PUBLIC_SITE_NAME}
         />
         <meta name="description" content="Personal website by horimislime" />
+        <meta name="twitter:site" content="@horimislime" />
         {params.ogImagePath ? (
           <TwitterCardImage imagePath={params.ogImagePath} />
         ) : (
