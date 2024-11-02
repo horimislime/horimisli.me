@@ -7,8 +7,9 @@ import rehypeRaw from 'rehype-raw';
 import stringify from 'rehype-stringify';
 import { unified } from 'unified';
 import { extractKeywords } from 'uniorg-extract-keywords';
-import uparse from 'uniorg-parse';
 import uniorg2rehype from 'uniorg-rehype';
+
+import { orgParse } from '../UniorgUtil';
 
 const postsDirectory = path.join(process.cwd(), 'posts');
 const hiddenCategories = ['share', 'blog'];
@@ -125,7 +126,7 @@ const loadOrg = async (
   includeBody = false,
 ): Promise<Entry> => {
   const processor = unified()
-    .use(uparse)
+    .use(orgParse)
     .use(extractKeywords)
     .use(uniorg2rehype)
     .use(rehypeRaw)
@@ -200,6 +201,8 @@ const load = async (fullPath: string, includeBody = false): Promise<Entry> => {
     published: matterResult.data['published'] ?? true,
     type: checkEntryType(matterResult),
     externalURL: matterResult.data['URL'] ?? '',
-    visibleCategories: categories.filter((c: string) => !hiddenCategories.includes(c)),
+    visibleCategories: categories.filter(
+      (c: string) => !hiddenCategories.includes(c),
+    ),
   };
 };
