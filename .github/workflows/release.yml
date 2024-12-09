@@ -11,21 +11,21 @@ jobs:
       TZ: Asia/Tokyo
     steps:
       - name: Checkout Source Code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Checkout Articles
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: horimislime/articles
           token: ${{ secrets.GITHUB_ACCESS_TOKEN }}
           path: posts
       - name: Checkout Images
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: horimislime/article-images
           token: ${{ secrets.GITHUB_ACCESS_TOKEN }}
           path: public/images
       - name: Set up Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version-file: '.node-version'
           cache: 'npm'
