@@ -12,7 +12,7 @@
     "prod": "npm run gen-feed && npm run gen-sitemap && next build",
     "gen-feed": "ts-node -r dotenv/config --esm scripts/feed.ts",
     "gen-sitemap": "ts-node -r dotenv/config --esm scripts/sitemap.ts",
-    "import": "ts-node -r dotenv/config scripts/bear_note_importer.ts",
+    "import": "ts-node -r dotenv/config --esm scripts/bear_note_importer.ts",
     "push-entries": "cd posts;git add .;git commit -m 'add post'; git p; cd ../public/images; git add .; git commit -m 'add post'; git p; cd ../..",
     "pull-entries": "cd posts;git pull; cd ../public/images; git pull; cd ../..",
     "release": "gh workflow run release.yml",

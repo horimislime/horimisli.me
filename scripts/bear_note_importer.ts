@@ -23,6 +23,7 @@ function loadNote(filePath: string): BearNote {
     const text = fs.readFileSync(filePath, { encoding: 'utf8' });
     return { body: text, images: [] };
   } else if (fileExtension === '.bear') {
+    console.log(`loading bear note ${filePath}`);
     const archive = new AdmZip(filePath);
     let text = '';
     const images: Image[] = [];
