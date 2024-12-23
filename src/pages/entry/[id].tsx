@@ -114,7 +114,7 @@ const EntryPage: NextPage<Props> = (props) => {
             rel="noopener noreferrer"
             className="bg-bsBlue text-white px-4 py-2 rounded flex items-center"
           >
-            <img src="/images/bluesky_media_kit_logo.svg" alt="Bluesky Logo" className="w-6 h-6 mr-2" />
+            <img src="https://storage.googleapis.com/horimislime-static/images/generated/bluesky_media_kit_logo.svg" alt="Bluesky Logo" className="w-6 h-6 mr-2" />
             Bluesky
           </a>
           <a
