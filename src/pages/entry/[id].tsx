@@ -109,7 +109,7 @@ const EntryPage: NextPage<Props> = (props) => {
 
         <div className="flex space-x-4 mt-8">
           <a
-            href={`https://bsky.app/intent/compose?text=${encodeURIComponent(`${props.entry.title} / https://${process.env.NEXT_PUBLIC_SITE_DOMAIN}/${props.entry.id}`)}`}
+            href={`https://bsky.app/intent/compose?text=${encodeURIComponent(`${props.entry.title} / https://${process.env.NEXT_PUBLIC_SITE_DOMAIN}/entry/${props.entry.id}`)}`}
             target="_blank"
             rel="noopener noreferrer"
             className="bg-bsBlue text-white px-4 py-2 rounded flex items-center"
@@ -118,7 +118,7 @@ const EntryPage: NextPage<Props> = (props) => {
             Bluesky
           </a>
           <a
-            href={`https://b.hatena.ne.jp/add?url=${encodeURIComponent(`https://${process.env.NEXT_PUBLIC_SITE_DOMAIN}/${props.entry.id}`)}`}
+            href={`https://b.hatena.ne.jp/add?url=${encodeURIComponent(`https://${process.env.NEXT_PUBLIC_SITE_DOMAIN}/entry/${props.entry.id}`)}`}
             target="_blank"
             rel="noopener noreferrer"
             className="bg-hbBlue text-white px-4 py-2 rounded flex items-center"
