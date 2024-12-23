@@ -26,7 +26,7 @@ const EntryPage: NextPage<Props> = (props) => {
     <Layout
       title={props.entry.title}
       ogImagePath={props.entry.image}
-      showTweetButton={true}
+      showTweetButton={false}
     >
       <Head>
         <title>{props.entry.title}</title>
@@ -106,6 +106,28 @@ const EntryPage: NextPage<Props> = (props) => {
           }}>
           {props.entry.content}
         </ReactMarkdown>
+
+        <div className="flex space-x-4 mt-8">
+          <a
+            href={`https://bsky.app/intent/compose?text=${encodeURIComponent(`${props.entry.title} / https://${process.env.NEXT_PUBLIC_SITE_DOMAIN}/${props.entry.id}`)}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bg-bsBlue text-white px-4 py-2 rounded flex items-center"
+          >
+            <img src="/images/bluesky_media_kit_logo.svg" alt="Bluesky Logo" className="w-6 h-6 mr-2" />
+            Bluesky
+          </a>
+          <a
+            href={`https://b.hatena.ne.jp/add?url=${encodeURIComponent(`https://${process.env.NEXT_PUBLIC_SITE_DOMAIN}/${props.entry.id}`)}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bg-hbBlue text-white px-4 py-2 rounded flex items-center"
+          >
+            <img src="https://b.st-hatena.com/images/v4/public/entry-button/button-only@2x.png" alt="このエントリーをはてなブックマークに追加" width="20" height="20" />
+            はてなブックマーク
+          </a>
+
+        </div>
       </article>
     </Layout>
   </>;

@@ -1,6 +1,10 @@
 module.exports = {
   theme: {
     extend: {
+      colors: {
+        'hbBlue': '#00A4DE',
+        'bsBlue': '#1185FE',
+      },
       typography: (theme) => ({
         DEFAULT: {
           css: {
