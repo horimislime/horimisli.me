@@ -35,17 +35,26 @@ const Layout = (params: {
         {params.ogImagePath ? (
           <TwitterCardImage imagePath={params.ogImagePath} />
         ) : (
-          <meta name="twitter:card" content="summary" />
+          <>
+            <meta
+              property="og:image"
+              content="https://storage.googleapis.com/horimislime-static/images/generated/profile_large.jpg"
+            />
+          </>
         )}
       </Head>
       <header className="py-4">
         <div className="text-xl flex gap-4" role="navigation">
           <HomeButton />
           <div className="flex items-center">
-            <Link href="/entry" className="flex underline font-semibold">Archive</Link>
+            <Link href="/entry" className="flex underline font-semibold">
+              Archive
+            </Link>
           </div>
           <div className="flex items-center">
-            <a className="flex underline font-semibold" href="/feed.xml">Feed</a>
+            <a className="flex underline font-semibold" href="/feed.xml">
+              Feed
+            </a>
           </div>
         </div>
       </header>
