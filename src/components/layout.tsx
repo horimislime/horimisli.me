@@ -15,6 +15,9 @@ const Layout = (params: {
   ogImagePath?: string;
   showTweetButton?: boolean;
 }): JSX.Element => {
+  const router = useRouter();
+  const currentUrl = `${process.env.NEXT_PUBLIC_SITE_URL || 'https://horimisli.me'}${router.asPath}`;
+
   return (
     <div className="max-w-4xl m-6 lg:m-auto">
       <Head>
@@ -30,6 +33,8 @@ const Layout = (params: {
           name="og:title"
           content={params.title ?? process.env.NEXT_PUBLIC_SITE_NAME}
         />
+        <meta property="og:url" content={currentUrl} />
+        <meta property="og:site_name" content={process.env.NEXT_PUBLIC_SITE_NAME} />
         <meta name="description" content="Personal website by horimislime" />
         <meta name="twitter:site" content="@horimislime" />
         {params.ogImagePath ? (
