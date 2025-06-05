@@ -33,6 +33,10 @@ jobs:
         run: |
           npm install
           npm run prod
+      - name: Set up Node 22 for Deploy
+        uses: actions/setup-node@v3
+        with:
+          node-version: '22'
       - name: Deploy to Live Channel
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
