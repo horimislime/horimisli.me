@@ -43,7 +43,7 @@ const Layout = (params: {
           <>
             <meta
               property="og:image"
-              content="https://storage.googleapis.com/horimislime-static/images/generated/profile_large.jpg"
+              content="https://storage.googleapis.com/horimislime-static/images/profile.jpg"
             />
           </>
         )}
