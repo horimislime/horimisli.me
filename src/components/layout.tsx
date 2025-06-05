@@ -43,6 +43,7 @@ const Layout = (params: {
           <TwitterCardImage imagePath={params.ogImagePath} />
         ) : (
           <>
+		  	<meta name="twitter:card" content="summary" />
             <meta
               property="og:image"
               content="https://storage.googleapis.com/horimislime-static/images/profile.jpg"
