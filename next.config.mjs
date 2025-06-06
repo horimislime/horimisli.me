@@ -9,8 +9,8 @@ const nextConfig = {
   rewrites: isProduction ? undefined : async () => {
     return [
       {
-        source: '/entry/:slug/:filename(.*\\.(?:png|jpg|gif))',
-        destination: '/images/:filename',
+        source: '/entry/:slug/:filename(.*\\.(?:png|jpg|jpeg|gif|webp|svg))',
+        destination: '/images/:slug/:filename',
       },
     ]
   },
