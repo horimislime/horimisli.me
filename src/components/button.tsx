@@ -1,11 +1,11 @@
 import Link from 'next/link';
+import type { JSX, JSXElementConstructor, ReactElement } from "react";
 import { toArray } from 'react-emoji-render';
-import type { JSX } from "react";
 const EmojiAliases = require('react-emoji-render/data/aliases');
 
 const parseEmojis = (value: string) => {
   const emojisArray = toArray(value);
-  const newValue = emojisArray.reduce((previous, current) => {
+  const newValue = emojisArray.reduce((previous: string, current: ReactElement<any, string | JSXElementConstructor<any>>) => {
     if (typeof current === 'string') {
       return previous + current;
     }
