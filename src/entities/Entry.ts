@@ -70,7 +70,7 @@ export function getAllEntryIds(): PostId[] {
       params: {
         id: entryPath.endsWith('.org')
           ? getOrgEntryId(entryPath)
-          : path.basename(entryPath).replace(/\.md$/, ''),
+          : getEntryIdFromPath(entryPath),
       },
     };
   });
@@ -90,7 +90,10 @@ const getAllEntryPaths = (directory = postsDirectory): string[] => {
       paths = paths.concat(nestedPaths);
       continue;
     }
-    paths.push(fullPath);
+    // Only include files named 'content.*'
+    if (path.basename(fullPath).startsWith('content.')) {
+      paths.push(fullPath);
+    }
   }
   return paths;
 };
@@ -117,7 +120,7 @@ export async function findEntryById(
 ): Promise<Entry> {
   const entryPath = getAllEntryPaths().filter(
     (postPath) =>
-      path.basename(postPath) === `${id}.md` || getOrgEntryId(postPath) === id,
+      getEntryIdFromPath(postPath) === id || getOrgEntryId(postPath) === id,
   )[0];
   return load(entryPath, includeBody);
 }
@@ -147,6 +150,13 @@ type OrgMetadata = {
 };
 
 const getOrgEntryId = (fullPath: string): string => {
+  const parsedPath = path.parse(fullPath);
+  return parsedPath.dir.split('/').pop() as string;
+};
+
+const getEntryIdFromPath = (fullPath: string): string => {
+  // For new structure: posts/[year]/[slug]/content.[ext]
+  // Extract the slug from the directory name
   const parsedPath = path.parse(fullPath);
   return parsedPath.dir.split('/').pop() as string;
 };
@@ -197,7 +207,7 @@ const load = async (fullPath: string, includeBody = false): Promise<Entry> => {
     fileContents = fs.readFileSync(fullPath, 'utf8');
   }
 
-  const id = path.basename(fullPath, '.md');
+  const id = getEntryIdFromPath(fullPath);
   const matterResult = matter(fileContents);
   const content = includeBody ? matterResult.content : '';
   const dateString = matterResult.data['date'] || matterResult.data['Date'];
