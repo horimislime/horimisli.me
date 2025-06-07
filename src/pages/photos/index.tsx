@@ -1,149 +1,28 @@
-"use client"
-
 import { useState } from "react"
 import Image from "next/image"
+import { GetStaticProps } from "next"
 import { X, ChevronLeft, ChevronRight, Download, Share2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Dialog, DialogContent } from "@/components/ui/dialog"
 import { Badge } from "@/components/ui/badge"
+import { getAllPhotoScenes, SceneData, PhotoWithScene } from "@/lib/photos"
 
-const photos = [
-  {
-    id: 1,
-    src: "/images/placeholder.svg?height=600&width=400",
-    alt: "Portrait Photography",
-    title: "Golden Hour Portrait",
-    category: "Portrait",
-    width: 400,
-    height: 600,
-    shootingDate: "2024-01-15",
-    location: "Tokyo, Japan",
-  },
-  {
-    id: 2,
-    src: "/images/placeholder.svg?height=400&width=600",
-    alt: "Landscape Photography",
-    title: "Mountain Vista",
-    category: "Landscape",
-    width: 600,
-    height: 400,
-    shootingDate: "2024-01-15",
-    location: "Mount Fuji, Japan",
-  },
-  {
-    id: 3,
-    src: "/images/placeholder.svg?height=500&width=400",
-    alt: "Street Photography",
-    title: "Urban Life",
-    category: "Street",
-    width: 400,
-    height: 500,
-    shootingDate: "2024-01-10",
-    location: "Shibuya, Tokyo",
-  },
-  {
-    id: 4,
-    src: "/images/placeholder.svg?height=400&width=400",
-    alt: "Architecture Photography",
-    title: "Modern Architecture",
-    category: "Architecture",
-    width: 400,
-    height: 400,
-    shootingDate: "2024-01-10",
-    location: "Roppongi, Tokyo",
-  },
-  {
-    id: 5,
-    src: "/images/placeholder.svg?height=600&width=500",
-    alt: "Nature Photography",
-    title: "Forest Path",
-    category: "Nature",
-    width: 500,
-    height: 600,
-    shootingDate: "2024-01-08",
-    location: "Nikko, Japan",
-  },
-  {
-    id: 6,
-    src: "/images/placeholder.svg?height=400&width=600",
-    alt: "Travel Photography",
-    title: "Coastal Sunset",
-    category: "Travel",
-    width: 600,
-    height: 400,
-    shootingDate: "2024-01-08",
-    location: "Kamakura, Japan",
-  },
-  {
-    id: 7,
-    src: "/images/placeholder.svg?height=500&width=400",
-    alt: "Portrait Photography",
-    title: "Creative Portrait",
-    category: "Portrait",
-    width: 400,
-    height: 500,
-    shootingDate: "2024-01-05",
-    location: "Studio, Tokyo",
-  },
-  {
-    id: 8,
-    src: "/images/placeholder.svg?height=400&width=500",
-    alt: "Abstract Photography",
-    title: "Light & Shadow",
-    category: "Abstract",
-    width: 500,
-    height: 400,
-    shootingDate: "2024-01-05",
-    location: "Ginza, Tokyo",
-  },
-  {
-    id: 9,
-    src: "/images/placeholder.svg?height=600&width=400",
-    alt: "Wildlife Photography",
-    title: "Bird in Flight",
-    category: "Wildlife",
-    width: 400,
-    height: 600,
-    shootingDate: "2024-01-03",
-    location: "Ueno Park, Tokyo",
-  },
-]
+interface PhotosPageProps {
+  scenes: SceneData[]
+}
 
-const categories = [
-  "All",
-  "Portrait",
-  "Landscape",
-  "Street",
-  "Architecture",
-  "Nature",
-  "Travel",
-  "Abstract",
-  "Wildlife",
-]
-
-export default function Component() {
-  const [selectedCategory, setSelectedCategory] = useState("All")
-  const [selectedPhoto, setSelectedPhoto] = useState<(typeof photos)[0] | null>(null)
+export default function PhotosPage({ scenes }: PhotosPageProps) {
+  const [selectedPhoto, setSelectedPhoto] = useState<PhotoWithScene | null>(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
 
-  const filteredPhotos =
-    selectedCategory === "All" ? photos : photos.filter((photo) => photo.category === selectedCategory)
-
-  // Group photos by shooting date
-  const groupedPhotos = filteredPhotos.reduce(
-    (groups, photo) => {
-      const date = photo.shootingDate
-      if (!groups[date]) {
-        groups[date] = []
-      }
-      groups[date].push(photo)
-      return groups
-    },
-    {} as Record<string, typeof photos>,
+  // すべての写真を1つの配列に変換
+  const allPhotos: PhotoWithScene[] = scenes.flatMap(scene =>
+    scene.photos.map(photo => ({
+      ...photo,
+      scene,
+      fullPath: `/photos/${scene.date}/${photo.filename}`
+    }))
   )
-
-  // Sort dates in descending order (newest first)
-  const sortedDates = Object.keys(groupedPhotos).sort((a, b) => new Date(b).getTime() - new Date(a).getTime())
 
   // Format date for display
   const formatDate = (dateString: string) => {
@@ -156,7 +35,7 @@ export default function Component() {
     })
   }
 
-  const openModal = (photo: (typeof photos)[0]) => {
+  const openModal = (photo: PhotoWithScene) => {
     setSelectedPhoto(photo)
     setIsModalOpen(true)
   }
@@ -169,16 +48,16 @@ export default function Component() {
   const navigatePhoto = (direction: "prev" | "next") => {
     if (!selectedPhoto) return
 
-    const currentIndex = filteredPhotos.findIndex((photo) => photo.id === selectedPhoto.id)
+    const currentIndex = allPhotos.findIndex((photo) => photo.fullPath === selectedPhoto.fullPath)
     let newIndex
 
     if (direction === "prev") {
-      newIndex = currentIndex > 0 ? currentIndex - 1 : filteredPhotos.length - 1
+      newIndex = currentIndex > 0 ? currentIndex - 1 : allPhotos.length - 1
     } else {
-      newIndex = currentIndex < filteredPhotos.length - 1 ? currentIndex + 1 : 0
+      newIndex = currentIndex < allPhotos.length - 1 ? currentIndex + 1 : 0
     }
 
-    setSelectedPhoto(filteredPhotos[newIndex])
+    setSelectedPhoto(allPhotos[newIndex])
   }
 
   return (
@@ -188,89 +67,89 @@ export default function Component() {
         <div className="container mx-auto px-4 py-6">
           <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
             <div>
-              <h1 className="text-3xl font-bold tracking-tight">Photography Portfolio</h1>
+              <h1 className="text-3xl font-bold tracking-tight">/photos</h1>
               <p className="text-muted-foreground mt-1">Capturing moments, creating memories</p>
             </div>
             <div className="flex items-center gap-2">
               <Button variant="outline" size="sm">
                 <Share2 className="w-4 h-4 mr-2" />
-                Share
+                Feed
               </Button>
-              <Button size="sm">Contact</Button>
             </div>
           </div>
         </div>
       </header>
 
       <main className="container mx-auto px-4 py-8">
-        {/* Category Filter */}
-        <div className="flex flex-wrap gap-2 mb-8 justify-center">
-          {categories.map((category) => (
-            <Button
-              key={category}
-              variant={selectedCategory === category ? "default" : "outline"}
-              size="sm"
-              onClick={() => setSelectedCategory(category)}
-              className="rounded-full"
-            >
-              {category}
-            </Button>
-          ))}
-        </div>
-
         {/* Photo Sections by Date */}
         <div className="space-y-12">
-          {sortedDates.map((date) => (
-            <section key={date} className="space-y-6">
+          {scenes.map((scene) => (
+            <section key={scene.date} className="space-y-6">
               {/* Date Header */}
               <div className="border-b pb-4">
-                <h2 className="text-2xl font-bold text-foreground">{formatDate(date)}</h2>
-                <p className="text-muted-foreground mt-1">{groupedPhotos[date].length} 枚の写真</p>
+                <h2 className="text-2xl font-bold text-foreground">{formatDate(scene.date)}</h2>
+                {scene.title && (
+                  <p className="text-lg text-foreground mt-1">{scene.title}</p>
+                )}
+                <p className="text-muted-foreground mt-1">{scene.photos.length} 枚の写真</p>
               </div>
 
               {/* Photo Grid for this date */}
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 auto-rows-[200px]">
-                {groupedPhotos[date].map((photo, index) => (
-                  <div
-                    key={photo.id}
-                    className={`relative group cursor-pointer overflow-hidden rounded-lg bg-muted transition-all duration-300 hover:scale-[1.02] ${
-                      index % 7 === 0
-                        ? "sm:col-span-2 sm:row-span-2"
-                        : index % 5 === 0
-                          ? "lg:row-span-2"
-                          : index % 3 === 0
-                            ? "sm:col-span-2"
-                            : ""
-                    }`}
-                    onClick={() => openModal(photo)}
-                  >
-                    <Image
-                      src={photo.src || "/images/placeholder.svg"}
-                      alt={photo.alt}
-                      fill
-                      className="object-cover transition-transform duration-300 group-hover:scale-110"
-                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vv"
-                    />
-                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors duration-300" />
-                    <div className="absolute inset-0 flex items-end p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <div className="text-white">
-                        <h3 className="font-semibold text-sm mb-1">{photo.title}</h3>
-                        <p className="text-xs text-white/80 mb-2">{photo.location}</p>
-                        <Badge variant="secondary" className="text-xs">
-                          {photo.category}
-                        </Badge>
+                {scene.photos.map((photo, index) => {
+                  const baseName = photo.filename.split('.')[0]
+                  const photoWithScene: PhotoWithScene = {
+                    ...photo,
+                    scene,
+                    fullPath: `/photos/${scene.date}/${photo.filename}`,
+                    smallPath: `/images/photos/${scene.date}/${baseName}_small.webp`,
+                    webpPath: `/images/photos/${scene.date}/${baseName}_full.webp`
+                  }
+                  
+                  return (
+                    <div
+                      key={`${scene.date}-${photo.filename}`}
+                      className={`relative group cursor-pointer overflow-hidden rounded-lg bg-muted transition-all duration-300 hover:scale-[1.02] ${
+                        index % 7 === 0
+                          ? "sm:col-span-2 sm:row-span-2"
+                          : index % 5 === 0
+                            ? "lg:row-span-2"
+                            : index % 3 === 0
+                              ? "sm:col-span-2"
+                              : ""
+                      }`}
+                      onClick={() => openModal(photoWithScene)}
+                    >
+                      <Image
+                        src={photoWithScene.smallPath}
+                        alt={photo.filename}
+                        fill
+                        className="object-cover transition-transform duration-300 group-hover:scale-110"
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
+                      />
+                      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors duration-300" />
+                      <div className="absolute inset-0 flex items-end p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <div className="text-white">
+                          <h3 className="font-semibold text-sm mb-1">{photo.filename}</h3>
+                          {photo.camera && (
+                            <p className="text-xs text-white/80 mb-1">{photo.camera}</p>
+                          )}
+                          {photo.lens && (
+                            <p className="text-xs text-white/60">{photo.lens}</p>
+                          )}
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  )
+                })}
               </div>
             </section>
           ))}
         </div>
 
-        {sortedDates.length === 0 && (
+        {scenes.length === 0 && (
           <div className="text-center py-12">
-            <p className="text-muted-foreground">このカテゴリーには写真がありません。</p>
+            <p className="text-muted-foreground">写真がまだありません。</p>
           </div>
         )}
       </main>
@@ -312,10 +191,10 @@ export default function Component() {
               {/* Image */}
               <div className="relative w-full h-full flex items-center justify-center p-8">
                 <Image
-                  src={selectedPhoto.src || "/images/placeholder.svg"}
-                  alt={selectedPhoto.alt}
-                  width={selectedPhoto.width}
-                  height={selectedPhoto.height}
+                  src={selectedPhoto.webpPath}
+                  alt={selectedPhoto.filename}
+                  width={800}
+                  height={600}
                   className="max-w-full max-h-full object-contain"
                   priority
                 />
@@ -325,13 +204,17 @@ export default function Component() {
               <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6">
                 <div className="flex items-center justify-between text-white">
                   <div>
-                    <h2 className="text-xl font-semibold mb-1">{selectedPhoto.title}</h2>
+                    <h2 className="text-xl font-semibold mb-1">{selectedPhoto.filename}</h2>
                     <p className="text-sm text-white/80 mb-2">
-                      {formatDate(selectedPhoto.shootingDate)} • {selectedPhoto.location}
+                      {formatDate(selectedPhoto.scene.date)}
+                      {selectedPhoto.scene.title && ` • ${selectedPhoto.scene.title}`}
                     </p>
-                    <Badge variant="secondary" className="text-sm">
-                      {selectedPhoto.category}
-                    </Badge>
+                    {selectedPhoto.camera && (
+                      <p className="text-sm text-white/70 mb-1">{selectedPhoto.camera}</p>
+                    )}
+                    {selectedPhoto.lens && (
+                      <p className="text-sm text-white/70">{selectedPhoto.lens}</p>
+                    )}
                   </div>
                   <div className="flex gap-2">
                     <Button variant="ghost" size="sm" className="text-white hover:bg-white/20">
@@ -351,4 +234,14 @@ export default function Component() {
       </Dialog>
     </div>
   )
+}
+
+export const getStaticProps: GetStaticProps<PhotosPageProps> = async () => {
+  const scenes = getAllPhotoScenes()
+  
+  return {
+    props: {
+      scenes
+    }
+  }
 }
