@@ -156,14 +156,14 @@ export default function PhotosPage({ scenes }: PhotosPageProps) {
 
       {/* Lightbox Modal */}
       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
-        <DialogContent className="max-w-7xl w-full h-full max-h-[90vh] p-0 bg-black/95 border-0">
+        <DialogContent className="max-w-[95vw] max-h-[95vh] w-full h-full p-0 bg-black/95 border-0">
           {selectedPhoto && (
             <div className="relative w-full h-full flex items-center justify-center">
               {/* Close Button */}
               <Button
                 variant="ghost"
                 size="icon"
-                className="absolute top-4 right-4 z-50 text-white hover:bg-white/20"
+                className="absolute top-4 right-4 z-50 text-white hover:bg-white/20 bg-black/40 rounded-full"
                 onClick={closeModal}
               >
                 <X className="w-6 h-6" />
@@ -173,31 +173,33 @@ export default function PhotosPage({ scenes }: PhotosPageProps) {
               <Button
                 variant="ghost"
                 size="icon"
-                className="absolute left-4 top-1/2 -translate-y-1/2 z-50 text-white hover:bg-white/20"
+                className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-50 text-white hover:bg-white/20 bg-black/40 rounded-full"
                 onClick={() => navigatePhoto("prev")}
               >
-                <ChevronLeft className="w-8 h-8" />
+                <ChevronLeft className="w-6 h-6 sm:w-8 sm:h-8" />
               </Button>
 
               <Button
                 variant="ghost"
                 size="icon"
-                className="absolute right-4 top-1/2 -translate-y-1/2 z-50 text-white hover:bg-white/20"
+                className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-50 text-white hover:bg-white/20 bg-black/40 rounded-full"
                 onClick={() => navigatePhoto("next")}
               >
-                <ChevronRight className="w-8 h-8" />
+                <ChevronRight className="w-6 h-6 sm:w-8 sm:h-8" />
               </Button>
 
               {/* Image */}
-              <div className="relative w-full h-full flex items-center justify-center p-8">
-                <Image
-                  src={selectedPhoto.webpPath}
-                  alt={selectedPhoto.filename}
-                  width={800}
-                  height={600}
-                  className="max-w-full max-h-full object-contain"
-                  priority
-                />
+              <div className="relative w-full h-full flex items-center justify-center px-4 sm:px-20 py-16 pb-32">
+                <div className="relative w-full h-full max-w-full max-h-full">
+                  <Image
+                    src={selectedPhoto.webpPath}
+                    alt={selectedPhoto.filename}
+                    fill
+                    className="object-contain"
+                    priority
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 80vw"
+                  />
+                </div>
               </div>
 
               {/* Photo Info */}
@@ -215,16 +217,6 @@ export default function PhotosPage({ scenes }: PhotosPageProps) {
                     {selectedPhoto.lens && (
                       <p className="text-sm text-white/70">{selectedPhoto.lens}</p>
                     )}
-                  </div>
-                  <div className="flex gap-2">
-                    <Button variant="ghost" size="sm" className="text-white hover:bg-white/20">
-                      <Download className="w-4 h-4 mr-2" />
-                      ダウンロード
-                    </Button>
-                    <Button variant="ghost" size="sm" className="text-white hover:bg-white/20">
-                      <Share2 className="w-4 h-4 mr-2" />
-                      シェア
-                    </Button>
                   </div>
                 </div>
               </div>
