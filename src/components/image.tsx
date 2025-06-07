@@ -1,6 +1,8 @@
 import path from 'path';
 import url from 'url';
 
+import type { JSX } from "react";
+
 export type ImageSize = 'large' | 'medium' | 'small';
 
 const imageUrlForPath = (

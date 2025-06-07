@@ -5,6 +5,8 @@ import Link from 'next/link';
 import { Entry } from '../entities/Entry';
 import Date from './date';
 
+import type { JSX } from "react";
+
 export default function EntryList(params: { entries: Entry[] }): JSX.Element {
   return (
     <ul className="list-none m-4">

@@ -91,7 +91,7 @@ const EntryPage: NextPage<Props> = (props) => {
                     </>
                   );
                 }
-                const c = children as ReactElement;
+                const c = children as ReactElement<any>;
                 return c.props?.node?.tagName === 'img' ? (
                   <>{children}</>
                 ) : (

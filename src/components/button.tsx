@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { toArray } from 'react-emoji-render';
+import type { JSX } from "react";
 const EmojiAliases = require('react-emoji-render/data/aliases');
 
 const parseEmojis = (value: string) => {
@@ -8,7 +9,7 @@ const parseEmojis = (value: string) => {
     if (typeof current === 'string') {
       return previous + current;
     }
-    return previous + (current as React.ReactElement).props.children;
+    return previous + (current as React.ReactElement<any>).props.children;
   }, '');
 
   return newValue;

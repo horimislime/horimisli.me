@@ -3,7 +3,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import path from 'path';
-import { ReactNode } from 'react';
+import { ReactNode, type JSX } from 'react';
 
 import { TwitterCardImage } from './image';
 import TweetButton from './tweet_button';
