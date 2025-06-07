@@ -42,6 +42,7 @@ async function generateWebpImages(
         : { height: Math.min(metadata.height, 1980) }
       
       await image
+        .rotate() // EXIFの回転情報を自動適用
         .resize(resizeOptions)
         .webp({ quality: 85 })
         .toFile(smallOutputPath)
@@ -52,6 +53,7 @@ async function generateWebpImages(
     // Full版を生成 (元サイズ)
     const fullOutputPath = path.join(outputDir, `${baseName}_full.webp`)
     await image
+      .rotate() // EXIFの回転情報を自動適用
       .webp({ quality: 95 })
       .toFile(fullOutputPath)
     
