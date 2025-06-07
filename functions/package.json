@@ -8,8 +8,7 @@
   "scripts": {
     "build": "tsc",
     "lint": "eslint src/*.ts",
-    "lint:fix": "eslint --fix src/*.ts",
-    "debug": "ts-node src/debug.ts"
+    "lint:fix": "eslint --fix src/*.ts"
   },
   "dependencies": {
     "@types/node": "14.18.34",
