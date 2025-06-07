@@ -2,6 +2,7 @@ import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import path from 'path';
 import { ReactNode } from 'react';
 
 import { TwitterCardImage } from './image';
@@ -17,6 +18,7 @@ const Layout = (params: {
 }): JSX.Element => {
   const router = useRouter();
   const currentUrl = `${process.env.NEXT_PUBLIC_SITE_URL || 'https://horimisli.me'}${router.asPath}`;
+  const slug = path.dirname(router.asPath);
 
   return (
     <div className="max-w-4xl m-6 lg:m-auto">
@@ -34,15 +36,15 @@ const Layout = (params: {
           content={params.title ?? process.env.NEXT_PUBLIC_SITE_NAME}
         />
         <meta property="og:url" content={currentUrl} />
-		<meta property="og:type" content="article" />
-		<meta property="article:section" content="entries" />
+        <meta property="og:type" content="article" />
+        <meta property="article:section" content="entries" />
         <meta name="og:description" content="Personal website by horimislime" />
         <meta name="twitter:site" content="@horimislime" />
         {params.ogImagePath ? (
-          <TwitterCardImage imagePath={params.ogImagePath} />
+          <TwitterCardImage imagePath={params.ogImagePath} slug={slug} />
         ) : (
           <>
-		  	<meta name="twitter:card" content="summary" />
+            <meta name="twitter:card" content="summary" />
             <meta
               property="og:image"
               content="https://storage.googleapis.com/horimislime-static/images/og_profile.jpg"
