@@ -30,8 +30,10 @@
     "node_modules"
   ],
   "ts-node": {
+    "esm": true,
     "compilerOptions": {
-      "module": "ES6",
+      "module": "ESNext",
+      "moduleResolution": "node"
     }
-  },
+  }
 }
