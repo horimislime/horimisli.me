@@ -1,4 +1,7 @@
-module.exports = {
+import typography from '@tailwindcss/typography';
+import aspectRatio from '@tailwindcss/aspect-ratio';
+
+export default {
   theme: {
     extend: {
       colors: {
@@ -21,7 +24,7 @@ module.exports = {
   },
   content: ['./src/**/*.tsx', './posts/blog/**/*.md'],
   plugins: [
-    require('@tailwindcss/typography'),
-    require('@tailwindcss/aspect-ratio'),
+    typography,
+    aspectRatio,
   ],
 };
