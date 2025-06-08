@@ -161,7 +161,7 @@ export default function PhotosPage({ scenes }: PhotosPageProps) {
 
       {/* Lightbox Modal */}
       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
-        <DialogContent className="max-w-[95vw] max-h-[95vh] w-full h-full p-0 bg-black/95 border-0">
+        <DialogContent className="max-w-[95vw] max-h-[95vh] w-full h-[95vh] p-0 bg-black/95 border-0 overflow-hidden">
           {selectedPhoto && (
             <div className="relative w-full h-full flex items-center justify-center">
               {/* Close Button */}
@@ -195,11 +195,18 @@ export default function PhotosPage({ scenes }: PhotosPageProps) {
 
               {/* Image */}
               <div className="relative w-full h-full flex items-center justify-center px-4 sm:px-20 py-16 pb-32">
-                <img
-                  src={selectedPhoto.webpPath}
-                  alt={selectedPhoto.filename}
-                  className="max-w-full max-h-full object-contain"
-                />
+                <div className="w-full h-full flex items-center justify-center">
+                  <img
+                    src={selectedPhoto.webpPath}
+                    alt={selectedPhoto.filename}
+                    className="max-w-full object-contain"
+                    style={{ 
+                      maxHeight: 'calc(95vh - 12rem)',
+                      height: 'auto',
+                      width: 'auto'
+                    }}
+                  />
+                </div>
               </div>
 
               {/* Photo Info */}
