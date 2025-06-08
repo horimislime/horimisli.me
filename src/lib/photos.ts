@@ -63,6 +63,10 @@ export function getAllPhotoScenes(): SceneData[] {
 }
 
 export function getAllPhotos(): PhotoWithScene[] {
+  if (typeof window !== 'undefined') {
+    throw new Error('getAllPhotos() should only be called on the server side')
+  }
+  
   const scenes = getAllPhotoScenes()
   const photos: PhotoWithScene[] = []
   
@@ -83,6 +87,10 @@ export function getAllPhotos(): PhotoWithScene[] {
 }
 
 export function getPhotosByDate(date: string): PhotoWithScene[] {
+  if (typeof window !== 'undefined') {
+    throw new Error('getPhotosByDate() should only be called on the server side')
+  }
+  
   const scenes = getAllPhotoScenes()
   const scene = scenes.find(s => s.date === date)
   

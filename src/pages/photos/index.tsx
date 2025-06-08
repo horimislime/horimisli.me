@@ -1,5 +1,4 @@
 import { useState } from "react"
-import Image from "next/image"
 import { GetStaticProps } from "next"
 import { X, ChevronLeft, ChevronRight, Download, Share2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
@@ -15,13 +14,18 @@ export default function PhotosPage({ scenes }: PhotosPageProps) {
   const [selectedPhoto, setSelectedPhoto] = useState<PhotoWithScene | null>(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
 
-  // すべての写真を1つの配列に変換
+  // すべての写真を1つの配列に変換（クライアントサイドで生成）
   const allPhotos: PhotoWithScene[] = scenes.flatMap(scene =>
-    scene.photos.map(photo => ({
-      ...photo,
-      scene,
-      fullPath: `/photos/${scene.date}/${photo.filename}`
-    }))
+    scene.photos.map(photo => {
+      const baseName = photo.filename.split('.')[0]
+      return {
+        ...photo,
+        scene,
+        fullPath: `/photos/${scene.date}/${photo.filename}`,
+        smallPath: `/images/photos/${scene.date}/${baseName}_small.webp`,
+        webpPath: `/images/photos/${scene.date}/${baseName}_full.webp`
+      }
+    })
   )
 
   // Format date for display
@@ -48,7 +52,10 @@ export default function PhotosPage({ scenes }: PhotosPageProps) {
   const navigatePhoto = (direction: "prev" | "next") => {
     if (!selectedPhoto) return
 
-    const currentIndex = allPhotos.findIndex((photo) => photo.fullPath === selectedPhoto.fullPath)
+    const currentIndex = allPhotos.findIndex((photo) => 
+      photo.scene.date === selectedPhoto.scene.date && 
+      photo.filename === selectedPhoto.filename
+    )
     let newIndex
 
     if (direction === "prev") {
@@ -120,12 +127,10 @@ export default function PhotosPage({ scenes }: PhotosPageProps) {
                       }`}
                       onClick={() => openModal(photoWithScene)}
                     >
-                      <Image
+                      <img
                         src={photoWithScene.smallPath}
                         alt={photo.filename}
-                        fill
-                        className="object-cover transition-transform duration-300 group-hover:scale-110"
-                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
+                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
                       />
                       <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors duration-300" />
                       <div className="absolute inset-0 flex items-end p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
@@ -190,16 +195,11 @@ export default function PhotosPage({ scenes }: PhotosPageProps) {
 
               {/* Image */}
               <div className="relative w-full h-full flex items-center justify-center px-4 sm:px-20 py-16 pb-32">
-                <div className="relative w-full h-full max-w-full max-h-full">
-                  <Image
-                    src={selectedPhoto.webpPath}
-                    alt={selectedPhoto.filename}
-                    fill
-                    className="object-contain"
-                    priority
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 80vw"
-                  />
-                </div>
+                <img
+                  src={selectedPhoto.webpPath}
+                  alt={selectedPhoto.filename}
+                  className="max-w-full max-h-full object-contain"
+                />
               </div>
 
               {/* Photo Info */}

@@ -104,26 +104,8 @@ async function generateSceneContent(directoryPath: string, title?: string): Prom
       console.log(`Processing ${filename}...`)
       
       try {
-        // より多くのEXIFフィールドを取得
-        const exifData = await exifr.parse(filePath, {
-          // カメラ情報
-          make: true,
-          model: true,
-          // レンズ情報
-          lensModel: true,
-          lensMake: true,
-          lensInfo: true,
-          lensSpecification: true,
-          // 追加のレンズ情報フィールド
-          lensSerialNumber: true,
-          // すべてのEXIFデータを取得
-          exif: true,
-          ifd0: true,
-          ifd1: true,
-          gps: false,
-          interop: false,
-          makerNote: true
-        })
+        // EXIFデータを取得（シンプルな設定）
+        const exifData = await exifr.parse(filePath)
 
         let camera = ''
         let lens = ''
@@ -177,7 +159,7 @@ async function generateSceneContent(directoryPath: string, title?: string): Prom
                 lens = exifData[field].trim()
               } else if (Array.isArray(exifData[field])) {
                 // LensInfoの配列の場合、有効な数値のみを処理
-                const validValues = exifData[field].filter(val => 
+                const validValues = exifData[field].filter((val: any) => 
                   typeof val === 'number' && !isNaN(val) && val > 0
                 )
                 if (validValues.length >= 2) {
