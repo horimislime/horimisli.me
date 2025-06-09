@@ -1,9 +1,6 @@
 {
   "hosting": {
     "public": "out",
-    "ignore": [
-      "images/**"
-    ],
     "headers": [
       {
         "source": "**/*.@(jpg|jpeg|gif|png|css|js)",
