@@ -78,9 +78,11 @@ export default function PhotosPage({ scenes }: PhotosPageProps) {
               <p className="text-muted-foreground mt-1">Capturing moments, creating memories</p>
             </div>
             <div className="flex items-center gap-2">
-              <Button variant="outline" size="sm">
-                <Share2 className="w-4 h-4 mr-2" />
-                Feed
+              <Button variant="outline" size="sm" asChild>
+                <a href="/photos-feed.xml" target="_blank" rel="noopener noreferrer">
+                  <Share2 className="w-4 h-4 mr-2" />
+                  Feed
+                </a>
               </Button>
             </div>
           </div>
