@@ -32,21 +32,15 @@ async function generatePhotosFeed(): Promise<void> {
       // 機材情報をまとめる
       const cameras = new Set<string>()
       const lenses = new Set<string>()
-      scene.photos.forEach(photo => {
-        if (photo.camera) cameras.add(photo.camera)
-        if (photo.lens) lenses.add(photo.lens)
-      })
-      
-      let summary = ''
-      if (cameras.size > 0 && lenses.size > 0) {
-        summary = `${[...cameras].join(', ')} / ${[...lenses].join(', ')} で撮影`
-      } else if (cameras.size > 0) {
-        summary = `${[...cameras].join(', ')} で撮影`
-      } else if (lenses.size > 0) {
-        summary = `${[...lenses].join(', ')} で撮影`
-      } else {
-        summary = '撮影機材情報なし'
-      }
+      const cameraInfoStrings = scene.photos.map(photo => {
+	if (photo.lens) {
+	  return `${photo.camera} / ${photo.lens}`;
+	} else {
+	  return photo.camera;
+	}
+      });
+
+      const summary = `${cameraInfoStrings.join(', ')} で撮影`;
       
       // 画像のenclosureリンクを生成
       const enclosures = scene.photos.map(photo => {
