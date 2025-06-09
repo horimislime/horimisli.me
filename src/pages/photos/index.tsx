@@ -135,7 +135,6 @@ export default function PhotosPage({ scenes }: PhotosPageProps) {
                       <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors duration-300" />
                       <div className="absolute inset-0 flex items-end p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                         <div className="text-white">
-                          <h3 className="font-semibold text-sm mb-1">{photo.filename}</h3>
                           {photo.camera && (
                             <p className="text-xs text-white/80 mb-1">{photo.camera}</p>
                           )}
@@ -213,7 +212,6 @@ export default function PhotosPage({ scenes }: PhotosPageProps) {
               <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6">
                 <div className="flex items-center justify-between text-white">
                   <div>
-                    <h2 className="text-xl font-semibold mb-1">{selectedPhoto.filename}</h2>
                     <p className="text-sm text-white/80 mb-2">
                       {formatDate(selectedPhoto.scene.date)}
                       {selectedPhoto.scene.title && ` • ${selectedPhoto.scene.title}`}
