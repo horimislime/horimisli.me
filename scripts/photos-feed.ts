@@ -29,16 +29,26 @@ async function generatePhotosFeed(): Promise<void> {
     
     // feedエントリを生成
     const entries: FeedEntry[] = scenes.map(scene => {
-      // 機材情報をまとめる
-      const cameras = new Set<string>()
-      const lenses = new Set<string>()
-      const cameraInfoStrings = scene.photos.map(photo => {
-	if (photo.lens) {
-	  return `${photo.camera} / ${photo.lens}`;
-	} else {
-	  return photo.camera;
-	}
-      });
+      // 機材情報をまとめる - カメラごとにレンズをグループ化
+      const cameraGroups = new Map<string, Set<string>>()
+      
+      scene.photos.forEach(photo => {
+        if (!cameraGroups.has(photo.camera)) {
+          cameraGroups.set(photo.camera, new Set())
+        }
+        if (photo.lens) {
+          cameraGroups.get(photo.camera)!.add(photo.lens)
+        }
+      })
+      
+      const cameraInfoStrings = Array.from(cameraGroups.entries()).map(([camera, lenses]) => {
+        if (lenses.size === 0) {
+          return camera
+        } else {
+          const lensesArray = Array.from(lenses).sort()
+          return `${camera} (${lensesArray.join(', ')})`
+        }
+      })
 
       const summary = `${cameraInfoStrings.join(', ')} で撮影`;
       
@@ -64,7 +74,7 @@ async function generatePhotosFeed(): Promise<void> {
     const latestUpdate = entries.length > 0 
       ? entries[0].updated 
       : new Date().toISOString()
-    
+
     // Atom XMLを生成
     const atomXml = `<?xml version="1.0" encoding="UTF-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
@@ -74,16 +84,13 @@ async function generatePhotosFeed(): Promise<void> {
   <author>
     <name>horimislime</name>
   </author>
-  <id>https://horimisli.me/photos-feed</id>
+  <id>https://horimisli.me/photos</id>
 
 ${entries.map(entry => `  <entry>
-    <title>${escapeXml(entry.title)}</title>
-${entry.enclosures.map(enclosure => 
-    `    <link rel="enclosure" type="${enclosure.type}" href="${enclosure.href}" />`
-  ).join('\n')}
+    <title>${escapeXml(entry.title)}\n${escapeXml(entry.summary)}</title>
+    <link rel="alternate" href="${entry.id}" />
     <id>${entry.id}</id>
     <updated>${entry.updated}</updated>
-    <summary>${escapeXml(entry.summary)}</summary>
   </entry>`).join('\n\n')}
 </feed>`
     
