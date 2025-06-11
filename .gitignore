@@ -30,6 +30,7 @@ yarn-error.log*
 # dynamically generated
 public/feed.xml
 public/feed-internal.xml
+public/feed-photos.xml
 public/sitemap.xml
 
 # submodules

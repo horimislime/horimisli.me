@@ -94,8 +94,7 @@ ${entries.map(entry => `  <entry>
   </entry>`).join('\n\n')}
 </feed>`
     
-    // public/photos-feed.xmlに保存
-    const outputPath = path.join(process.cwd(), 'public', 'photos-feed.xml')
+    const outputPath = path.join(process.cwd(), 'public', 'feed-photos.xml')
     await fs.writeFile(outputPath, atomXml, 'utf8')
     
     console.log(`Generated photos feed: ${outputPath}`)
