@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { GetStaticProps } from "next"
-import { X, ChevronLeft, ChevronRight, Download, Share2 } from "lucide-react"
+import Link from "next/link"
+import { X, ChevronLeft, ChevronRight, Download, Share2, ArrowRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Dialog, DialogContent } from "@/components/ui/dialog"
 import { Badge } from "@/components/ui/badge"
@@ -35,7 +36,6 @@ export default function PhotosPage({ scenes }: PhotosPageProps) {
       year: "numeric",
       month: "long",
       day: "numeric",
-      weekday: "long",
     })
   }
 
@@ -96,11 +96,21 @@ export default function PhotosPage({ scenes }: PhotosPageProps) {
             <section key={scene.date} className="space-y-6">
               {/* Date Header */}
               <div className="border-b pb-4">
-                <h2 className="text-2xl font-bold text-foreground">{formatDate(scene.date)}</h2>
-                {scene.title && (
-                  <p className="text-lg text-foreground mt-1">{scene.title}</p>
-                )}
-                <p className="text-muted-foreground mt-1">{scene.photos.length} 枚の写真</p>
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h2 className="text-2xl font-bold text-foreground">{formatDate(scene.date)}</h2>
+                    {scene.title && (
+                      <p className="text-lg text-foreground mt-1">{scene.title}</p>
+                    )}
+                    <p className="text-muted-foreground mt-1">{scene.photos.length} 枚の写真</p>
+                  </div>
+                  <Link href={`/photos/${scene.date}`}>
+                    <Button variant="outline" size="sm">
+                      詳細を見る
+                      <ArrowRight className="w-4 h-4 ml-2" />
+                    </Button>
+                  </Link>
+                </div>
               </div>
 
               {/* Photo Grid for this date */}
