@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { GetStaticProps } from "next"
 import Link from "next/link"
-import { X, ChevronLeft, ChevronRight, Download, Share2, ArrowRight } from "lucide-react"
+import { X, ChevronLeft, ChevronRight, Download, Share2, ArrowRight, Home } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Dialog, DialogContent } from "@/components/ui/dialog"
 import { Badge } from "@/components/ui/badge"
@@ -78,6 +78,12 @@ export default function PhotosPage({ scenes }: PhotosPageProps) {
               <p className="text-muted-foreground mt-1">Capturing moments, creating memories</p>
             </div>
             <div className="flex items-center gap-2">
+              <Button variant="outline" size="sm" asChild>
+                <a href="https://horimisli.me/" target="_blank" rel="noopener noreferrer">
+                  <Home className="w-4 h-4 mr-2" />
+                  Home
+                </a>
+              </Button>
               <Button variant="outline" size="sm" asChild>
                 <a href="/photos-feed.xml" target="_blank" rel="noopener noreferrer">
                   <Share2 className="w-4 h-4 mr-2" />
