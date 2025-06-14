@@ -19,8 +19,12 @@ const imageUrlForPath = (
 
   const extension = path.extname(imagePath);
   const fileName = path.basename(imagePath, extension);
-  const slugDirPath = slug === null ? '' : `/${slug}`;
-  return `/images/${slugDirPath}/${fileName}_${imageSize}.webp`;
+  const dir = path.dirname(imagePath);
+  if (dir === '.' || dir === '' || dir === '/') {
+    return `/images/${slug}/${fileName}_${imageSize}.webp`;
+  } else {
+    return `${dir}/${fileName}_${imageSize}.webp`;
+  }
 };
 
 export function TwitterCardImage(params: {
@@ -28,10 +32,13 @@ export function TwitterCardImage(params: {
   slug?: string;
 }): JSX.Element {
   const urlString = imageUrlForPath(params.imagePath, 'small', params.slug);
+  const absoluteUrl = urlString.startsWith('http') 
+    ? urlString 
+    : `${process.env.NEXT_PUBLIC_SITE_URL || 'https://horimisli.me'}${urlString}`;
   return (
     <>
       <meta name="twitter:card" content="summary_large_image" />
-      <meta property="og:image" content={urlString} />
+      <meta property="og:image" content={absoluteUrl} />
     </>
   );
 }

@@ -47,7 +47,11 @@ const Layout = (params: {
             <meta name="twitter:card" content="summary" />
             <meta
               property="og:image"
-              content="https://storage.googleapis.com/horimislime-static/images/og_profile.jpg"
+              content="https://horimisli.me/images/og_profile.jpg"
+            />
+            <meta
+              name="twitter:image"
+              content="https://horimisli.me/images/og_profile.jpg"
             />
           </>
         )}
