@@ -44,15 +44,19 @@ const Layout = (params: {
           <TwitterCardImage imagePath={params.ogImagePath} slug={slug} />
         ) : (
           <>
-            <meta name="twitter:card" content="summary" />
-            <meta
-              property="og:image"
-              content="https://horimisli.me/images/og_profile.jpg"
-            />
-            <meta
-              name="twitter:image"
-              content="https://horimisli.me/images/og_profile.jpg"
-            />
+            {(
+              <>
+                <meta name="twitter:card" content="summary" />
+                <meta
+                  property="og:image"
+                  content="https://horimisli.me/images/og_profile.jpg"
+                />
+                <meta
+                  name="twitter:image"
+                  content="https://horimisli.me/images/og_profile.jpg"
+                />
+              </>
+            )}
           </>
         )}
       </Head>
@@ -78,7 +82,7 @@ const Layout = (params: {
       {params.showTweetButton === true ? (
         <>
           <TweetButton
-            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+             
             title={params.title ?? process.env.NEXT_PUBLIC_SITE_NAME!}
             path={useRouter().asPath}
           />

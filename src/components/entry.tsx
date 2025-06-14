@@ -1,11 +1,10 @@
 import { faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Link from 'next/link';
+import type { JSX } from "react";
 
 import { Entry } from '../entities/Entry';
 import Date from './date';
-
-import type { JSX } from "react";
 
 export default function EntryList(params: { entries: Entry[] }): JSX.Element {
   return (

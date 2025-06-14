@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import type { JSX, JSXElementConstructor, ReactElement } from "react";
 import { toArray } from 'react-emoji-render';
+// eslint-disable-next-line @typescript-eslint/no-require-imports
 const EmojiAliases = require('react-emoji-render/data/aliases');
 
 const parseEmojis = (value: string) => {

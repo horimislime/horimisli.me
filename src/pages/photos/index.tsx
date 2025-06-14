@@ -1,11 +1,11 @@
-import { useState } from "react"
+import { ArrowRight, ChevronLeft, ChevronRight, Home, Share2, X } from "lucide-react"
 import { GetStaticProps } from "next"
 import Link from "next/link"
-import { X, ChevronLeft, ChevronRight, Download, Share2, ArrowRight, Home } from "lucide-react"
+import { useState } from "react"
+
 import { Button } from "@/components/ui/button"
 import { Dialog, DialogContent } from "@/components/ui/dialog"
-import { Badge } from "@/components/ui/badge"
-import { getAllPhotoScenes, SceneData, PhotoWithScene } from "@/lib/photos"
+import { getAllPhotoScenes, PhotoWithScene,SceneData } from "@/lib/photos"
 
 interface PhotosPageProps {
   scenes: SceneData[]

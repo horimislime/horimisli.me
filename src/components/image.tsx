@@ -1,7 +1,6 @@
 import path from 'path';
-import url from 'url';
-
 import type { JSX } from "react";
+import url from 'url';
 
 export type ImageSize = 'large' | 'medium' | 'small';
 
@@ -23,6 +22,9 @@ const imageUrlForPath = (
   if (dir === '.' || dir === '' || dir === '/') {
     return `/images/${slug}/${fileName}_${imageSize}.webp`;
   } else {
+    if (fileName === 'og') {
+      return `${dir}/${fileName}.png`;
+    }
     return `${dir}/${fileName}_${imageSize}.webp`;
   }
 };
@@ -34,10 +36,11 @@ export function TwitterCardImage(params: {
   const urlString = imageUrlForPath(params.imagePath, 'small', params.slug);
   const absoluteUrl = urlString.startsWith('http') 
     ? urlString 
-    : `${process.env.NEXT_PUBLIC_SITE_URL || 'https://horimisli.me'}${urlString}`;
+    : `https://${process.env.NEXT_PUBLIC_SITE_DOMAIN}${urlString}`;
   return (
     <>
       <meta name="twitter:card" content="summary_large_image" />
+      <meta property="twitter:image" content={absoluteUrl} />
       <meta property="og:image" content={absoluteUrl} />
     </>
   );
@@ -57,7 +60,7 @@ export function Image(params: {
     params.slug,
   );
 
-  // eslint-disable-next-line @next/next/no-img-element
+   
   const imgTag = (
     <img src={urlString} alt={params.alt} className={params.className} />
   );
