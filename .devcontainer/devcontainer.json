@@ -1,6 +1,6 @@
 {
 	"name": "Dev Environment",
-	"image": "mcr.microsoft.com/vscode/devcontainers/typescript-node:16",
+	"image": "mcr.microsoft.com/vscode/devcontainers/typescript-node:22",
     "extensions": [
         "eamodio.gitlens",
         "oderwat.indent-rainbow",
