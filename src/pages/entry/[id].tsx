@@ -8,10 +8,10 @@ import { dracula } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 import rehypeRaw from 'rehype-raw';
 import remarkUnwrapImages from 'remark-unwrap-images';
 
-import Date from '../../../components/date';
-import { Image } from '../../../components/image';
-import Layout from '../../../components/layout';
-import { Entry, findEntryById, getAllEntryIds } from '../../../entities/Entry';
+import Date from '../../components/date';
+import { Image } from '../../components/image';
+import Layout from '../../components/layout';
+import { Entry, findEntryById, getAllEntryIds } from '../../entities/Entry';
 
 type Props = {
   entry: Entry;
