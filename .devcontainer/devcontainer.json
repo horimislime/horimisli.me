@@ -1,27 +1,34 @@
 {
-	"name": "Dev Environment",
-	"image": "mcr.microsoft.com/vscode/devcontainers/typescript-node:16",
-    "extensions": [
-        "eamodio.gitlens",
-        "oderwat.indent-rainbow",
-        "visualstudioexptteam.vscodeintellicode",
-        "taichi.vscode-textlint",
-        "esbenp.prettier-vscode",
-        "github.copilot"
-    ],
-    "remoteEnv": {
-      "TZ": "Asia/Tokyo"
+    "name": "Dev Environment",
+    "image": "mcr.microsoft.com/vscode/devcontainers/typescript-node:22",
+    "features": {
+        "ghcr.io/anthropics/devcontainer-features/claude-code:1": {}
     },
-    "settings": {
-      "terminal.integrated.profiles.linux": {
-        "zsh": {
-          "path": "zsh",
-          "args": [
-            "-l"
-          ]
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "eamodio.gitlens",
+                "oderwat.indent-rainbow",
+                "visualstudioexptteam.vscodeintellicode",
+                "taichi.vscode-textlint",
+                "esbenp.prettier-vscode",
+                "github.copilot"
+            ]
+        },
+        "settings": {
+            "terminal.integrated.profiles.linux": {
+                "zsh": {
+                    "path": "zsh",
+                    "args": [
+                        "-l"
+                    ]
+                }
+            },
+            "terminal.integrated.defaultProfile.linux": "zsh"
         }
-      },
-      "terminal.integrated.defaultProfile.linux": "zsh"
+    },
+    "remoteEnv": {
+        "TZ": "Asia/Tokyo"
     },
     "postCreateCommand": ".devcontainer/setup.sh"
 }
