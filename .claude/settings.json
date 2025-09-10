@@ -1,0 +1,26 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls:*)",
+      "Bash(npm:*)",
+      "Bash(npx:*)",
+      "Bash(find:*)",
+      "Bash(rg:*)",
+      "Bash(grep:*)",
+      "Bash(cp:*)",
+      "Bash(done)",
+      "Bash(for:*)",
+      "WebFetch(domain:localhost)",
+      "Bash(node:*)",
+      "Bash(mkdir:*)",
+      "Bash(mv:*)",
+      "Bash(echo:*)",
+      "Bash(fi)",
+      "Bash(next:*)",
+      "Bash(terminal-notifier:*)",
+      "WebFetch(domain:github.com)"
+    ],
+    "defaultMode": "bypassPermissions"
+  },
+  "includeCoAuthoredBy": false
+}
