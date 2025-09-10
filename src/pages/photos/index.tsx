@@ -19,12 +19,13 @@ export default function PhotosPage({ scenes }: PhotosPageProps) {
   const allPhotos: PhotoWithScene[] = scenes.flatMap(scene =>
     scene.photos.map(photo => {
       const baseName = photo.filename.split('.')[0]
+      const dirName = scene.directoryName || scene.date
       return {
         ...photo,
         scene,
-        fullPath: `/photos/${scene.date}/${photo.filename}`,
-        smallPath: `/images/photos/${scene.date}/${baseName}_small.webp`,
-        webpPath: `/images/photos/${scene.date}/${baseName}_full.webp`
+        fullPath: `/photos/${dirName}/${photo.filename}`,
+        smallPath: `/images/photos/${dirName}/${baseName}_small.webp`,
+        webpPath: `/images/photos/${dirName}/${baseName}_full.webp`
       }
     })
   )
@@ -104,13 +105,17 @@ export default function PhotosPage({ scenes }: PhotosPageProps) {
               <div className="border-b pb-4">
                 <div className="flex items-center justify-between">
                   <div>
-                    <h2 className="text-2xl font-bold text-foreground">{formatDate(scene.date)}</h2>
-                    {scene.title && (
-                      <p className="text-lg text-foreground mt-1">{scene.title}</p>
+                    {scene.title ? (
+                      <>
+                        <h2 className="text-2xl font-bold text-foreground">{scene.title}</h2>
+                        <p className="text-muted-foreground mt-1">{formatDate(scene.date)}</p> 
+                      </>
+                    ) : (
+                      <h2 className="text-2xl font-bold text-foreground">{formatDate(scene.date)}</h2>
                     )}
                     <p className="text-muted-foreground mt-1">{scene.photos.length} 枚の写真</p>
                   </div>
-                  <Link href={`/photos/${scene.date}`}>
+                  <Link href={`/photos/${scene.directoryName}`}>
                     <Button variant="outline" size="sm">
                       詳細を見る
                       <ArrowRight className="w-4 h-4 ml-2" />
@@ -123,12 +128,13 @@ export default function PhotosPage({ scenes }: PhotosPageProps) {
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 auto-rows-[200px]">
                 {scene.photos.map((photo, index) => {
                   const baseName = photo.filename.split('.')[0]
+                  const dirName = scene.directoryName || scene.date
                   const photoWithScene: PhotoWithScene = {
                     ...photo,
                     scene,
-                    fullPath: `/photos/${scene.date}/${photo.filename}`,
-                    smallPath: `/images/photos/${scene.date}/${baseName}_small.webp`,
-                    webpPath: `/images/photos/${scene.date}/${baseName}_full.webp`
+                    fullPath: `/photos/${dirName}/${photo.filename}`,
+                    smallPath: `/images/photos/${dirName}/${baseName}_small.webp`,
+                    webpPath: `/images/photos/${dirName}/${baseName}_full.webp`
                   }
                   
                   return (
@@ -230,10 +236,13 @@ export default function PhotosPage({ scenes }: PhotosPageProps) {
               <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6">
                 <div className="flex items-center justify-between text-white">
                   <div>
-                    <p className="text-sm text-white/80 mb-2">
+                    {/* <p className="text-sm text-white/80 mb-2">
                       {formatDate(selectedPhoto.scene.date)}
                       {selectedPhoto.scene.title && ` • ${selectedPhoto.scene.title}`}
-                    </p>
+                    </p> */}
+                    {selectedPhoto.scene.title && (
+                      <p className="text-sm text-white/80 mb-2">{selectedPhoto.scene.title}</p>
+                    )}
                     {selectedPhoto.camera && (
                       <p className="text-sm text-white/70 mb-1">{selectedPhoto.camera}</p>
                     )}

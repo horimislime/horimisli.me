@@ -6,7 +6,7 @@ import { useState } from "react"
 
 import { Button } from "@/components/ui/button"
 import { Dialog, DialogContent } from "@/components/ui/dialog"
-import { getAllPhotoScenes, getPhotosByDate, PhotoWithScene,SceneData } from "@/lib/photos"
+import { getAllPhotoScenes, getPhotosByDirectoryName, PhotoWithScene,SceneData } from "@/lib/photos"
 
 interface PhotoDetailPageProps {
   scene: SceneData
@@ -200,7 +200,7 @@ export default function PhotoDetailPage({ scene, photos }: PhotoDetailPageProps)
 export const getStaticPaths: GetStaticPaths = async () => {
   const scenes = getAllPhotoScenes()
   const paths = scenes.map((scene) => ({
-    params: { date: scene.date }
+    params: { directoryName: scene.directoryName }
   }))
 
   return {
@@ -210,18 +210,18 @@ export const getStaticPaths: GetStaticPaths = async () => {
 }
 
 export const getStaticProps: GetStaticProps<PhotoDetailPageProps> = async ({ params }) => {
-  const date = params?.date as string
+  const directoryName = params?.directoryName as string
   const scenes = getAllPhotoScenes()
-  const scene = scenes.find(s => s.date === date)
-  
+  const scene = scenes.find(s => s.directoryName === directoryName)
+
   if (!scene) {
     return {
       notFound: true
     }
   }
 
-  const photos = getPhotosByDate(date)
-  
+  const photos = getPhotosByDirectoryName(directoryName)
+
   return {
     props: {
       scene,
