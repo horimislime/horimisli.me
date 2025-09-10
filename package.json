@@ -12,17 +12,17 @@
     "dev": "next dev --turbopack",
     "prod": "npm run gen-feed && npm run gen-sitemap && npm run gen-photos-feed && next build",
     "gen-feed": "tsx -r dotenv/config scripts/feed.ts",
+    "gen-photos-feed": "tsx scripts/photos-feed.ts",
     "gen-sitemap": "tsx -r dotenv/config scripts/sitemap.ts",
     "gen-image": "tsx -r dotenv/config scripts/resize_image.ts",
     "gen-scene": "tsx scripts/generate_scene.ts",
-    "gen-photos-feed": "tsx scripts/photos-feed.ts",
+    "gen-og": "tsx scripts/generate_og_images.ts",
     "import": "tsx -r dotenv/config scripts/bear_note_importer.ts",
     "push-entries": "cd posts;git add .;git commit -m 'add post'; git p; cd ../public/images; git add .; git commit -m 'add post'; git p; cd ../..",
     "pull-entries": "cd posts;git pull; cd ../public/images; git pull; cd ../..",
     "release": "gh workflow run release.yml",
     "release-watch": "npm run release && gh run list --workflow=release.yml --json=databaseId --limit=1 --jq '.[].databaseId' | xargs -IJOB_ID gh run watch JOB_ID",
-    "init-ci": "npm i && git clone https://${GH_TOKEN}@github.com/horimislime/articles.git ./posts && git clone https://${GH_TOKEN}@github.com/horimislime/article-images.git public/images",
-    "gen-og": "tsx scripts/generate-og-images.ts"
+    "init-ci": "npm i && git clone https://${GH_TOKEN}@github.com/horimislime/articles.git ./posts && git clone https://${GH_TOKEN}@github.com/horimislime/article-images.git public/images"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "6.4.0",
