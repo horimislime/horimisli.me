@@ -1,0 +1,31 @@
+#+TITLE: horimisli.me
+#+OPTIONS: title:nil
+#+MACRO: recent-entries (eval (horimislime/recent-entries-org $1))
+
+#+begin_export html
+<section class="profile">
+  <img src="https://storage.googleapis.com/horimislime-static/images/generated/profile_small.jpg"
+       width="80" height="80" alt="My profile image">
+  <p>ここは horimislime (Soichiro HORIMI) の個人ホームページです。<br>
+  ブログ記事のアーカイブは <a href="/entry">こちら</a> をどうぞ。</p>
+</section>
+#+end_export
+
+* 最近の記事
+:PROPERTIES:
+:CUSTOM_ID: recent-entries
+:END:
+#+ATTR_HTML: :class entry-list
+{{{recent-entries(5)}}}
+
+* 各種リンク
+:PROPERTIES:
+:CUSTOM_ID: links
+:END:
+#+ATTR_HTML: :class link-list
+- [[https://github.com/horimislime][GitHub]]
+- [[https://qiita.com/horimislime][Qiita]]
+- [[https://stackoverflow.com/users/1430224/horimislime][Stack Overflow]]
+- [[https://speakerdeck.com/horimislime][Speaker Deck]]
+- [[https://twitter.com/horimislime][Twitter]]
+- [[https://horimislime.hateblo.jp][はてなブログ（旧ブログ）]]

@@ -9,6 +9,7 @@ interface PhotoData {
   filename: string
   camera: string
   lens: string
+  description: string
 }
 
 interface SceneContent {
@@ -193,7 +194,8 @@ async function generateSceneContent(directoryPath: string, title?: string, date?
         photos.push({
           filename,
           camera,
-          lens
+          lens,
+          description: ''
         })
 
         console.log(`  Camera: ${camera || 'Unknown'}`)
@@ -213,7 +215,8 @@ async function generateSceneContent(directoryPath: string, title?: string, date?
         photos.push({
           filename,
           camera: '',
-          lens: ''
+          lens: '',
+          description: ''
         })
       }
     }
