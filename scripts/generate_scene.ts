@@ -13,6 +13,7 @@ interface PhotoData {
 
 interface SceneContent {
   title?: string
+  date: string
   photos: PhotoData[]
 }
 
@@ -64,13 +65,16 @@ async function generateWebpImages(
   }
 }
 
-async function generateSceneContent(directoryPath: string, title?: string): Promise<void> {
+async function generateSceneContent(directoryPath: string, title?: string, date?: string): Promise<void> {
   try {
     // ディレクトリの存在確認
     const stats = await fs.stat(directoryPath)
     if (!stats.isDirectory()) {
       throw new Error(`${directoryPath} is not a directory`)
     }
+
+    // 日付が指定されていない場合は現在日付を使用
+    const sceneDate = date || new Date().toISOString().split('T')[0] // YYYY-MM-DD形式
 
     // ディレクトリ内のファイル一覧を取得
     const files = await fs.readdir(directoryPath)
@@ -87,12 +91,7 @@ async function generateSceneContent(directoryPath: string, title?: string): Prom
 
     console.log(`Found ${imageFiles.length} image files`)
 
-    // 出力ディレクトリを決定
-    const dateMatch = path.basename(directoryPath).match(/^\d{4}-\d{2}-\d{2}$/)
-    if (!dateMatch) {
-      throw new Error(`Directory name must be in YYYY-MM-DD format, got: ${path.basename(directoryPath)}`)
-    }
-    
+    // 出力ディレクトリを決定（ディレクトリ名をそのまま使用）
     const outputDir = path.join(process.cwd(), 'public', 'images', 'photos', path.basename(directoryPath))
     console.log(`Output directory: ${outputDir}`)
 
@@ -221,6 +220,7 @@ async function generateSceneContent(directoryPath: string, title?: string): Prom
 
     // content.jsonを生成
     const content: SceneContent = {
+      date: sceneDate,
       photos
     }
 
@@ -234,6 +234,7 @@ async function generateSceneContent(directoryPath: string, title?: string): Prom
     console.log(`\nGenerated ${contentPath}`)
     console.log(`Generated WebP images in ${outputDir}`)
     console.log(`Total photos: ${photos.length}`)
+    console.log(`Scene date: ${sceneDate}`)
     
     if (title) {
       console.log(`Scene title: ${title}`)
@@ -249,12 +250,14 @@ async function generateSceneContent(directoryPath: string, title?: string): Prom
 const args = process.argv.slice(2)
 
 if (args.length < 1) {
-  console.error('Usage: npm run gen-scene <directory-path> [title]')
-  console.error('Example: npm run gen-scene ./photos/2025-06-08 "Morning Walk"')
+  console.error('Usage: npm run gen-scene <directory-path> [title] [date]')
+  console.error('Example: npm run gen-scene ./photos/morning-walk "Morning Walk" "2025-06-08"')
+  console.error('Note: If date is not provided, current date will be used')
   process.exit(1)
 }
 
 const directoryPath = args[0]
 const title = args[1]
+const date = args[2]
 
-generateSceneContent(directoryPath, title)
+generateSceneContent(directoryPath, title, date)
