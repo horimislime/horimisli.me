@@ -35,7 +35,7 @@
     "gray-matter": "4.0.3",
     "luxon": "3.3.0",
     "next": "15.3.3",
-    "prismjs": "1.29.0",
+    "prismjs": "1.30.0",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "react-emoji-render": "2.0.1",
